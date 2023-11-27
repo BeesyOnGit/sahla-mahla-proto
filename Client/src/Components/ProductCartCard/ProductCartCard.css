@@ -1,0 +1,66 @@
+.newOrderCartContainer {
+    width: 100%;
+    height: 100%;
+    background-color: var(--accentColor);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.625rem 0.9375rem;
+}
+
+.orderCartContent {
+    width: 100%;
+    height: 80vh;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    /* align-items: center; */
+    gap: 0.3125rem;
+    padding: 0.3125rem 0rem;
+}
+
+.newOrderCartElemGeneralContainer {
+    border: 0.0625rem solid var(--fontColorPrimary);
+    border-radius: var(--generalRadius);
+    padding: 0.3125rem;
+    width: 100%;
+}
+.cartImg {
+    width: 3.125rem;
+    height: 3.125rem;
+    object-fit: contain;
+    padding: 0.3125rem;
+}
+
+.orderProductName {
+    text-transform: capitalize;
+}
+
+.orderQuantchangerDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 5px;
+    border: 0.0625rem solid var(--fontColorPrimary);
+    border-radius: var(--generalRadius);
+}
+.orderQuantchangerDiv > div {
+    font-size: 0.9rem;
+}
+
+.orderSubTotalDiv {
+    display: flex;
+    gap: 0.625rem;
+    font-size: 0.9rem;
+}
+.orderSubTotalDiv > i {
+    font-size: 1.5rem;
+}
+.orderSubTotalDiv > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

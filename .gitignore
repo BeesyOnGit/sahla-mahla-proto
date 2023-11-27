@@ -1,0 +1,36 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+src-tauri
+Media
+out.js
+outServ.js
+autoDateGit.ts
+autoDateGit.js
+.env.*
+.env
+Com.txt
+dist
+dist-
+dataExtraction.js
+ZsvgCollect
+teste.html
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

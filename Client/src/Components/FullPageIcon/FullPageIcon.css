@@ -1,0 +1,22 @@
+.FullPageIconGeneralContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.25rem 2.5rem;
+    gap: 1.875rem;
+}
+.FullPageIcon {
+    font-size: 3rem;
+    opacity: 0.2;
+    text-transform: capitalize;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+i.FullPageIcon {
+    font-size: 5rem;
+}

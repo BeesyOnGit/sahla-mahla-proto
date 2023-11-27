@@ -1,0 +1,46 @@
+.ProductsCardGeneralContainer {
+    min-width: 10.5rem;
+    height: fit-content;
+    padding: 0.625rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+    background-color: var(--accentColor);
+    border-radius: var(--generalRadius);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.ProductCardTitle {
+    text-transform: capitalize;
+}
+
+.ProductCardPrice {
+    font-size: 0.8rem;
+}
+
+.ProductCardImg {
+    width: 6rem;
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+}
+.confirmSectionProd {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5625rem;
+    background: linear-gradient(135deg, rgba(54, 54, 54, 0.1), rgba(0, 0, 0, 0));
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 2;
+}

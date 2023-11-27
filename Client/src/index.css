@@ -1,0 +1,234 @@
+/* .root, */
+:root.light {
+    font-family: Arial, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    /* font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif; */
+    line-height: 1.5;
+    font-weight: 400;
+
+    /* color-scheme: light dark; */
+    /* color: rgba(255, 255, 255, 0.87); */
+    /* background-color: #242424; */
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+
+    --backGroundColor: #f0f2f5;
+    --navBarColor: #ffffff;
+
+    --fontColorPrimary: #262424;
+    --fontColorSeconday: #767474;
+
+    --accentColor: #428a59;
+    --accentColorLighter: #428a59bc;
+    --goldenColor: #ffdf00;
+
+    /* #3b5fe2 #4d94e5 // #0574fb #6382fd */
+
+    --navShadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+    --cardShadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+    --generalRadius: 5px;
+    --roundRadius: 500000px;
+
+    --opacity: 0.1;
+
+    --accentBgColorLighter: rgba(0, 0, 0, 0.105);
+    --accentBgColor: rgba(0, 0, 0, 0.2);
+    --accentBgColorDarker: rgba(0, 0, 0, 0.5);
+    --bgIcon: rgba(228, 228, 228, 0.9);
+
+    --accentBgLight: #ffffff9e;
+
+    --messagespositivecolor: #19df72;
+    --messagesnegativecolor: #df193a;
+    --messageidleecolor: #f8a648;
+    --messagespositivecolorhover: #62dd9a;
+    --messagesnegativecolorhover: #e05e74;
+    --messageidleecolorhover: #e3ad70;
+}
+:root.dark {
+    font-family: Arial, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    /* color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424; */
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+
+    --backGroundColor: #1d1d1d;
+    --navBarColor: #0c0c0c;
+
+    --fontColorPrimary: #e8e8e8;
+    --fontColorSeconday: #c3c3c3;
+
+    --accentColor: #428a59;
+    --accentColorLighter: #428a59bc;
+    --goldenColor: #ffdf00;
+
+    --navShadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    --cardShadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+    --generalRadius: 5px;
+    --roundRadius: 500000px;
+
+    --opacity: 0.1;
+
+    --accentBgColorLighter: rgb(255 255 255 / 11%);
+    --accentBgColor: rgb(255 255 255 / 20%);
+    --accentBgColorDarker: rgb(255 255 255 / 50%);
+    --bgIcon: rgb(49 49 49 / 90%);
+
+    --accentBgLight: #ffffff9e;
+
+    --messagespositivecolor: #19df72;
+    --messagesnegativecolor: #df193a;
+    --messageidleecolor: #f8a648;
+    --messagespositivecolorhover: #62dd9a;
+    --messagesnegativecolorhover: #e05e74;
+    --messageidleecolorhover: #e2b480;
+}
+
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    color: var(--fontColorPrimary);
+    margin: 0;
+}
+
+.ar {
+    flex-direction: row-reverse;
+    text-align: end !important;
+    right: 0px !important;
+}
+
+/* #siteLogo {
+    fill: var(--accentColor);
+} */
+
+.icon {
+    font-size: 1.5em;
+}
+
+.starRatingColor {
+    color: var(--goldenColor);
+}
+
+.golden {
+    color: var(--goldenColor);
+    text-shadow: var(--cardShadow);
+}
+
+.normal {
+    color: #1877f2;
+}
+
+a {
+    font-weight: 500;
+    color: var(--fontColorPrimary);
+    text-decoration: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    /* min-width: 320px;
+    min-height: 100vh; */
+}
+
+#root {
+    width: 100vw;
+    overflow: hidden;
+}
+
+.positiveResponse {
+    background-color: var(--messagespositivecolorhover);
+}
+.negativeResponse {
+    background-color: var(--messagesnegativecolorhover);
+}
+.positiveResponse > * {
+    color: var(--navBarColor);
+}
+.negativeResponse > * {
+    color: var(--navBarColor);
+}
+
+.buttonAndIcon {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.button {
+    padding: 10px 20px;
+    text-transform: capitalize;
+    text-align: center;
+    color: var(--navBarColor);
+    background-color: var(--accentColor);
+    border-radius: var(--generalRadius);
+    transition: all 300ms ease-out;
+}
+.button > * {
+    color: var(--navBarColor);
+}
+
+.button:hover {
+    cursor: pointer;
+    background-color: var(--accentColorLighter);
+    transform: scale(0.95);
+}
+
+.specialButton {
+    color: var(--accentColor);
+    font-weight: bold;
+}
+
+#recpacha-Container {
+    display: none;
+}
+
+/* button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    transition: border-color 0.25s;
+}
+button:hover {
+    border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+} */
+/* 
+@media (prefers-color-scheme: light) {
+    :root {
+        color: #213547;
+        background-color: #ffffff;
+    }
+    a:hover {
+        color: #747bff;
+    }
+    button {
+        background-color: #f9f9f9;
+    }
+} */
+
+/*  */
