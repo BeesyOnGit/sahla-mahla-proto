@@ -11,7 +11,7 @@ import { writeFile } from "fs/promises";
         minute: "2-digit",
         second: "2-digit",
     };
-    const data = `Auto Git: Mise A Jour le ${date.toLocaleDateString("fr-FR", dateOpts)} `;
+    const data = `Auto Git: Update ${date.toLocaleDateString("fr-FR", dateOpts)} `;
     await writeFile("Com.txt", data);
     console.log("comment updated");
 })();
