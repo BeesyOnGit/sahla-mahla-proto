@@ -1,12 +1,17 @@
 import bodyParser from "body-parser";
 import express, { Express, Request, Response, NextFunction } from "express";
 import http from "http";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
-import AuthRoutes from "./Routes/AuthRoutes";
 import compression from "compression";
+import cors from "cors";
+import { DbConnection } from "./DBConnection";
+import { sockets } from "./SocketsCode";
+
+import { EventEmitter } from "node:events";
 
 import { Server } from "socket.io";
+import AuthRoutes from "./Routes/AuthRoutes";
+import EmailConfirmRoutes from "./Routes/EmailConfirmRoutes";
 
 dotenv.config();
 
@@ -22,14 +27,17 @@ export const io = new Server(server, {
     },
 });
 
-//Variable deffinition
+//event emmiter setup
+class MyEmitter extends EventEmitter {}
+export const myEmitter = new MyEmitter();
 
 //Db connection//
-
 DbConnection("mydb", "mongodb://127.0.0.1:27017");
+
 //Midelware
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.header("Access-Control-Allow-Credentials", "true");
+    res.header("x-powered-by", "S&M Back-end Services");
     next();
 });
 app.use(
@@ -43,12 +51,10 @@ app.use(bodyParser.json({ limit: "20mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 //Comment me Befor deployment
-import cors from "cors";
-import { DbConnection } from "./DBConnection";
-import { sockets } from "./SocketsCode";
+
 app.use(bodyParser.json());
 app.use(cors({ origin: "*" }));
-app.use(cors({ origin: ["https://arabatii.com/"] }));
+// app.use(cors({ origin: ["https://arabatii.com/"] }));
 
 // uncomment ME  befor deployment
 // import helmet from'helmet'
@@ -61,8 +67,9 @@ app.use(cors({ origin: ["https://arabatii.com/"] }));
 sockets(io);
 
 //************************************ # API ROUTES # ****************************************//
-app.use("/api/auth", AuthRoutes);
-/**/
+
+app.use("/auth", AuthRoutes);
+app.use("/email", EmailConfirmRoutes);
 
 //************************************ # SERVER PORT SET # ****************************************//
 

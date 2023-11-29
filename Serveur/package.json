@@ -9,7 +9,9 @@
         "autogit": "cd App && git add . && git commit -F Com.txt && git push "
     },
     "dependencies": {
-        "axios": "^0.27.2",
+        "@types/nodemailer": "^6.4.14",
+        "axios": "^1.6.2",
+        "bcrypt": "^5.1.1",
         "body-parser": "^1.20.0",
         "compression": "^1.7.4",
         "cors": "^2.8.5",
@@ -18,14 +20,17 @@
         "express": "^4.18.1",
         "geoip-lite": "^1.4.7",
         "helmet": "^6.0.0",
-        "jsonwebtoken": "^8.5.1",
+        "jsonwebtoken": "^9.0.2",
         "mongodb": "^4.11.0",
         "mongoose": "^6.6.1",
-        "nodemon": "^2.0.20",
+        "nodemailer": "^6.9.7",
+        "nodemon": "^3.0.1",
         "rimraf": "^4.3.1",
+        "socket.io": "^4.7.2",
         "ts-node": "^10.9.1"
     },
     "devDependencies": {
+        "@types/bcrypt": "^5.0.2",
         "@types/compression": "^1.7.2",
         "@types/cors": "^2.8.13",
         "@types/crypto-js": "^4.1.1",

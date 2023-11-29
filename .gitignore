@@ -12,8 +12,8 @@ src-tauri
 Media
 out.js
 outServ.js
-# autoDateGit.ts
-# autoDateGit.js
+autoDateGit.ts
+autoDateGit.js
 .env.*
 .env
 Com.txt

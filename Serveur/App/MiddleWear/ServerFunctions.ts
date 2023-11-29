@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { IncomingHttpHeaders } from "http";
-import Users from "../Models/Users";
 import jwt from "jsonwebtoken";
-import cryptoJs from "crypto-js";
+import bcrypt from "bcrypt";
+import CryptoJS from "crypto-js";
 import dotenv from "dotenv";
 import { FilterQuery, Model } from "mongoose";
 import { writeFile } from "fs";
@@ -45,7 +45,8 @@ export const AuthVerification = async (req: Request, res: Response, next: NextFu
 
         const GeneralFilter = { _id };
 
-        const isUser: UserModel | null = await Users.findOne<UserModel>(GeneralFilter);
+        // const isUser: UserModel | null = await Users.findOne<UserModel>(GeneralFilter);
+        const isUser = null;
 
         if (!isUser) {
             return res.json({ code: "01" });
@@ -57,9 +58,9 @@ export const AuthVerification = async (req: Request, res: Response, next: NextFu
 
         const { passWord: dbPass, isAdmin, type, location } = isUser;
 
-        if (!doubleEncriptedStringsCompare(dbPass, passWord)) {
-            return res.json({ code: "02" });
-        }
+        // if (matchPasswords(dbPass,passWord)) {
+        //     return res.json({ code: "02" });
+        // }
 
         const urlNotPermitedForAdmin = isAdmin && adminProhibitedRoutesMap[urlWitoutParams(originalUrl)];
 
@@ -67,7 +68,7 @@ export const AuthVerification = async (req: Request, res: Response, next: NextFu
             return res.json({ code: "03" });
         }
 
-        headers.verifiedID = isUser._id;
+        // headers.verifiedID = isUser._id;
         headers.isAdmin = isAdmin;
         headers.userType = type;
         headers.userLocation = location;
@@ -85,18 +86,53 @@ export const verrifiySocket = async (socket: any, token: string, socketId: strin
 
     const GeneralFilter = { _id };
 
-    const isUser: UserModel | null = await Users.findOne<UserModel>(GeneralFilter);
+    // const isUser: UserModel | null = await Users.findOne<UserModel>(GeneralFilter);
 
-    if (!isUser) {
-        return;
-    }
-    const { location, isAdmin } = isUser;
+    // if (!isUser) {
+    //     return;
+    // }
+    // const { location, isAdmin } = isUser;
 
-    if (isAdmin) {
-        return { ...socket, [socketId]: "all" };
-    }
+    // if (isAdmin) {
+    //     return { ...socket, [socketId]: "all" };
+    // }
 
     return { ...socket, [socketId]: location };
+};
+
+export const hashPassword = async (plainPassword: string) => {
+    try {
+        const saltRounds = 10;
+        const salt = await bcrypt.genSalt(saltRounds);
+        const hash = await bcrypt.hash(plainPassword, salt);
+        return hash;
+    } catch (error) {
+        console.log("🚀 ~ file: ServerFunctions.ts:149 ~ hashPassword ~ error:", error);
+    }
+};
+
+export const matchPasswords = async (hashed: string, plain: string) => {
+    try {
+        const isMatch = await bcrypt.compare(plain, hashed);
+        return isMatch;
+    } catch (error) {
+        console.log("🚀 ~ file: ServerFunctions.ts:159 ~ matchPasswords ~ error:", error);
+    }
+};
+
+export const encryptBillingInfos = (infos: string) => {
+    try {
+        return CryptoJS.AES.encrypt(infos, process.env.BILLING_ENCRIPTION_KEY!);
+    } catch (error) {
+        console.log("🚀 ~ file: ServerFunctions.ts:127 ~ cryptBillingInfos ~ error:", error);
+    }
+};
+export const decryptBillingInfos = (encryptedBilling: string) => {
+    try {
+        return CryptoJS.AES.decrypt(encryptedBilling, process.env.BILLING_ENCRIPTION_KEY!).toString(CryptoJS.enc.Utf8);
+    } catch (error) {
+        console.log("🚀 ~ file: ServerFunctions.ts:134 ~ decryptBillingInfos ~ error:", error);
+    }
 };
 
 export const TokenVerifier = (token: string) => {
@@ -110,12 +146,12 @@ export const TokenVerifier = (token: string) => {
     }
 };
 
-export const generateToken = (id: string, passWord: string) => {
+export const generateToken = (id: string) => {
     try {
-        if (!id || !passWord) {
-            return "id and password are Mendatory";
+        if (!id) {
+            return false;
         }
-        return jwt.sign({ id, passWord }, process.env.TOKEN_ENCRIPTION_KEY!);
+        return jwt.sign({ id }, process.env.TOKEN_ENCRIPTION_KEY!);
     } catch (error) {
         console.log("🚀 ~ file: ServerFunctions.ts:101 ~ generateToken ~ error:", error);
     }
@@ -134,26 +170,12 @@ export const urlWitoutParams = (url: string) => {
 export const editModelWithSave = (model: any, edit: any) => {
     for (const key in edit) {
         if (key == "passWord") {
-            model[key] = encriptPassWord(edit[key]);
+            // model[key] = encriptPassWord(edit[key]);
             continue;
         }
         model[key] = edit[key];
     }
     return model;
-};
-
-export const EncriptedStringsCompare = (firstString: string, secondString: string) => {
-    const clearFirtStr = cryptoJs.AES.decrypt(firstString, process.env.PASSWORD_ENCRIPTION_KEY!).toString(cryptoJs.enc.Utf8);
-    const clearSecondStr = cryptoJs.AES.decrypt(secondString, process.env.PASSWORD_ENCRIPTION_KEY!).toString(cryptoJs.enc.Utf8);
-
-    return clearFirtStr == clearSecondStr;
-};
-
-export const doubleEncriptedStringsCompare = (encriptedString: string, encriptedString2: string) => {
-    const clearFirtStr = cryptoJs.AES.decrypt(encriptedString, process.env.PASSWORD_ENCRIPTION_KEY!).toString(cryptoJs.enc.Utf8);
-    const clearSecondStr = cryptoJs.AES.decrypt(encriptedString2, process.env.PASSWORD_ENCRIPTION_KEY!).toString(cryptoJs.enc.Utf8);
-
-    return clearFirtStr == clearSecondStr;
 };
 
 export const urltoArrayBuffer = ({ url }: { url: string }) => {
@@ -207,7 +229,7 @@ export const AddToDailyActivity = async (obj: any) => {
     try {
         const newDate: Number = new Date().getTime();
         const newObj: Object = { ...obj, date: newDate };
-        const Dailyadded = await DailyLogs(newObj).save();
+        const Dailyadded = null;
 
         if (Dailyadded) {
             return "success";
