@@ -24,9 +24,23 @@ const UserConfirmSchema = new mongoose.Schema<userConfirmationType>({
 
     rndConfirmation: {
         type: String,
+        required: function (): boolean {
+            const doc: any = this;
+            if (doc.phone) {
+                return false;
+            }
+            return true;
+        },
     },
     otp: {
         type: String,
+        required: function (): boolean {
+            const doc: any = this;
+            if (doc.email) {
+                return false;
+            }
+            return true;
+        },
     },
 
     createdAt: {
@@ -38,7 +52,11 @@ const UserConfirmSchema = new mongoose.Schema<userConfirmationType>({
     validUpTo: {
         type: Number,
         default: () => {
+            const doc: any = this;
             const date = new Date();
+            if (doc.phone) {
+                return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes() + 3).getTime();
+            }
             return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours() + 1, date.getMinutes()).getTime();
         },
     },

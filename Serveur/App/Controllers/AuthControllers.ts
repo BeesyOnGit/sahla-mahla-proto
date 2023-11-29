@@ -1,30 +1,23 @@
 import { Response, Request } from "express";
-import {
-    AddToDailyActivity,
-    encryptBillingInfos,
-    generateToken,
-    hashPassword,
-    matchPasswords,
-    randomIdGenerator,
-} from "../MiddleWear/ServerFunctions";
+import { AddToDailyActivity, encryptString, generateToken, hashPassword, matchPasswords, randomIdGenerator } from "../MiddleWear/ServerFunctions";
 import jwt from "jsonwebtoken";
 import cryptoJs from "crypto-js";
 import dotenv from "dotenv";
 import { TokenVerifier } from "../MiddleWear/ServerFunctions";
 import FreelanceModel, { freelanceType } from "../Models/Freelance";
-import { sendConfirmationMail } from "./EmailsControllers";
+import { sendConfirmationMail } from "./UserConfirmatioControllers";
 import { FilterQuery } from "mongoose";
 import ClientModel, { clientType } from "../Models/Clients";
 dotenv.config();
 
 export const freelanceRegister = async (req: Request, res: Response) => {
     const { body } = req;
-    const { email, phone, passWord, billing }: freelanceType = body;
+    const { email, phone, passWord, billing, firstName }: freelanceType = body;
 
     try {
         const hashedPass = await hashPassword(passWord);
         const tmpBillAcount = billing.accountNumber;
-        const hashedBillingAccount = encryptBillingInfos(tmpBillAcount);
+        const hashedBillingAccount = encryptString(tmpBillAcount);
         const endWith = tmpBillAcount.slice(tmpBillAcount.length - 4, tmpBillAcount.length);
 
         const newFreelanceAccount = {
@@ -39,7 +32,7 @@ export const freelanceRegister = async (req: Request, res: Response) => {
 
         // email confirmation
         const randomConfirmation = `${randomIdGenerator(40)}-${randomIdGenerator(40)}-${randomIdGenerator(40)}-1`;
-        const sendMail = await sendConfirmationMail(email, randomConfirmation);
+        const sendMail = await sendConfirmationMail(email, randomConfirmation, firstName);
 
         if (!sendMail) {
             return res.json({ code: "ER" });
@@ -100,12 +93,12 @@ export const freelanceLogin = async (req: Request, res: Response) => {
 };
 export const clientRegister = async (req: Request, res: Response) => {
     const { body } = req;
-    const { email, phone, passWord, billing }: clientType = body;
+    const { email, phone, passWord, billing, firstName }: clientType = body;
 
     try {
         const hashedPass = await hashPassword(passWord);
         const tmpBillAcount = billing.accountNumber;
-        const hashedBillingAccount = encryptBillingInfos(tmpBillAcount);
+        const hashedBillingAccount = encryptString(tmpBillAcount);
         const endWith = tmpBillAcount.slice(tmpBillAcount.length - 4, tmpBillAcount.length);
 
         const newClientAccount = {
@@ -120,7 +113,7 @@ export const clientRegister = async (req: Request, res: Response) => {
 
         // email confirmation
         const randomConfirmation = `${randomIdGenerator(40)}-${randomIdGenerator(40)}-${randomIdGenerator(40)}-2`;
-        const sendMail = await sendConfirmationMail(email, randomConfirmation);
+        const sendMail = await sendConfirmationMail(email, randomConfirmation, firstName);
 
         if (!sendMail) {
             return res.json({ code: "ER" });

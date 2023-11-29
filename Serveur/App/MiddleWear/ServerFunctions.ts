@@ -120,14 +120,14 @@ export const matchPasswords = async (hashed: string, plain: string) => {
     }
 };
 
-export const encryptBillingInfos = (infos: string) => {
+export const encryptString = (infos: string) => {
     try {
         return CryptoJS.AES.encrypt(infos, process.env.BILLING_ENCRIPTION_KEY!);
     } catch (error) {
         console.log("🚀 ~ file: ServerFunctions.ts:127 ~ cryptBillingInfos ~ error:", error);
     }
 };
-export const decryptBillingInfos = (encryptedBilling: string) => {
+export const decryptString = (encryptedBilling: string) => {
     try {
         return CryptoJS.AES.decrypt(encryptedBilling, process.env.BILLING_ENCRIPTION_KEY!).toString(CryptoJS.enc.Utf8);
     } catch (error) {
