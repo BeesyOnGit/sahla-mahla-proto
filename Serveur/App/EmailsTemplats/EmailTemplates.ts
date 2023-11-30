@@ -1,14 +1,20 @@
-export const validationMailTemplate = (link: string, name: string): string => {
-    return `<div style="width: 50%; margin: auto; font-family: Arial, Helvetica, sans-serif; color: #000000">
+import { emailConfirmLang, passwordResetLang } from "./EmailTemplatesLang";
+
+const defaultLang = "fr";
+export const validationMailTemplate = (link: string, name: string, language?: "ar" | "fr" | "en"): string => {
+    const lang: "ar" | "fr" | "en" = language || defaultLang;
+
+    return `<div dir=${lang == "ar" ? "rtl" : "ltr"} style="width: 50%; margin: auto; font-family: Arial, Helvetica, sans-serif; color: #000000">
     <div style="width: 100%; font-size: 30px; font-weight: bold; text-transform: capitalize; color: #000000; text-align: center">
-        email confirmation
+        ${emailConfirmLang[lang].title}
     </div>
     <br />
-    <div style="font-weight: bold; text-align: left; width: 100%; color: #000000">Hello ${name} hope you are doing well!</div>
+    <div style="font-weight: bold; text-align:start; width: 100%; color: #000000">${emailConfirmLang[lang].greeting} ${name} ${
+        emailConfirmLang[lang].greetingRest
+    }</div>
     <br />
-    <div style="margin: 10px 0; color: #000000">
-        Thank you for your registration in sahla & mahla , we are looking formard to accomplish <b>BIG</b> things together, but first you must
-        conifrm your e-mail, to do so just click on the button bellow
+    <div style="margin: 10px 0; color: #000000; text-align:start">
+    ${emailConfirmLang[lang].instruction}
     </div>
     <br />
 
@@ -24,27 +30,31 @@ export const validationMailTemplate = (link: string, name: string): string => {
                 color: #ffffff;
             "
         >
-            Confirm My E-mail
+        ${emailConfirmLang[lang].button}
         </div>
     </a>
     <br />
     <br />
-    <div style="text-align: left; width: 100%; color: #000000">see you soon !</div>
+    <div style="; text-align:start; width: 100%; color: #000000">${emailConfirmLang[lang].goodbye}</div>
     <br />
-    <div style="font-size: 12px; text-align: left; width: 100%; color: #000000">Sahla & Mahla Team</div>
+    <div style="font-size: 12px ; text-align:start; width: 100%; color: #000000">${emailConfirmLang[lang].team}</div>
 </div>`;
 };
 
-export const passResetMailTemplate = (link: string, email: string): string => {
-    return `<div style="width: 50%; margin: auto; font-family: Arial, Helvetica, sans-serif; color: #000000">
+export const passResetMailTemplate = (link: string, email: string, language?: "ar" | "fr" | "en"): string => {
+    const lang: "ar" | "fr" | "en" = language || defaultLang;
+
+    return `<div dir=${lang == "ar" ? "rtl" : "ltr"} style="width: 50%; margin: auto; font-family: Arial, Helvetica, sans-serif; color: #000000">
     <div style="width: 100%; font-size: 30px; font-weight: bold; text-transform: capitalize; color: #000000; text-align: center">
-        Password reset mail
+    ${passwordResetLang[lang].title}
     </div>
     <br />
-    <div style="font-weight: bold; text-align: left; width: 100%; color: #000000">Hello ${email} hope you are doing well!</div>
+    <div style="font-weight: bold; text-align:start; width: 100%; color: #000000">${passwordResetLang[lang].greeting} ${email} ${
+        passwordResetLang[lang].greetingRest
+    } </div>
     <br />
-    <div style="margin: 10px 0; color: #000000">
-        You forgot your password ? don't panick we'v got your back , juste click on the link bellow and reset your password
+    <div style="margin: 10px 0; color: #000000; text-align:start">
+    ${passwordResetLang[lang].instruction}
     </div>
     <br />
 
@@ -60,13 +70,13 @@ export const passResetMailTemplate = (link: string, email: string): string => {
                 color: #ffffff;
             "
         >
-            Reset My Password
+        ${passwordResetLang[lang].button}
         </div>
     </a>
     <br />
     <br />
-    <div style="text-align: left; width: 100%; color: #000000">Good Luck</div>
+    <div style="text-align:start; width: 100%; color: #000000">${passwordResetLang[lang].goodLuck}</div>
     <br />
-    <div style="font-size: 12px; text-align: left; width: 100%; color: #000000">Sahla & Mahla Team</div>
+    <div style="font-size: 12px; text-align:start; width: 100%; color: #000000">${passwordResetLang[lang].team}</div>
 </div>`;
 };

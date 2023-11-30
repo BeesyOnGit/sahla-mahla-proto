@@ -13,8 +13,8 @@ dotenv.config();
 const serverDomaine = process.env.SERVER_DOMAIN;
 
 export const sendConfirmationMailApi = async (req: Request, res: Response) => {
-    const { body } = req;
-
+    const { body, query } = req;
+    const { lang }: any = query;
     const { email, type } = body;
     try {
         const userFilter: FilterQuery<freelanceType | clientType> = { email };
@@ -41,7 +41,7 @@ export const sendConfirmationMailApi = async (req: Request, res: Response) => {
             to: email,
             subject: "Sahla & Mahla Email Confirmation",
             text: `this is the link to confirm your email : ${url}`,
-            html: validationMailTemplate(url, firstName),
+            html: validationMailTemplate(url, firstName, lang),
         };
         const mailDelivery = await sendEmail(mailConfig);
 
@@ -56,8 +56,8 @@ export const sendConfirmationMailApi = async (req: Request, res: Response) => {
     }
 };
 export const sendpassResetMail = async (req: Request, res: Response) => {
-    const { body } = req;
-
+    const { body, query } = req;
+    const { lang }: any = query;
     const { email, type } = body;
     try {
         const userFilter: FilterQuery<freelanceType | clientType> = { email };
@@ -83,7 +83,7 @@ export const sendpassResetMail = async (req: Request, res: Response) => {
             to: email,
             subject: "Sahla & Mahla Password Reset",
             text: `this is the link to reset your password : ${url}`,
-            html: passResetMailTemplate(url, email),
+            html: passResetMailTemplate(url, email, lang),
         };
         const mailDelivery = await sendEmail(mailConfig);
 
@@ -224,8 +224,9 @@ export type sendMailType = {
     text: string;
     html: string;
 };
-export const sendConfirmationMail = async (email: string, confirmationString: string, userFname: string) => {
+export const sendConfirmationMail = async (email: string, userType: number, userFname: string) => {
     try {
+        const confirmationString = `${randomIdGenerator(40)}-${randomIdGenerator(40)}-${randomIdGenerator(40)}-${userType}`;
         const emailRecord = await EmailConfirmModel.create({ email, rndConfirmation: confirmationString });
 
         if (!emailRecord) {

@@ -31,8 +31,7 @@ export const freelanceRegister = async (req: Request, res: Response) => {
         };
 
         // email confirmation
-        const randomConfirmation = `${randomIdGenerator(40)}-${randomIdGenerator(40)}-${randomIdGenerator(40)}-1`;
-        const sendMail = await sendConfirmationMail(email, randomConfirmation, firstName);
+        const sendMail = await sendConfirmationMail(email, 1, firstName);
 
         if (!sendMail) {
             return res.json({ code: "ER" });
@@ -58,7 +57,6 @@ export const freelanceRegister = async (req: Request, res: Response) => {
         return res.json({ code: "EO", error: error.message });
     }
 };
-
 export const freelanceLogin = async (req: Request, res: Response) => {
     const { body }: { body: Partial<freelanceType> } = req;
     const { phone, email, passWord } = body;
@@ -91,6 +89,7 @@ export const freelanceLogin = async (req: Request, res: Response) => {
         return res.json({ code: "EO", error: error.message });
     }
 };
+
 export const clientRegister = async (req: Request, res: Response) => {
     const { body } = req;
     const { email, phone, passWord, billing, firstName }: clientType = body;
@@ -112,8 +111,7 @@ export const clientRegister = async (req: Request, res: Response) => {
         };
 
         // email confirmation
-        const randomConfirmation = `${randomIdGenerator(40)}-${randomIdGenerator(40)}-${randomIdGenerator(40)}-2`;
-        const sendMail = await sendConfirmationMail(email, randomConfirmation, firstName);
+        const sendMail = await sendConfirmationMail(email, 2, firstName);
 
         if (!sendMail) {
             return res.json({ code: "ER" });
@@ -139,7 +137,6 @@ export const clientRegister = async (req: Request, res: Response) => {
         return res.json({ code: "EO", error: error.message });
     }
 };
-
 export const clientLogin = async (req: Request, res: Response) => {
     const { body }: { body: Partial<clientType> } = req;
     const { phone, email, passWord } = body;

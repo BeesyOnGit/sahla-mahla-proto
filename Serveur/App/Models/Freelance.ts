@@ -86,6 +86,11 @@ const FreelanceSchema = new mongoose.Schema<freelanceType>({
         type: [String],
         required: true,
     },
+    aprouved: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
 
     billing: {
         accountNumber: {
@@ -165,7 +170,8 @@ export type freelanceType = {
     degrees: degreeType[];
     Field: string[];
     IDcard: string[];
-    stamp: string;
+    stamp?: string;
+    aprouved: boolean;
 
     adress: adressType;
 

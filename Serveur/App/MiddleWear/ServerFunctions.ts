@@ -6,6 +6,8 @@ import CryptoJS from "crypto-js";
 import dotenv from "dotenv";
 import { FilterQuery, Model } from "mongoose";
 import { writeFile } from "fs";
+import FreelanceModel from "../Models/Freelance";
+import ClientModel from "../Models/Clients";
 
 dotenv.config();
 
@@ -14,20 +16,8 @@ dotenv.config();
 const env = process.env.ENVIRONEMENT;
 const SITE_URL = process.env.SITE_URL;
 export type Headers = IncomingHttpHeaders & {
-    isAdmin?: boolean;
     verifiedID?: string;
-    userType?: number;
-    userLocation?: string;
-    userPass?: string;
 };
-
-const adminProhibitedRoutesMap: any = {
-    "/api/ingredients/create": true,
-    "/api/ingredients/restock": true,
-    "/api/orders/create": true,
-    "/api/products/create": true,
-};
-const adminOnlyRoutesArr = [];
 
 export const AuthVerification = async (req: Request, res: Response, next: NextFunction) => {
     const { headers }: any = req;
@@ -45,33 +35,15 @@ export const AuthVerification = async (req: Request, res: Response, next: NextFu
 
         const GeneralFilter = { _id };
 
-        // const isUser: UserModel | null = await Users.findOne<UserModel>(GeneralFilter);
-        const isUser = null;
+        const isUser = (await FreelanceModel.findOne(GeneralFilter)) || (await ClientModel.findOne(GeneralFilter));
 
         if (!isUser) {
             return res.json({ code: "01" });
         }
 
-        // if (!hasConfig) {
-        //     return res.json({ code: "039" });
-        // }
+        const { passWord: dbPass } = isUser;
 
-        const { passWord: dbPass, isAdmin, type, location } = isUser;
-
-        // if (matchPasswords(dbPass,passWord)) {
-        //     return res.json({ code: "02" });
-        // }
-
-        const urlNotPermitedForAdmin = isAdmin && adminProhibitedRoutesMap[urlWitoutParams(originalUrl)];
-
-        if (urlNotPermitedForAdmin) {
-            return res.json({ code: "03" });
-        }
-
-        // headers.verifiedID = isUser._id;
-        headers.isAdmin = isAdmin;
-        headers.userType = type;
-        headers.userLocation = location;
+        headers.verifiedID = isUser._id;
 
         return next();
     } catch (error) {
@@ -100,7 +72,7 @@ export const verrifiySocket = async (socket: any, token: string, socketId: strin
     return { ...socket, [socketId]: location };
 };
 
-export const hashPassword = async (plainPassword: string) => {
+export const hashPassword = async (plainPassword: string): Promise<string> => {
     try {
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
@@ -108,6 +80,7 @@ export const hashPassword = async (plainPassword: string) => {
         return hash;
     } catch (error) {
         console.log("🚀 ~ file: ServerFunctions.ts:149 ~ hashPassword ~ error:", error);
+        return "";
     }
 };
 
@@ -169,8 +142,8 @@ export const urlWitoutParams = (url: string) => {
 
 export const editModelWithSave = (model: any, edit: any) => {
     for (const key in edit) {
-        if (key == "passWord") {
-            // model[key] = encriptPassWord(edit[key]);
+        if (model[key] && typeof model[key] == "object") {
+            editModelWithSave(model[key], edit[key]);
             continue;
         }
         model[key] = edit[key];
