@@ -6,8 +6,9 @@ import CryptoJS from "crypto-js";
 import dotenv from "dotenv";
 import { FilterQuery, Model } from "mongoose";
 import { writeFile } from "fs";
-import FreelanceModel from "../Models/Freelance";
-import ClientModel from "../Models/Clients";
+import FreelanceModel, { freelanceType } from "../Models/Freelance";
+import ClientModel, { clientType } from "../Models/Clients";
+import DailyLogsModel, { dayilyLogsType } from "../Models/DailyLogs";
 
 dotenv.config();
 
@@ -29,11 +30,15 @@ export const AuthVerification = async (req: Request, res: Response, next: NextFu
     }
 
     try {
-        const clearToken: any = jwt.verify(authorizationtoken, process.env.TOKEN_ENCRIPTION_KEY!);
+        const verifiedToken: any = TokenVerifier(authorizationtoken);
 
-        const { passWord, id: _id } = clearToken;
+        if (!verifiedToken) {
+            return res.json({ code: "ET" });
+        }
 
-        const GeneralFilter = { _id };
+        const { id: _id } = verifiedToken;
+
+        const GeneralFilter: FilterQuery<freelanceType | clientType> = { _id };
 
         const isUser = (await FreelanceModel.findOne(GeneralFilter)) || (await ClientModel.findOne(GeneralFilter));
 
@@ -44,7 +49,6 @@ export const AuthVerification = async (req: Request, res: Response, next: NextFu
         const { passWord: dbPass } = isUser;
 
         headers.verifiedID = isUser._id;
-
         return next();
     } catch (error) {
         console.log("🚀 ~ file: ServerFunctions.ts:64 ~ AuthVerification ~ error:", error);
@@ -111,7 +115,7 @@ export const decryptString = (encryptedBilling: string) => {
 export const TokenVerifier = (token: string) => {
     try {
         if (token == undefined) {
-            return "no token";
+            return false;
         }
         return jwt.verify(token, process.env.TOKEN_ENCRIPTION_KEY!);
     } catch (error) {
@@ -198,23 +202,21 @@ export const urlToFile = ({ url, name }: { url: any; name?: String }) => {
     // return file;
 };
 
-export const AddToDailyActivity = async (obj: any) => {
+export const AddToDailyActivity = async (obj: dayilyLogsType) => {
     try {
-        const newDate: Number = new Date().getTime();
-        const newObj: Object = { ...obj, date: newDate };
-        const Dailyadded = null;
+        const Dailyadded = await DailyLogsModel.create(obj);
 
         if (Dailyadded) {
-            return "success";
+            return true;
         }
 
-        const { sellerCode, username, action } = obj;
+        const { action, doer } = obj;
 
-        console.log(`Daily log for ${sellerCode || username} consists of ${action} was not registered at ${new Date()}`);
+        console.log(`Log for ${doer}: ${action} NOT SAVED AT => ${new Date().toLocaleDateString("fr-FR")}`);
 
-        return "fail";
+        return false;
     } catch (error) {
-        console.log(error);
+        console.log("🚀 ~ file: ServerFunctions.ts:216 ~ AddToDailyActivity ~ error:", error);
     }
 };
 

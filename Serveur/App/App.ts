@@ -12,6 +12,7 @@ import { EventEmitter } from "node:events";
 import { Server } from "socket.io";
 import AuthRoutes from "./Routes/AuthRoutes";
 import EmailConfirmRoutes from "./Routes/UserConfirmRoutes";
+import AccountRoutes from "./Routes/AccountRoutes";
 
 dotenv.config();
 
@@ -70,6 +71,7 @@ sockets(io);
 
 app.use("/auth", AuthRoutes);
 app.use("/confirmation", EmailConfirmRoutes);
+app.use("/account", AccountRoutes);
 
 //************************************ # SERVER PORT SET # ****************************************//
 

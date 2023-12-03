@@ -15,6 +15,10 @@ outServ.js
 autoDateGit.ts
 autoDateGit.js
 Git Notes.txt
+*.png
+*.webp
+*.jpeg
+*.jpg
 .env.*
 .env
 Com.txt

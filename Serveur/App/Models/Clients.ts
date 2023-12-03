@@ -67,7 +67,7 @@ const ClientSchema = new mongoose.Schema<clientType>({
         type: [String],
         required: true,
     },
-    approuved: {
+    aprouved: {
         type: Boolean,
         required: true,
         default: false,
@@ -145,7 +145,7 @@ export type clientType = {
 
     createdAt: number;
     editedAt: number;
-    approuved: boolean;
+    aprouved: boolean;
 
     profilePicture?: string;
 

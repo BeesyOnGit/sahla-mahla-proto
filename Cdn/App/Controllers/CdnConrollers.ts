@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { FilesSavingAsync } from "../MiddleWear/ServerFunctions";
+import { FilesSavingAsync, randomIdGenerator, saveImageAsync, thumbnailResource, watermarkResource } from "../MiddleWear/ServerFunctions";
+
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -17,6 +18,45 @@ export const addMedia = async (req: Request, res: Response) => {
         console.log("🚀 ~ file: CdnConrollers.ts:12 ~ addMedia ~ error:", error);
     }
 };
+export const saveResource = async (req: Request, res: Response) => {
+    const { body } = req;
+    const { image } = body;
+    try {
+        const fileName = `${randomIdGenerator(10)}-${randomIdGenerator(10)}`;
+
+        const saveOriginalImage = await saveImageAsync({ data: image, savePath: path!, fileName });
+
+        if (!saveOriginalImage) {
+            return res.json({ code: "E101" });
+        }
+
+        const TumbnailBuffer = await thumbnailResource({ data: image, width: 200 });
+        const thumbnailFileName = `${fileName}-thumb`;
+        const saveThumbnail = await saveImageAsync({ data: TumbnailBuffer, savePath: path!, fileName: thumbnailFileName, buffer: true });
+
+        if (!saveThumbnail) {
+            return res.json({ code: "E101" });
+        }
+
+        const watermarkBuffer = await watermarkResource({ data: image, width: 800 });
+        const WatermarkFileName = `${fileName}-general`;
+        const saveWatermark = await saveImageAsync({ data: watermarkBuffer, savePath: path!, fileName: WatermarkFileName, buffer: true });
+
+        if (!saveWatermark) {
+            return res.json({ code: "E101" });
+        }
+
+        const url = {
+            resourceLink: `${serverUrl}/${fileName}.webp`,
+            resourceThumbnail: `${serverUrl}/${thumbnailFileName}.webp`,
+            resourceWaterLink: `${serverUrl}/${WatermarkFileName}.webp`,
+        };
+        return res.json({ code: "S101", url });
+    } catch (error) {
+        console.log("🚀 ~ file: CdnConrollers.ts:12 ~ addMedia ~ error:", error);
+    }
+};
+
 export const getMedia = (req: Request, res: Response) => {
     const { params } = req;
     const { id } = params;
