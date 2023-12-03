@@ -1,7 +1,6 @@
 import { writeFile } from "fs/promises";
 import { createCanvas, loadImage } from "canvas";
-
-global.Image;
+import { mimeToFormats } from "./formatMimes";
 
 export const FilesSavingAsync = ({ data, savePath }: { data: string; savePath: string }) => {
     const Path = savePath;
@@ -18,7 +17,7 @@ export const FilesSavingAsync = ({ data, savePath }: { data: string; savePath: s
 };
 
 export type saveImgType = {
-    data: string | Buffer;
+    data: any;
     savePath: string;
     fileName: string;
     buffer?: boolean;
@@ -26,20 +25,23 @@ export type saveImgType = {
 export const saveImageAsync = ({ data, savePath, fileName, buffer }: saveImgType) => {
     const Path = savePath;
     try {
-        return new Promise<boolean>(async (resolve) => {
+        return new Promise<string>(async (resolve) => {
             try {
-                const FInalUrl = `${Path}/${fileName}.webp`;
                 if (!buffer) {
+                    const fileExtention = mimeToFormats[data.split(";base64,")[0].split(":")[1]];
+                    const FInalUrl = `${Path}/${fileName}.${fileExtention}`;
                     const url: any = data;
                     await writeFile(FInalUrl, urltoArrayBuffer({ url })!);
-                    return resolve(true);
+                    return resolve(`${fileName}.${fileExtention}`);
                 }
 
+                const FInalUrl = `${Path}/${fileName}.webp`;
+
                 await writeFile(FInalUrl, data!);
-                return resolve(true);
+                return resolve(`${fileName}.webp`);
             } catch (error) {
                 console.log("🚀 ~ file: ServerFunctions.ts:43 ~ returnnewPromise<boolean> ~ error:", error);
-                return resolve(false);
+                return resolve("");
             }
         });
     } catch (error) {
@@ -77,7 +79,7 @@ export const randomIdGenerator = (length: number) => {
 
 export const urltoArrayBuffer = ({ url }: { url: string }) => {
     try {
-        var data = url.replace(/^data:image\/\w+;base64,/, "");
+        var data = url.split(";base64,")[1];
         return Buffer.from(data, "base64");
     } catch (error) {
         console.log("🚀 ~ file: ServerFunctions.ts:36 ~ urltoArrayBuffer ~ error:", error);

@@ -4,6 +4,8 @@ import http from "http";
 import dotenv from "dotenv";
 import compression from "compression";
 
+import CdnRoutes from "./Routes/CdnRoutes";
+
 dotenv.config();
 
 //Constatnts definition
@@ -23,13 +25,12 @@ app.use(
 );
 
 //App upload limite upgrade
-app.use(bodyParser.json({ limit: "20mb" }));
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+app.use(bodyParser.json({ limit: "100mb" }));
+app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
+app.use(bodyParser.json());
 
 //Comment me Befor deployment
 import cors from "cors";
-import CdnRoutes from "./Routes/CdnRoutes";
-app.use(bodyParser.json());
 app.use(cors({ origin: "*" }));
 
 // uncomment ME  befor deployment
