@@ -1,6 +1,7 @@
-import { writeFile } from "fs/promises";
+import { writeFile, rm } from "fs/promises";
 import { createCanvas, loadImage } from "canvas";
 import { mimeToFormats } from "./formatMimes";
+import fs from "fs";
 
 export const FilesSavingAsync = ({ data, savePath }: { data: string; savePath: string }) => {
     const Path = savePath;
@@ -8,6 +9,11 @@ export const FilesSavingAsync = ({ data, savePath }: { data: string; savePath: s
         return new Promise(async (resolve) => {
             const finalName = `${randomIdGenerator(15)}-${randomIdGenerator(15)}.webp`;
             const FInalUrl = `${Path}/${finalName}`;
+            const checkDir = await ensureDirectoryExists(Path);
+
+            if (!checkDir) {
+                return resolve(false);
+            }
             await writeFile(FInalUrl, urltoArrayBuffer({ url: data })!);
             return resolve(finalName);
         });
@@ -31,12 +37,22 @@ export const saveImageAsync = ({ data, savePath, fileName, buffer }: saveImgType
                     const fileExtention = mimeToFormats[data.split(";base64,")[0].split(":")[1]];
                     const FInalUrl = `${Path}/${fileName}.${fileExtention}`;
                     const url: any = data;
+                    const checkDir = await ensureDirectoryExists(Path);
+
+                    if (!checkDir) {
+                        return resolve("");
+                    }
                     await writeFile(FInalUrl, urltoArrayBuffer({ url })!);
                     return resolve(`${fileName}.${fileExtention}`);
                 }
 
                 const FInalUrl = `${Path}/${fileName}.webp`;
 
+                const checkDir = await ensureDirectoryExists(Path);
+
+                if (!checkDir) {
+                    return resolve("");
+                }
                 await writeFile(FInalUrl, data!);
                 return resolve(`${fileName}.webp`);
             } catch (error) {
@@ -149,3 +165,34 @@ export const thumbnailResource = async ({ data, width }: compressImageType) => {
         return resolve(canvas.toBuffer());
     });
 };
+
+export const removeFile = async (path: string) => {
+    return new Promise<boolean>(async (resolve, reject) => {
+        try {
+            await rm(path);
+            return resolve(true);
+        } catch (error) {
+            console.log("🚀 ~ file: ServerFunctions.ts:173 ~ removeFile ~ error:", error);
+            return resolve(false);
+        }
+    });
+};
+
+export function ensureDirectoryExists(directoryPath: string) {
+    return new Promise<boolean>((resolve, reject) => {
+        fs.access(directoryPath, fs.constants.F_OK, (err) => {
+            if (err) {
+                // Directory doesn't exist, create it
+                fs.mkdir(directoryPath, { recursive: true }, (err) => {
+                    if (err) {
+                        console.log("🚀 ~ file: ServerFunctions.ts:190 ~ fs.mkdir ~ err:", err);
+
+                        return reject(false); // Failed to create directory
+                    }
+                    return resolve(true); // Directory created successfully
+                });
+            }
+            return resolve(true); // Directory already exists
+        });
+    });
+}

@@ -8,6 +8,7 @@ import FreelanceModel, { freelanceType } from "../Models/Freelance";
 import { sendConfirmationMail } from "./UserConfirmatioControllers";
 import { FilterQuery } from "mongoose";
 import ClientModel, { clientType } from "../Models/Clients";
+import { dayilyLogsType } from "../Models/DailyLogs";
 dotenv.config();
 
 export const freelanceRegister = async (req: Request, res: Response) => {
@@ -43,6 +44,14 @@ export const freelanceRegister = async (req: Request, res: Response) => {
         if (!registerFreelance) {
             return res.json({ code: "ER" });
         }
+        const { _id } = registerFreelance;
+
+        const activity: dayilyLogsType = {
+            doer: _id.toString(),
+            action: "register freelance",
+        };
+
+        AddToDailyActivity(activity);
 
         return res.json({ code: "S01" });
     } catch (error: any) {
@@ -82,6 +91,13 @@ export const freelanceLogin = async (req: Request, res: Response) => {
         }
 
         const token = generateToken(_id.toString());
+
+        const activity: dayilyLogsType = {
+            doer: _id.toString(),
+            action: "login freelance",
+        };
+
+        AddToDailyActivity(activity);
 
         return res.json({ code: "S02", token });
     } catch (error: any) {
@@ -124,6 +140,15 @@ export const clientRegister = async (req: Request, res: Response) => {
             return res.json({ code: "ER" });
         }
 
+        const { _id } = registerClient;
+
+        const activity: dayilyLogsType = {
+            doer: _id.toString(),
+            action: "register client",
+        };
+
+        AddToDailyActivity(activity);
+
         return res.json({ code: "S01" });
     } catch (error: any) {
         console.log("🚀 ~ file: AuthControllers.ts:126 ~ clientRegister ~ error:", error);
@@ -162,6 +187,13 @@ export const clientLogin = async (req: Request, res: Response) => {
         }
 
         const token = generateToken(_id.toString());
+
+        const activity: dayilyLogsType = {
+            doer: _id.toString(),
+            action: "login client",
+        };
+
+        AddToDailyActivity(activity);
 
         return res.json({ code: "S04", token });
     } catch (error: any) {

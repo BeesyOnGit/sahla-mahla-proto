@@ -35,14 +35,18 @@ export default DailyLogsModel;
 export type dayilyLogsType = {
     doer: string;
     action:
-        | "login"
-        | "register"
+        | "login freelance"
+        | "login client"
+        | "register freelance"
+        | "register client"
         | "account edition"
         | "account deletion"
         | "email validation"
         | "password change"
         | "phone verification"
         | "resource buy"
+        | "resource added"
+        | "resource edited"
         | "account certification";
     date?: number;
     concerned?: string;

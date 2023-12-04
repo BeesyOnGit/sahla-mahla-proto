@@ -13,6 +13,7 @@ import { Server } from "socket.io";
 import AuthRoutes from "./Routes/AuthRoutes";
 import EmailConfirmRoutes from "./Routes/UserConfirmRoutes";
 import AccountRoutes from "./Routes/AccountRoutes";
+import ResourcesRoutes from "./Routes/ResourcesRoutes";
 
 dotenv.config();
 
@@ -72,6 +73,7 @@ sockets(io);
 app.use("/auth", AuthRoutes);
 app.use("/confirmation", EmailConfirmRoutes);
 app.use("/account", AccountRoutes);
+app.use("/resources", ResourcesRoutes);
 
 //************************************ # SERVER PORT SET # ****************************************//
 

@@ -4,6 +4,10 @@ const ResourcesSchema = new mongoose.Schema<resourcesType>({
         type: Number,
         required: true,
     },
+    title: {
+        type: String,
+        required: true,
+    },
     resourceThumbnail: {
         type: String,
         required: true,
@@ -20,6 +24,12 @@ const ResourcesSchema = new mongoose.Schema<resourcesType>({
         type: String,
         required: true,
     },
+    description: {
+        type: String,
+    },
+    categories: {
+        type: [String],
+    },
     createdAt: {
         type: Number,
         required: true,
@@ -30,35 +40,72 @@ const ResourcesSchema = new mongoose.Schema<resourcesType>({
     price: {
         type: Number,
         required: true,
+        default: 0,
     },
     discount: {
         type: Number,
         required: true,
+        default: 0,
     },
     timesSold: {
         type: Number,
         required: true,
         default: 0,
     },
+    likes: {
+        type: Number,
+        required: true,
+        default: 0,
+    },
+    saves: {
+        type: Number,
+        required: true,
+        default: 0,
+    },
+    lastTimeSold: {
+        type: Number,
+        required: true,
+        default: null,
+    },
     public: {
         type: Boolean,
         required: true,
         default: true,
     },
+    buyers: {
+        type: [String],
+        required: true,
+        default: [],
+    },
+});
+
+ResourcesSchema.pre("save", function () {
+    if (this.timesSold < this.buyers.length) {
+        this.lastTimeSold = new Date().getTime();
+    }
+    this.timesSold = this.buyers.length;
 });
 
 const ResourcesModel: mongoose.Model<resourcesType> = mongoose.model<resourcesType>("resources", ResourcesSchema);
 export default ResourcesModel;
 
 export type resourcesType = {
+    title: string;
     resourceType: number;
     resourceThumbnail: string;
     resourceWaterLink: string;
     resourceLink: string;
     owner: string;
+    description: string;
+    categories?: string[];
     createdAt: number;
     price: number;
     discount: number;
     timesSold: number;
+    lastTimeSold: number;
     public: boolean;
+    buyers: [string];
+    owned?: boolean;
+    likes: number;
+    saves: number;
 };
