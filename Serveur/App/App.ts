@@ -14,6 +14,7 @@ import AuthRoutes from "./Routes/AuthRoutes";
 import EmailConfirmRoutes from "./Routes/UserConfirmRoutes";
 import AccountRoutes from "./Routes/AccountRoutes";
 import ResourcesRoutes from "./Routes/ResourcesRoutes";
+import PlanRoutes from "./Routes/PlansRoutes";
 
 dotenv.config();
 
@@ -49,8 +50,8 @@ app.use(
 );
 
 //App upload limite upgrade
-app.use(bodyParser.json({ limit: "20mb" }));
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+app.use(bodyParser.json({ limit: "100mb" }));
+app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
 
 //Comment me Befor deployment
 
@@ -74,6 +75,7 @@ app.use("/auth", AuthRoutes);
 app.use("/confirmation", EmailConfirmRoutes);
 app.use("/account", AccountRoutes);
 app.use("/resources", ResourcesRoutes);
+app.use("/plans", PlanRoutes);
 
 //************************************ # SERVER PORT SET # ****************************************//
 

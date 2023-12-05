@@ -80,7 +80,7 @@ export const freelanceLogin = async (req: Request, res: Response) => {
 
         const { _id, passWord: dbPassWord, emailConfirmation } = findFreelance;
 
-        if (emailConfirmation) {
+        if (!emailConfirmation) {
             return res.json({ code: "E06" });
         }
 
@@ -176,7 +176,7 @@ export const clientLogin = async (req: Request, res: Response) => {
 
         const { _id, passWord: dbPassWord, emailConfirmation } = findClient;
 
-        if (emailConfirmation) {
+        if (!emailConfirmation) {
             return res.json({ code: "E06" });
         }
 

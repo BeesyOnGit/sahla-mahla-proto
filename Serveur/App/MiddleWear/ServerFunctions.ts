@@ -17,7 +17,7 @@ dotenv.config();
 const env = process.env.ENVIRONEMENT;
 const SITE_URL = process.env.SITE_URL;
 export type Headers = IncomingHttpHeaders & {
-    verifiedID?: string;
+    verifiedId?: string;
 };
 
 export const AuthVerification = async (req: Request, res: Response, next: NextFunction) => {
@@ -26,7 +26,7 @@ export const AuthVerification = async (req: Request, res: Response, next: NextFu
     const { authorizationtoken } = headers;
 
     if (!authorizationtoken) {
-        return res.json({ code: "01b" });
+        return res.json({ code: "E07" });
     }
 
     try {
@@ -46,9 +46,9 @@ export const AuthVerification = async (req: Request, res: Response, next: NextFu
             return res.json({ code: "01" });
         }
 
-        const { passWord: dbPass } = isUser;
+        const { passWord: dbPass, _id: userId } = isUser;
 
-        headers.verifiedID = isUser._id;
+        headers.verifiedId = userId.toString();
         return next();
     } catch (error) {
         console.log("🚀 ~ file: ServerFunctions.ts:64 ~ AuthVerification ~ error:", error);

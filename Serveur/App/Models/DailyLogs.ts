@@ -47,6 +47,10 @@ export type dayilyLogsType = {
         | "resource buy"
         | "resource added"
         | "resource edited"
+        | "resource removed"
+        | "plan added"
+        | "plan edited"
+        | "plan removed"
         | "account certification";
     date?: number;
     concerned?: string;

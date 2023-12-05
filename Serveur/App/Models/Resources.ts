@@ -64,7 +64,6 @@ const ResourcesSchema = new mongoose.Schema<resourcesType>({
     },
     lastTimeSold: {
         type: Number,
-        required: true,
         default: null,
     },
     public: {

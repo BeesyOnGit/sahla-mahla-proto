@@ -22,20 +22,20 @@ export const addMedia = async (req: Request, res: Response) => {
 };
 export const saveResource = async (req: Request, res: Response) => {
     const { body } = req;
-    const { image, owner } = body;
+    const { resource, owner } = body;
     try {
         if (!owner) {
             return res.json({ code: "E103" });
         }
         const fileName = `${randomIdGenerator(10)}-${randomIdGenerator(10)}`;
         const resUserPath = `${resourcesPath}/${owner}`;
-        const saveOriginalImage = await saveImageAsync({ data: image, savePath: resUserPath, fileName });
+        const saveOriginalImage = await saveImageAsync({ data: resource, savePath: resUserPath, fileName });
 
         if (!saveOriginalImage) {
             return res.json({ code: "E101" });
         }
 
-        const TumbnailBuffer = await thumbnailResource({ data: image, width: 200 });
+        const TumbnailBuffer = await thumbnailResource({ data: resource, width: 200 });
         if (!TumbnailBuffer) {
             return res.json({ code: "E102" });
         }
@@ -47,7 +47,7 @@ export const saveResource = async (req: Request, res: Response) => {
             return res.json({ code: "E101" });
         }
 
-        const watermarkBuffer = await watermarkResource({ data: image, width: 800 });
+        const watermarkBuffer = await watermarkResource({ data: resource, width: 800 });
         if (!watermarkBuffer) {
             return res.json({ code: "E102" });
         }

@@ -13,6 +13,7 @@ export const uploadResource = async (req: Request, res: Response) => {
     const { body, headers } = req;
     const { verifiedId }: Headers = headers;
     const { resource, ...restBody }: Partial<resourcesType> & { resource: string } = body;
+    const { price, discount } = restBody;
     try {
         const uploadData = {
             resource,
@@ -27,18 +28,21 @@ export const uploadResource = async (req: Request, res: Response) => {
 
         const { data } = cdnResponse;
         const { code, url } = data;
+        console.log("🚀 ~ file: ResourcesControllers.ts:33 ~ uploadResource ~ code:", code);
 
         if (code != "S101") {
-            return res.json({ code: "E31" });
+            return res.json({ code: "E31", cdnError: code });
         }
         const { resourceThumbnail, resourceWaterLink, resourceLink } = url;
 
         const newResourceObject: Partial<resourcesType> = {
+            ...restBody,
             owner: verifiedId?.toString()!,
             resourceLink,
             resourceThumbnail,
             resourceWaterLink,
-            ...restBody,
+            price: !price ? 0 : price < 0 ? 0 : price,
+            discount: !price ? 0 : price <= 0 ? 0 : discount,
         };
         const createResource = await ResourcesModel.create(newResourceObject);
 
@@ -66,17 +70,14 @@ export const editResource = async (req: Request, res: Response) => {
     const { body, headers, params } = req;
     const { id } = params;
     const { verifiedId }: Headers = headers;
-    const { price, public: publicResource, discount, description, categories, title }: Partial<resourcesType> & { resource: string } = body;
+    const { price, discount, ...rest }: Partial<resourcesType> & { resource: string } = body;
     try {
         const filter: FilterQuery<resourcesType> = { _id: id, owner: verifiedId };
 
         const newResourceObject: Partial<resourcesType> = {
-            price,
-            discount,
-            public: publicResource,
-            description,
-            categories,
-            title,
+            ...rest,
+            price: !price ? 0 : price < 0 ? 0 : price,
+            discount: !discount ? 0 : !price ? 0 : price <= 0 ? 0 : discount,
         };
         const findResource = await ResourcesModel.findOne(filter);
 
@@ -138,6 +139,14 @@ export const deleteResource = async (req: Request, res: Response) => {
         await axios.delete(resourceThumbnail);
         await axios.delete(resourceWaterLink);
 
+        const activity: dayilyLogsType = {
+            doer: verifiedId!.toString(),
+            action: "resource removed",
+            concerned: id,
+        };
+
+        AddToDailyActivity(activity);
+
         return res.json({ code: "S33" });
     } catch (error: any) {
         console.log("🚀 ~ file: ResourcesControllers.ts:118 ~ deleteResource ~ error:", error);
@@ -187,12 +196,13 @@ export const getAllResources = async (req: Request, res: Response) => {
             return res.json({ code: "E33" });
         }
 
-        return res.json({ code: "S34", data: "" });
+        return res.json({ code: "S34", data: resources });
     } catch (error: any) {
         console.log("🚀 ~ file: ResourcesControllers.ts:181 ~ getAllResources ~ error:", error);
         return res.json({ code: "EO", error: error.message });
     }
 };
+
 export const getResourceDetail = async (req: Request, res: Response) => {
     const { headers, params } = req;
     const { id } = params;

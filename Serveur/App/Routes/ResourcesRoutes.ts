@@ -4,7 +4,7 @@ import { deleteResource, editResource, getAllResources, getResourceDetail, uploa
 const ResourcesRoutes = express.Router();
 
 ResourcesRoutes.post("/", AuthVerification, uploadResource);
-ResourcesRoutes.post("/edit", AuthVerification, editResource);
+ResourcesRoutes.post("/edit/:id", AuthVerification, editResource);
 ResourcesRoutes.get("/", AuthVerification, getAllResources);
 ResourcesRoutes.get("/detail/:id", AuthVerification, getResourceDetail);
 ResourcesRoutes.delete("/:id", AuthVerification, deleteResource);
