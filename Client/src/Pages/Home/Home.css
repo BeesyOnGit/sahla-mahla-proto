@@ -1,0 +1,74 @@
+.homePageDivGeneralContainer {
+    width: 100%;
+    height: 100vh;
+    background: rgb(138, 86, 254);
+    background: -moz-linear-gradient(90deg, rgba(138, 86, 254, 1) 0%, rgba(72, 146, 254, 1) 52%, rgba(0, 212, 255, 1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(138, 86, 254, 1) 0%, rgba(72, 146, 254, 1) 52%, rgba(0, 212, 255, 1) 100%);
+    background: linear-gradient(90deg, rgba(138, 86, 254, 1) 0%, rgba(72, 146, 254, 1) 52%, rgba(0, 212, 255, 1) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0 0 35vw;
+    overflow: hidden;
+    position: relative;
+}
+
+.homePageImgLeft {
+    /* width: 100%; */
+    width: 23vw;
+    position: absolute;
+    left: 5%;
+    bottom: 0;
+}
+
+.homePageSectionContainer {
+    padding: 0 3.125rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.homePageDivTextContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+    flex-wrap: wrap;
+}
+
+.spanColor {
+    color: var(--clientColor);
+}
+
+.homePageDivTextContainer > * {
+    font-size: 2.2rem;
+    text-transform: capitalize;
+    font-weight: bolder;
+}
+
+.inpCont {
+    width: 100%;
+}
+
+.homePageInputs {
+    border-radius: var(--roundRadius);
+    border: 0.1875rem solid var(--clientColor);
+    text-transform: capitalize;
+    padding: 1.25rem;
+    font-size: 1.2rem;
+    transition: all 300ms ease-out;
+}
+
+.homePageInputs:focus {
+    border: 0.3125rem solid var(--clientColor);
+    outline: none;
+    transition: all 300ms ease-out;
+}
+
+.largIcon {
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1.25rem;
+}

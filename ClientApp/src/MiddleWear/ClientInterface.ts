@@ -8,7 +8,6 @@ export type InputType = {
     removeElem?: Function;
     addElemToListe?: Function;
     icon?: string;
-    innerInputIcon?: string;
     innerUnit?: string;
     content?: string;
     containerClass?: string;
@@ -23,7 +22,5 @@ export type alertType = {
     type: "success" | "error" | "warning";
     message: string;
 };
-
-export type langType = "fr" | "ar" | "en";
 
 export type OnChangeEventType = ChangeEvent<HTMLInputElement> & {};

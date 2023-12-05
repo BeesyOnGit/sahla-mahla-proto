@@ -1,8 +1,8 @@
 .inputsShowDiv {
-    display: flex;
-    flex-direction: column;
+    display: inherit;
+    flex-direction: inherit;
     justify-content: inherit;
     align-items: inherit;
-    gap: 1.25rem;
-    width: 100%;
+    gap: inherit;
+    width: inherit;
 }

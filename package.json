@@ -8,6 +8,7 @@
         "serv": "cd Serveur && npm run serv",
         "cdn": "cd Cdn && npm run cdn",
         "cli": "cd Client && npm run dev",
+        "cliApp": "cd ClientApp && npm run dev",
         "build": "cd Client && npm run build",
         "preautogit": "npm run autoDate",
         "autogit": "git add . && git commit -F Com.txt && git push",

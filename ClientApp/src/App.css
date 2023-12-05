@@ -19,8 +19,7 @@ html {
 }
 
 .AppContainer {
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

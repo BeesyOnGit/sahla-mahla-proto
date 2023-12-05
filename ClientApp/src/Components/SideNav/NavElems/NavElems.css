@@ -1,0 +1,55 @@
+.navElemContainer {
+    min-width: 9.0625rem;
+    padding: 0.9375rem 0.625rem;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    align-items: center;
+    position: relative;
+    gap: 0.625rem;
+    width: 100%;
+    background-color: var(--accentColor);
+    transition: all 200ms ease-out;
+}
+.navElemContainer:hover {
+    cursor: pointer;
+    background-color: var(--backGroundColor);
+}
+.navSelected {
+    background-color: var(--backGroundColor);
+}
+.navElemContainer div {
+    text-transform: capitalize;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.navElemContainer i {
+    font-size: 1.1rem;
+}
+
+.navNotifs {
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    width: 1.375rem;
+    height: 1.375rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--backGroundColor);
+    top: 0.3125rem;
+    right: 0.3125rem;
+    font-size: 0.9rem;
+    padding: 0.625rem;
+    border-radius: 312.5rem;
+    font-weight: 100;
+    background-color: var(--messagesnegativecolor);
+    animation: comeFromNothing 300ms ease-out;
+}
+
+@keyframes comeFromNothing {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

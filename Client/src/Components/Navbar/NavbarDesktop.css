@@ -1,0 +1,101 @@
+.navBarBody {
+    display: grid;
+    /* flex-direction: row; */
+    /* justify-content: space-between; */
+    grid-template-columns: 25% 75%;
+    align-content: center;
+    align-items: center;
+    padding: 0.3125rem 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+.headerLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    height: 3.75rem;
+    cursor: pointer;
+    transition: all 300ms ease-out;
+}
+.logo:hover {
+    transform: scale(1.1);
+    transition: all 300ms ease-out;
+}
+
+.navRightDiv {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1.5625rem;
+    padding: 0 1.5625rem;
+}
+
+.navButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    gap: 0.3125rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 300ms ease-out;
+}
+
+.navButton:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: all 300ms ease-out;
+}
+
+.navButton > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--backGroundColor);
+}
+.logButton {
+    padding: 0.625rem 1.25rem;
+    background-color: var(--clientColor);
+    border: 0.1875rem solid var(--backGroundColor);
+    border-radius: var(--smouthRadius);
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.8rem;
+    transition: all 300ms ease-out;
+}
+.logButton > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: wheat;
+}
+
+.logButton:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: all 300ms ease-out;
+}
+
+.proIconAnimation {
+    /* color: #ffbf00; */
+    animation: goldenShine 2s ease-out infinite;
+    /* animation: goldenShine 1000ms ease-out infinite; */
+}
+
+@keyframes goldenShine {
+    0% {
+        color: #ffbf00;
+    }
+    50% {
+        color: #ffdc73;
+    }
+    100% {
+        color: #ffbf00;
+    }
+}

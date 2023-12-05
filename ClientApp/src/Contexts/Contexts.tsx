@@ -1,12 +1,11 @@
 import { useState, useContext, createContext } from "react";
-import { langType } from "../MiddleWear/ClientInterface";
 
 export interface ContextsType {
     darkMode: string;
     Token: string;
     // SToken: string;
     // SvToken: string;
-    userLang: langType;
+    userLang: string;
     initialDkMode: Function;
     initialLanguage: Function;
     setAlertHandler: Function;

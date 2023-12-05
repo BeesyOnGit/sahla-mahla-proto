@@ -1,0 +1,22 @@
+.separationTitle {
+    text-transform: capitalize;
+    padding: 0rem 0.9375rem;
+    font-size: 0.9rem;
+    width: 30%;
+    /* border: 1px solid black;
+    border-radius: var(--generalRadius); */
+}
+.separationLine:nth-child(1) {
+    width: 5%;
+    border-bottom: solid 1px black;
+}
+.separationLine2 {
+    width: 75%;
+    border-bottom: solid 1px black;
+}
+.separationGeneralContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0.625rem 0rem;
+}
