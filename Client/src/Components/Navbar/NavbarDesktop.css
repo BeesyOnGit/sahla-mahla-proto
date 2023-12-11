@@ -9,6 +9,16 @@
     position: fixed;
     width: 100%;
     z-index: 1;
+    transition: all 300ms ease-out;
+}
+
+.navScrolled {
+    /* From https://css.glass */
+    background: rgba(51, 51, 51, 0.397);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(15.7px);
+    -webkit-backdrop-filter: blur(15.7px);
+    transition: all 300ms ease-out;
 }
 .headerLogo {
     display: flex;

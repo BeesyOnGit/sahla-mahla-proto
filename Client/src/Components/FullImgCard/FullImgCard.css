@@ -1,0 +1,32 @@
+/* .fullImgCardFullImage {
+    object-fit: contain;
+    object-position: center;
+    z-index: 0;
+    /* width: 120%; */
+/* height: 100%; */
+/* }  */
+
+.fullImgCardDivContainer {
+    /* position: relative; */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 15.625rem;
+    min-width: 13.75rem;
+    min-height: 21.875rem;
+    max-height: 25rem;
+    padding: 1.875rem 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    /* min-height: ; */
+}
+.fullImgCardDivTitle {
+    width: 100%;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 1rem;
+    font-weight: bold;
+    /* z-index: 1; */
+    color: var(--navBarColor);
+}

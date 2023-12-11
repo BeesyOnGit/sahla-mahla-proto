@@ -1,6 +1,13 @@
 .homePageDivGeneralContainer {
     width: 100%;
     height: 100vh;
+    /* overflow-x: hidden;
+    overflow-y: scroll; */
+}
+
+.homePageSectionHero {
+    width: 100%;
+    height: 100vh;
     background: rgb(138, 86, 254);
     background: -moz-linear-gradient(90deg, rgba(138, 86, 254, 1) 0%, rgba(72, 146, 254, 1) 52%, rgba(0, 212, 255, 1) 100%);
     background: -webkit-linear-gradient(90deg, rgba(138, 86, 254, 1) 0%, rgba(72, 146, 254, 1) 52%, rgba(0, 212, 255, 1) 100%);
@@ -9,7 +16,11 @@
     justify-content: center;
     align-items: center;
     padding: 0 0 0 35vw;
-    overflow: hidden;
+    background-image: url(../../../public/HeroSectionImage.webp);
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* overflow: hidden; */
     position: relative;
 }
 
@@ -71,4 +82,115 @@
     justify-content: center;
     align-items: center;
     padding: 0 1.25rem;
+}
+
+.homePageSectionPartnership {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f3f3fd;
+    gap: 0.625rem;
+    padding: 0.625rem 0;
+}
+
+.homePageSectionPartnership > div {
+    text-transform: capitalize;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+.homePageDivPartnersContainer {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.homePageImgpartnerImage {
+    max-width: 50px;
+    object-fit: contain;
+    object-position: center;
+    filter: grayscale(2);
+}
+
+.homePageSectionServicesContainer {
+    width: 100%;
+    height: fit-content;
+    position: relative;
+    padding: 1.875rem 0;
+}
+
+.homePageDivservicesBg {
+    position: absolute;
+    /* margin: 1.875rem -0.625rem; */
+    height: 95%;
+    width: 100%;
+    z-index: -1;
+    background-color: #b4f1dc;
+    /* padding: inherit; */
+    clip-path: url(#cliPath);
+    overflow: hidden;
+}
+.clipPath2 {
+    clip-path: url(#cliPath2);
+    width: 35%;
+    right: 0;
+    background-color: #92e6cf;
+}
+
+.homePageDivBgColor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4fe;
+    z-index: -2;
+}
+
+.homePageDivservicesBg > img {
+    filter: saturate(10);
+}
+
+.homePageSectionServiceTitle {
+    font-size: 1.8rem;
+    padding: 1.875rem 0;
+    font-weight: bold;
+    font-style: italic;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.homePageCardStyle {
+    border-radius: var(--smouthRadius);
+    overflow: hidden;
+    transition: all 300ms ease-out;
+}
+
+.homePageCardStyle:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: all 300ms ease-out;
+}
+
+.homePageDivServicesContainer {
+    padding: 2.5rem 3.125rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5625rem;
+}
+
+.dv {
+    height: 500px;
+    width: 300vw;
+    background-color: red;
+}
+
+.plHold {
+    height: 11000%;
+    width: 100%;
 }

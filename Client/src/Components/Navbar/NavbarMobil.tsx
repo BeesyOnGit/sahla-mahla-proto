@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import "./NavbarMobil.css";
 import { useNavigate } from "react-router-dom";
-import { navElementsType } from "./NavFunctions";
 import { Contexts } from "../../Contexts/Contexts";
-import { DarkmodeActiv, DarkmodeInActiv, langar, langfr } from "./NavbarDesktop";
+import { DarkmodeActiv, DarkmodeInActiv } from "./NavbarDesktop";
 
 function NavbarMobil(props: any) {
     const { userLang, darkMode, switchDkMode, switchLanguage } = Contexts();
@@ -51,14 +50,14 @@ function NavbarMobil(props: any) {
                     <i className={"iconsDkMode fa-solid fa-moon " + DarkmodeActiv[`${darkMode}`]} onClick={() => switchDkMode("true")}></i>
                     <i className={"iconsDkMode fa-solid fa-sun " + DarkmodeInActiv[`${darkMode}`]} onClick={() => switchDkMode("false")}></i>
                 </div>
-                <div className="NavoptionsElemsDKMobil">
+                {/* <div className="NavoptionsElemsDKMobil">
                     <div className={"iconsDkMode " + langfr[`${userLang}`]} onClick={() => switchLanguage("fr")}>
                         Français
                     </div>
                     <div className={"iconsDkMode " + langar[`${userLang}`]} onClick={() => switchLanguage("ar")}>
                         العربية
                     </div>
-                </div>
+                </div> */}
                 {/* {navElems
                     ? navElems.map((elem: navElementsType) => {
                           const { type, name, icon, navigation, classN, onClick } = elem;

@@ -4,17 +4,18 @@ import "./NavbarDesktop.css";
 import { useNavigate } from "react-router-dom";
 import { navElements } from "./NavFunctions";
 import AutoInputs from "../AutoInputs/AutoInputs";
+import { isScroll } from "../../MiddleWear/Signals";
 
 export type navProps = {};
-const ClassSelector = { true: "Mobil", false: "Desktop" };
 
 export const DarkmodeActiv: any = { true: "toggled" };
 export const DarkmodeInActiv: any = { false: "toggled" };
-export const langfr: any = { fr: "toggled" };
-export const langar: any = { ar: "toggled" };
 
 function Navbar(props: navProps) {
     const { userLang, darkMode, switchDkMode, switchLanguage } = Contexts();
+
+    const { value: pageScrolled } = isScroll;
+    console.log("🚀 ~ file: NavbarDesktop.tsx:18 ~ Navbar ~ pageScrolled:", pageScrolled);
 
     const navigate = useNavigate();
 
@@ -25,7 +26,7 @@ function Navbar(props: navProps) {
     const arrayElems = navElements();
 
     return (
-        <div className="navBarBody">
+        <div className={"navBarBody " + navBarBgStyle[`${pageScrolled}`]}>
             <div className="headerLogo">
                 <img src="/logo.webp" className="logo" onClick={() => navigate("/")} />
             </div>
@@ -38,3 +39,8 @@ function Navbar(props: navProps) {
 }
 
 export default Navbar;
+
+const navBarBgStyle: any = {
+    true: "navScrolled",
+    false: "",
+};

@@ -1,0 +1,32 @@
+.scrollerSectionGeneralContainer {
+    width: 100%;
+    height: fit-content;
+    overflow: hidden;
+    position: relative;
+}
+
+.scrollerDivInnerScroll {
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.ScrollButtons {
+    font-size: 3rem;
+    position: absolute;
+    color: var(--clientColor);
+    top: 45%;
+    cursor: pointer;
+    transition: all 300ms ease-out;
+}
+
+.ScrollButtons:hover {
+    transform: scale(1.2);
+    transition: all 300ms ease-out;
+}
+
+.ScrollIconsLeft {
+    left: 0.625rem;
+}
+.ScrollIconsRight {
+    right: 0.625rem;
+}
