@@ -1,0 +1,157 @@
+@media screen and (max-width: 700px) {
+    /* Mobil */
+    .FooterCOntainer {
+        flex-direction: column;
+    }
+
+    .logoSection {
+        padding: 10px 0px;
+        width: 100%;
+    }
+    .FooterInformationSection {
+        padding: 10px 0px;
+        width: 100%;
+    }
+    .FooterSocialsSection {
+        padding: 10px 0px;
+        width: 100%;
+        flex-direction: row;
+    }
+    .logoFooter {
+        width: 60%;
+        fill: var(--accentColor);
+    }
+}
+@media screen and (min-width: 701px) {
+    /* Desktop */
+    .FooterCOntainer {
+        flex-direction: row;
+    }
+
+    .logoSection {
+        width: 33%;
+    }
+    .FooterInformationSection {
+        width: 33%;
+    }
+    .FooterSocialsSection {
+        width: 33%;
+        flex-direction: column;
+    }
+    .logoFooter {
+        width: 50%;
+        cursor: pointer;
+    }
+}
+
+.FooterGeneralContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--navBarColor);
+    padding: 3.125rem 0 0 0;
+    background: rgb(34, 193, 195);
+    background: linear-gradient(0deg, var(--freelanceColor) 1%, var(--proColor) 100%);
+    clip-path: url(#footerClip);
+}
+
+.FooterCOntainer {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+.logoSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.FooterInformationSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.FotterLinks {
+    padding: 5px 10px;
+    text-transform: capitalize;
+    width: 100%;
+    text-align: center;
+    transition: all 300ms ease-out;
+}
+.FotterLinks:hover {
+    cursor: pointer;
+    background-color: var(--freelanceColor);
+    color: var(--navBarColor);
+    border-radius: var(--hardRadius);
+    transition: all 300ms ease-out;
+}
+
+.FooterSocialsSection {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+}
+
+.socialelem {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+}
+
+.socialelem:hover {
+    cursor: pointer;
+}
+
+.FooterIcons {
+    font-size: 1.5em;
+    color: var(--accentBgColor);
+}
+
+#LinkedIc {
+    transition: all 300ms ease-out;
+}
+#LinkedIc:hover {
+    color: #0c64c5;
+    transform: scale(1.2);
+}
+#instaIc {
+    transition: all 300ms ease-out;
+}
+#instaIc:hover {
+    color: #ff00ad;
+    transform: scale(1.2);
+}
+#fbIc {
+    transition: all 300ms ease-out;
+}
+#fbIc:hover {
+    color: #3c5a9b;
+    transform: scale(1.2);
+}
+
+.copyWriteDiv {
+    text-transform: capitalize;
+    padding: 5px;
+    font-size: 0.8em;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    font-weight: 500;
+}
+
+.footerYearDiv {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}

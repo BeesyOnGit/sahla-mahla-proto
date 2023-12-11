@@ -1,6 +1,6 @@
 .homePageDivGeneralContainer {
     width: 100%;
-    height: 100vh;
+    height: fit-content;
     /* overflow-x: hidden;
     overflow-y: scroll; */
 }
@@ -109,7 +109,7 @@
 }
 
 .homePageImgpartnerImage {
-    max-width: 50px;
+    max-width: 4.375rem;
     object-fit: contain;
     object-position: center;
     filter: grayscale(2);
@@ -128,7 +128,9 @@
     height: 95%;
     width: 100%;
     z-index: -1;
-    background-color: #b4f1dc;
+    /* background-color: #b4f1dc; */
+    background-color: var(--clientColor);
+    opacity: 0.5;
     /* padding: inherit; */
     clip-path: url(#cliPath);
     overflow: hidden;
@@ -137,7 +139,9 @@
     clip-path: url(#cliPath2);
     width: 35%;
     right: 0;
-    background-color: #92e6cf;
+    background-color: var(--clientColor);
+    opacity: 0.7;
+    /* background-color: #92e6cf; */
 }
 
 .homePageDivBgColor {
@@ -184,13 +188,92 @@
     gap: 1.5625rem;
 }
 
-.dv {
-    height: 500px;
-    width: 300vw;
-    background-color: red;
+.homePageDivMissionContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 1.25rem 3.125rem;
+}
+.homePageDivMissionDetailContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.9375rem;
+    width: 45%;
 }
 
-.plHold {
-    height: 11000%;
-    width: 100%;
+.homePageDivMissionSubTitleContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.25rem;
 }
+
+.homePageDivMissionSubTitleContainer > div {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+.homePageDivMissionSubTitleContainer > i {
+    font-size: 1.5rem;
+    color: var(--clientColor);
+}
+
+.homePagePMissionDesc {
+    color: var(--fontColorSeconday);
+}
+
+.homePageDivMissionVideoContainer {
+    padding: 4.375rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.homePageVideo {
+    border-radius: var(--roundRadius);
+    width: 60%;
+}
+
+.homePageSectionBusinessContainer {
+    width: 100%;
+    display: flex;
+    padding: 3.125rem;
+}
+
+.homePageDivBusinessDetailsContainer {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9375rem;
+}
+
+.homePAllingLeft {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.625rem;
+}
+
+.homePBusinessDesc {
+    font-size: 1.2rem;
+    padding: 0.625rem 0;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.homePBuisnessDetail {
+    text-transform: capitalize;
+}
+
+.homePCliColor {
+    color: var(--clientColor);
+}
+
+/* .homePImgBusiness::before {
+    content: "";
+    width: 100%;
+    background: rgb(34, 193, 195);
+    background: linear-gradient(0deg, rgba(34, 193, 195, 1) 37%, rgba(253, 187, 45, 0) 94%);
+} */

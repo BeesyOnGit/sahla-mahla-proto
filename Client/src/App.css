@@ -23,7 +23,7 @@ html {
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    /* justify-content: flex-start; */
     width: 100vw;
     height: 100vh;
 }

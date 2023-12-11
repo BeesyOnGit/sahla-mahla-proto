@@ -96,6 +96,9 @@ function Home() {
             className: "homePageCardStyle",
         },
     ];
+
+    const { missionTitle, ...restMission } = HomeLang[userLang].mission;
+    const missions = Object.keys(restMission);
     return (
         <div className="homePageDivGeneralContainer noscroll">
             <section className="homePageSectionHero">
@@ -295,11 +298,50 @@ function Home() {
                 </div>
                 <div className="homePageDivBgColor"></div>
                 <div className="homePageDivMissionContainer">
-                    <div></div>
-                    <div></div>
+                    <div className="homePageDivMissionDetailContainer">
+                        <div className="homePageSectionServiceTitle"> {HomeLang[userLang].mission.missionTitle} </div>
+                        {missions &&
+                            missions.map((e: string, i: number) => {
+                                const { title, description } = HomeLang[userLang].mission[e];
+
+                                return (
+                                    <div key={i}>
+                                        <div className="homePageDivMissionSubTitleContainer">
+                                            <i className="fi fi-ss-shield-check"></i> <div> {title} </div>
+                                        </div>
+                                        <p className="homePagePMissionDesc"> {description} </p>
+                                    </div>
+                                );
+                            })}
+                    </div>
+                    <div className="homePageDivMissionVideoContainer">
+                        <video autoPlay muted className="homePageVideo" loop>
+                            <source src="/missionVideo.mp4" type="video/mp4" />
+                        </video>
+                    </div>
                 </div>
             </section>
-            <div className="plHold"></div>
+            <section className="homePageSectionBusinessContainer">
+                <div className="homePageDivBusinessDetailsContainer">
+                    <div className="homePageSectionServiceTitle homePAllingLeft">
+                        <span className="homePCliColor"> {HomeLang[userLang].business.businessSahla} </span>{" "}
+                        <span> {HomeLang[userLang].business.businessTitle} </span>
+                    </div>
+                    <div className="homePBusinessDesc"> {HomeLang[userLang].business.businessDesc} </div>
+                    <div className="homePageDivMissionSubTitleContainer">
+                        <i className="fi fi-ss-check-circle"></i> <p className="homePBuisnessDetail"> {HomeLang[userLang].business.forbuisiness1} </p>{" "}
+                    </div>
+                    <div className="homePageDivMissionSubTitleContainer">
+                        <i className="fi fi-ss-check-circle"></i> <p className="homePBuisnessDetail"> {HomeLang[userLang].business.forbuisiness2} </p>{" "}
+                    </div>
+                    <div className="homePageDivMissionSubTitleContainer">
+                        <i className="fi fi-ss-check-circle"></i> <p className="homePBuisnessDetail"> {HomeLang[userLang].business.forbuisiness3} </p>{" "}
+                    </div>
+                </div>
+                <div>
+                    <img className="homePImgBusiness" src="/businessImg.webp" loading="lazy" />
+                </div>
+            </section>
         </div>
     );
 }

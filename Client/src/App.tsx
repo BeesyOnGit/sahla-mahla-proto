@@ -7,6 +7,7 @@ import Navbar from "./Components/Navbar/NavbarDesktop";
 import NavbarMobil from "./Components/Navbar/NavbarMobil";
 import Home from "./Pages/Home/Home";
 import { isScroll } from "./MiddleWear/Signals";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
     const { initialLanguage, initialDkMode, setAlertHandler, darkMode } = Contexts();
@@ -38,6 +39,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
             </Routes>
+            <Footer />
         </div>
     );
 }
