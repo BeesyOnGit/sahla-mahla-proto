@@ -1,0 +1,220 @@
+/********************** 
+
+section Generale
+
+***********************/
+
+.sidebarDiv {
+    width: 5rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0px;
+    background-color: var(--siteColor);
+    // box-shadow: $mainBoxShadow;
+    overflow: visible;
+    position: relative;
+    transition: 0.5s ease-out;
+
+    &:hover {
+        width: 15rem;
+    }
+}
+
+.sidebarDiv.hidden {
+    transform: translateX(-100%);
+}
+
+/********************** 
+
+section Logo
+
+***********************/
+
+.logoSideBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+    height: fit-content;
+    margin: 0;
+}
+
+.logoSideBar img {
+    height: 50px;
+}
+
+.logoSideBar h1 {
+    display: flex;
+    flex-direction: column;
+    color: var(--fontcolorgeneral);
+    margin: 0;
+}
+
+.logoSideBar h1 span:nth-child(1) {
+    margin-top: 15px;
+    font-size: 1.5rem;
+    color: var(--navBarColor);
+}
+
+.logoSideBar h1 span:nth-child(2) {
+    font-size: 0.4em;
+    font-weight: normal;
+    color: var(--navBarColor);
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/********************** 
+
+section affichage profile
+
+***********************/
+
+.profileIllustr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding: 2px 5px;
+    margin: 2px 0px;
+    flex-shrink: 0;
+}
+
+.profileIllustr h4 {
+    font-size: 0.8em;
+    font-weight: bold;
+    margin: 0px 5px;
+    color: var(--fontcolorgeneral);
+}
+
+.profileIllustr span {
+    border-radius: 100000px;
+    width: 30px;
+    height: 30px;
+    background-color: var(--siteColor);
+    color: var(--sidebarcolorgeneral);
+    text-align: center;
+    line-height: 30px;
+    font-size: 0.5em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/********************** 
+
+section Lougout
+
+***********************/
+
+.logoutSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px 5px;
+    position: absolute;
+    bottom: 1%;
+    width: 100%;
+    transition: all 300ms ease-out;
+}
+
+.dkModesection {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    padding: 5px 0px;
+    bottom: 9%;
+    width: 100%;
+}
+
+.dkModesection h4 {
+    font-size: 0.8em;
+}
+
+.fa.fa-sign-out {
+    color: var(--buttonredcolorgeneral);
+    font-size: 2em;
+    margin: 0px 10px;
+    transition: all 300ms ease-out;
+}
+
+.logoutSection div:nth-child(1) {
+    font-weight: bold;
+    color: var(--fontcolorgeneral);
+    transition: all 300ms ease-out;
+}
+
+.logoutSection:hover {
+    cursor: pointer;
+    background-color: var(--buttonredcolorgeneral);
+    transition: all 300ms ease-out;
+}
+
+.logoutSection:hover .profileIllustr h4 {
+    color: var(--sidebarcolorgeneral);
+    transition: all 300ms ease-out;
+}
+
+.logoutSection:hover .fa.fa-sign-out {
+    color: var(--sidebarcolorgeneral);
+    font-size: 1.5em;
+    transition: all 300ms ease-out;
+}
+
+.logoutSection:hover div:nth-child(1) {
+    color: var(--sidebarcolorgeneral);
+    font-size: 1em;
+    transition: all 300ms ease-out;
+}
+
+.PageNavigation {
+    height: fit-content;
+    // overflow-y: scroll;
+    padding: 0;
+    width: 100%;
+    background-color: var(--backGroundColor);
+}
+
+.PageNavigation::-webkit-scrollbar {
+    display: none;
+}
+
+.PageNavigation {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+@media only screen and (max-width: 1000px) {
+    .sidebarDiv {
+        width: 5rem;
+
+        &:hover {
+            width: 15rem;
+        }
+    }
+}
+
+.SideBarHideButton {
+    color: var(--navBarColor);
+    font-size: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0px;
+}
+
+.SideBarShowButton {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: var(--siteColor);
+    font-size: 2.5rem;
+    width: 100%;
+    text-align: center;
+    width: fit-content;
+}

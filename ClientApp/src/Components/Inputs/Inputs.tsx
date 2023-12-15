@@ -15,7 +15,7 @@ function Inputs(props: InputType) {
     };
     const reqCondition: "true" | "false" = required && !value ? "true" : "false";
     return (
-        <div className={containerClass + " inputsContainer"}>
+        <div className={"inputsContainer " + containerClass}>
             {title ? <div> {title} :</div> : null}
             <input {...otherPpops} type={type == "password" ? showPassWord : type} className={className + " " + requiredMap[reqCondition]} />
             {type == "password" ? (

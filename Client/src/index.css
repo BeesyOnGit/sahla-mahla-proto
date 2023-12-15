@@ -1,7 +1,7 @@
 @import "@flaticon/flaticon-uicons/css/all/all";
 @font-face {
     font-family: "Circular Std";
-    src: url(/Resources/CircularStd.ttf);
+    src: url(/CircularStd.ttf);
 }
 /* .root, */
 :root.light {

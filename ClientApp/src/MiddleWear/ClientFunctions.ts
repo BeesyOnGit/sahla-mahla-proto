@@ -1,6 +1,7 @@
 import { FormEventHandler, useSyncExternalStore } from "react";
 import { useState, useEffect } from "react";
 import { apiResponseLang } from "./ClientData";
+import { configColorType } from "./ClientInterface";
 
 export function useWindowDimensions() {
     const hasWindow: Boolean = typeof window !== "undefined";
@@ -305,7 +306,9 @@ export const URLToObjectQuerry = (url: string) => {
     return preReturnStr;
 };
 
-export const URLSearchAdd = (navigate: Function | null, obj: any, search: string) => {
+export const URLSearchAdd = (navigate: Function | null, obj: any) => {
+    const { location } = window;
+    const { search } = location;
     const url = new URLSearchParams(search ? search : "");
 
     let tmpOb: any = {};
@@ -328,7 +331,10 @@ export const URLSearchAdd = (navigate: Function | null, obj: any, search: string
 
     return navigate ? navigate(`?${newUrl}`) : newUrl;
 };
-export const URLSearchremove = (navigate: Function | null, keyToRemove: string, search: string) => {
+export const URLSearchremove = (navigate: Function | null, keyToRemove: string) => {
+    const { location } = window;
+    const { search } = location;
+
     if (!search) {
         return;
     }
@@ -381,29 +387,38 @@ export const setTheme = (theme: boolean) => {
     }
 };
 
-export const urlPath = (url: string) => {
-    const urlArr = url.split("/");
-    if (urlArr.length <= 2) {
-        return urlArr.join("/");
-    }
-    while (urlArr.length > 2) {
-        urlArr.pop();
+export const initiateUserColors = (userConfiguredColors: configColorType) => {
+    if (!userConfiguredColors) {
+        return;
     }
 
-    return urlArr.join("/");
+    const { property, color } = userConfiguredColors;
+    document.documentElement.style.setProperty(`--${property}`, color);
 };
 
-export const pathWithoutParam = (pathname: string, panthNum: number) => {
-    const urlArr = pathname.split("/");
-    if (urlArr.length <= panthNum) {
-        return urlArr.join("/");
-    }
-    while (urlArr.length > panthNum) {
-        urlArr.pop();
-    }
+// export const urlPath = (url: string) => {
+//     const urlArr = url.split("/");
+//     if (urlArr.length <= 2) {
+//         return urlArr.join("/");
+//     }
+//     while (urlArr.length > 2) {
+//         urlArr.pop();
+//     }
 
-    return urlArr.join("/");
-};
+//     return urlArr.join("/");
+// };
+
+// export const pathWithoutParam = (pathname: string, panthNum: number) => {
+//     const urlArr = pathname.split("/");
+//     if (urlArr.length <= panthNum) {
+//         return urlArr.join("/");
+//     }
+//     while (urlArr.length > panthNum) {
+//         urlArr.pop();
+//     }
+
+//     return urlArr.join("/");
+// };
 
 export const idElementPrint = (ref: string) => {
     const iframe = document.createElement("iframe");

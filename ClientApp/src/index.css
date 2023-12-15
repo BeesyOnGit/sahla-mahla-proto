@@ -1,6 +1,12 @@
+@import "@flaticon/flaticon-uicons/css/all/all";
+@font-face {
+    font-family: "Circular Std";
+    src: url(../public/CircularStd.ttf);
+}
+
 /* .root, */
 :root.light {
-    font-family: Arial, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: Circular Std, Arial, Helvetica, sans-serif;
     /* font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif; */
     line-height: 1.5;
     font-weight: 400;
@@ -21,18 +27,24 @@
     --fontColorPrimary: #262424;
     --fontColorSeconday: #767474;
 
-    --accentColor: #428a59;
-    --accentColorLighter: #428a59bc;
-    --goldenColor: #ffdf00;
+    --siteColor: #ffffff;
+
+    --clientColor: #eb8015;
+    --freelanceColor: #00d188;
+    --proColor: #4a95cd;
+
+    --navShadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    --cardShadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+    --hardRadius: 5px;
+    --smouthRadius: 10px;
+    --roundRadius: 500000px;
 
     /* #3b5fe2 #4d94e5 // #0574fb #6382fd */
 
     --navShadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 
     --cardShadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-
-    --generalRadius: 5px;
-    --roundRadius: 500000px;
 
     --opacity: 0.1;
 
@@ -46,6 +58,9 @@
     --messagespositivecolor: #19df72;
     --messagesnegativecolor: #df193a;
     --messageidleecolor: #f8a648;
+    --messagespositivecolorBg: #caecd9;
+    --messagesnegativecolorBg: #ebd3d7;
+    --messageidleecolorBg: #eae0d5;
     --messagespositivecolorhover: #62dd9a;
     --messagesnegativecolorhover: #e05e74;
     --messageidleecolorhover: #e3ad70;
@@ -71,15 +86,21 @@
     --fontColorPrimary: #e8e8e8;
     --fontColorSeconday: #c3c3c3;
 
-    --accentColor: #428a59;
-    --accentColorLighter: #428a59bc;
-    --goldenColor: #ffdf00;
+    --siteColor: #ffffff;
+
+    --clientColor: #00d188;
+    --freelanceColor: #00d188;
+    --proColor: #4a95cd;
 
     --navShadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     --cardShadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
-    --generalRadius: 5px;
+    --hardRadius: 5px;
+    --smouthRadius: 10px;
     --roundRadius: 500000px;
+
+    --navShadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    --cardShadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
     --opacity: 0.1;
 
@@ -93,6 +114,9 @@
     --messagespositivecolor: #19df72;
     --messagesnegativecolor: #df193a;
     --messageidleecolor: #f8a648;
+    --messagespositivecolorBg: #caecd9;
+    --messagesnegativecolorBg: #ebd3d7;
+    --messageidleecolorBg: #eae0d5;
     --messagespositivecolorhover: #62dd9a;
     --messagesnegativecolorhover: #e05e74;
     --messageidleecolorhover: #e2b480;
@@ -103,6 +127,7 @@
     -moz-box-sizing: border-box;
     color: var(--fontColorPrimary);
     margin: 0;
+    padding: 0;
 }
 
 .ar {

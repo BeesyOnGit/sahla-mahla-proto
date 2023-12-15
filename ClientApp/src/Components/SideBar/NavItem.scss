@@ -1,0 +1,161 @@
+.IconOnly {
+    font-size: 1.2rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    i {
+        // margin: auto;
+        // width: 100%;
+        color: var(--backGroundColor);
+    }
+}
+
+.NavItem {
+    width: 100%;
+    font-weight: bold;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    // transition: 300ms ease-out;
+    position: relative;
+    background-color: var(--siteColor);
+}
+
+.IconTexte {
+    font-size: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.NavItem:hover {
+    cursor: pointer;
+    background-color: var(--backGroundColor);
+    color: var(--siteColor);
+    z-index: 200;
+    // transform: scale(1.1);
+    i {
+        text-shadow: var(--cardBoxShadow);
+        color: var(--siteColor);
+    }
+}
+
+.NavActive {
+    background-color: var(--backGroundColor);
+    color: var(--siteColor);
+    font-weight: bold;
+    font-size: 1em;
+    box-shadow: var(--inputshadow);
+    // border-radius: var(--roundRadius);
+    // border-radius: 20px;
+
+    i {
+        text-shadow: var(--cardBoxShadow);
+        color: var(--siteColor);
+    }
+}
+
+.num {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    // z-index: 0;
+    // background-color: red;
+
+    .NavDecorationSpan {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: var(--backGroundColor);
+        right: 0;
+    }
+
+    .hider {
+        background-color: var(--siteColor);
+    }
+}
+
+.top {
+    top: -20px;
+
+    .hider {
+        border-bottom-right-radius: 100%;
+    }
+}
+
+.bottom {
+    bottom: -20px;
+
+    .hider {
+        border-top-right-radius: 100%;
+    }
+}
+
+.navItemName {
+    color: inherit;
+    // padding: 5px 10px;
+    overflow: hidden;
+    text-transform: capitalize;
+    width: max-content;
+    font-size: 0.9rem;
+    transition: all 500ms ease-out;
+    // width: 100%;
+    text-align: left;
+    white-space: nowrap;
+    display: block;
+    margin: 0px 10px;
+}
+
+.texteInvisible {
+    width: 0px;
+    padding: 0px;
+    margin: 0;
+    display: block;
+}
+
+.texteVisible {
+    width: 100%;
+}
+
+.inconnav {
+    font-size: 1.2rem;
+    text-align: center;
+    color: var(--backGroundColor);
+    // margin-right: 10px;
+}
+
+.navNotification {
+    width: 15px;
+    height: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px 2px;
+    border-radius: 1000px;
+    font-size: 0.6em;
+    /* background-color: ; */
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+
+.botRight {
+    border-bottom-right-radius: 25px;
+}
+
+.topRight {
+    border-top-right-radius: 25px;
+}
+
+// .botRight {
+//     border-bottom-left-radius: 25px;
+// }
+
+// .topRight {
+//     border-top-left-radius: 25px;
+// }

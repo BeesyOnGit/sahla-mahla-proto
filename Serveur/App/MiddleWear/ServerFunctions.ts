@@ -18,6 +18,7 @@ const env = process.env.ENVIRONEMENT;
 const SITE_URL = process.env.SITE_URL;
 export type Headers = IncomingHttpHeaders & {
     verifiedId?: string;
+    authorizationtoken?: string;
 };
 
 export const AuthVerification = async (req: Request, res: Response, next: NextFunction) => {

@@ -1,10 +1,11 @@
 import axios from "axios";
 import { Contexts } from "../Contexts/Contexts";
+import { LoginInputs } from "../Pages/Login/Login";
 
 //  = prod ? "" : "http://localhost:3000";
 const url = import.meta.env.VITE_API_URL;
 
-const baseUrl = `${url}/api`;
+const baseUrl = `${url}`;
 
 const authorizationToken = window.localStorage.user_token;
 const headers = { authorizationToken };
@@ -17,7 +18,7 @@ interface Response {
 
 export const autUserVerif = async () => {
     try {
-        const res = await axios.get(`${baseUrl}/auth/tokenValidation`, config);
+        const res = await axios.get(`${baseUrl}/auth/check`, config);
 
         if (res) {
             return res.data;
@@ -27,14 +28,25 @@ export const autUserVerif = async () => {
     }
 };
 
-export const getCarDetail = async (productCode: string) => {
+export const clientLogin = async (loginInfos: LoginInputs) => {
     try {
-        const res: Response = await axios.get(`${baseUrl}/cars/detail/${productCode}`, config);
+        const res: Response = await axios.post(`${baseUrl}/auth/client-login`, loginInfos, config);
 
         if (res) {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:8 ~ getcarsFeed ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:39 ~ clientLogin ~ error:", error);
+    }
+};
+export const freelanceLogin = async (loginInfos: LoginInputs) => {
+    try {
+        const res: Response = await axios.post(`${baseUrl}/auth/freelance-login`, loginInfos, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:50 ~ freelanceLogin ~ error:", error);
     }
 };

@@ -1,17 +1,23 @@
 import { useState, useContext, createContext } from "react";
+import { alertType } from "../MiddleWear/ClientInterface";
 
 export interface ContextsType {
     darkMode: string;
     Token: string;
     // SToken: string;
     // SvToken: string;
-    userLang: string;
+    userLang: "fr" | "ar" | "en";
     initialDkMode: Function;
     initialLanguage: Function;
     setAlertHandler: Function;
-
+    refresh: boolean;
+    refreshApp: Function;
     switchDkMode: Function;
     switchLanguage: Function;
+    setNewAlert: Function;
+    alerts: alertType[];
+    apiWait: boolean;
+    setApiWait: Function;
 }
 
 const Context: any = createContext(null);
@@ -30,23 +36,57 @@ export default function ContextProvider(props: any) {
     language section
     **************/
 
-    const [userLang, setUserLang] = useState(window.localStorage.lang);
+    const [userLang, setUserLang] = useState<"fr" | "ar" | "en">(window.localStorage.lang);
 
     const initialLanguage = () => {
         if (window.localStorage.lang) {
             return setUserLang(window.localStorage.lang);
         }
+        const lang = navigator.language.split("-")[0];
 
-        window.localStorage.setItem("lang", "fr");
+        window.localStorage.setItem("lang", lang);
         return setUserLang(window.localStorage.lang);
     };
 
-    const switchLanguage = (lang: string) => {
+    const switchLanguage = (lang: "fr" | "ar" | "en") => {
         // location.reload();
         window.localStorage.lang = lang;
 
         setUserLang(lang);
     };
+    /*************
+    refresh section
+    **************/
+
+    const [refresh, setRefresh] = useState(window.localStorage.lang);
+
+    const refreshApp = (lang: string) => {
+        setRefresh(!refresh);
+    };
+
+    /*************
+    alertSection Section
+    **************/
+
+    const [alerts, setAlerts] = useState<Array<alertType>>([]);
+
+    const setNewAlert = (alert: alertType) => {
+        const tmp = [...alerts];
+        tmp.push(alert);
+        setAlerts(tmp);
+        new Audio("/alertNotifSound.mp3").play();
+        const time = setTimeout(() => {
+            setAlerts((prevMessages) => prevMessages.slice(1));
+            clearTimeout(time);
+            setApiWait(false);
+        }, 6000);
+    };
+
+    /*************
+    api wait Section
+    **************/
+
+    const [apiWait, setApiWait] = useState<boolean>(false);
 
     /*************
     darkMode section
@@ -77,6 +117,9 @@ export default function ContextProvider(props: any) {
         Token,
         userLang,
         darkMode,
+        refresh,
+        alerts,
+        apiWait,
     };
     const setters = {
         setToken,
@@ -86,6 +129,9 @@ export default function ContextProvider(props: any) {
         switchLanguage,
         initialDkMode,
         switchDkMode,
+        refreshApp,
+        setNewAlert,
+        setApiWait,
     };
     const value = { ...variables, ...setters };
 

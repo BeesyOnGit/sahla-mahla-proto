@@ -1,0 +1,117 @@
+.loginPageContainer {
+    width: 100%;
+    /* height: 100%; */
+    /* position: relative; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginImgClass {
+    object-fit: contain;
+    object-position: center;
+}
+
+.logContainer {
+    z-index: 1;
+    padding: 3.125rem 5.3125rem;
+    background-color: var(--clientColor);
+    border-radius: var(--smouthRadius);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.LogTitle {
+    text-transform: capitalize;
+    text-align: center;
+    padding: 1.25rem;
+    font-size: 1.5rem;
+    /* color: var(--backGroundColor); */
+    font-weight: bolder;
+    background-color: transparent !important;
+}
+.w-full {
+    width: 100% !important;
+}
+
+.bgColCli {
+    background-color: var(--clientColor);
+    color: var(--clientColor);
+}
+.bgColfreel {
+    background-color: var(--freelanceColor);
+    color: var(--freelanceColor);
+}
+
+.changeLink {
+    color: var(--backGroundColor);
+    text-decoration: underline;
+    text-transform: capitalize;
+    transition: all 300ms ease-out;
+    color: var(--proColor);
+    padding: 0.625rem 0;
+}
+.changeLink:hover {
+    cursor: pointer;
+    transform: scale(0.9);
+    transition: all 300ms ease-out;
+}
+
+.logInputsClass {
+    border: 0.0625rem solid var(--fontColorSeconday);
+    border-radius: var(--hardRadius);
+}
+.lightCol > * {
+    color: var(--backGroundColor);
+    font-size: 1.1rem;
+}
+
+/* effect */
+.container {
+    width: 50%;
+    height: 100vh;
+    overflow: hidden;
+    perspective: 100%;
+}
+
+.cardbg {
+    cursor: pointer;
+    transform: rotateY(180deg);
+}
+
+.card {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    transition: transform 1000ms;
+    transform-style: preserve-3d;
+}
+
+.loginImg {
+    width: 100%;
+}
+
+.loginDiv,
+.registerDiv {
+    width: fit-content;
+    height: 100%;
+    width: 100%;
+    padding: 40px 80px;
+    /* background-color: var(--bgColorDark); */
+    border-radius: var(--gRadius);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    box-shadow: var(--shadow);
+    position: absolute;
+    backface-visibility: hidden;
+}
+
+.registerDiv {
+    transform: rotateY(180deg);
+}

@@ -23,4 +23,9 @@ export type alertType = {
     message: string;
 };
 
+export type configColorType = {
+    property: string;
+    color: string;
+};
+
 export type OnChangeEventType = ChangeEvent<HTMLInputElement> & {};
