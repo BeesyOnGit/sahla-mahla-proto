@@ -105,15 +105,15 @@
     font-size: 0.9rem;
     transition: all 500ms ease-out;
     // width: 100%;
-    text-align: left;
+    text-align: start;
     white-space: nowrap;
     display: block;
-    margin: 0px 10px;
+    margin: 0 0.625rem;
 }
 
 .texteInvisible {
-    width: 0px;
-    padding: 0px;
+    width: 0;
+    padding: 0;
     margin: 0;
     display: block;
 }
@@ -135,7 +135,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2px 2px;
+    padding: 0.125rem;
     border-radius: 1000px;
     font-size: 0.6em;
     /* background-color: ; */
@@ -145,11 +145,13 @@
 }
 
 .botRight {
-    border-bottom-right-radius: 25px;
+    // border-bottom-right-radius: 25px;
+    border-end-end-radius: 1.5625rem;
 }
 
 .topRight {
-    border-top-right-radius: 25px;
+    border-start-end-radius: 1.5625rem;
+    // border-top-right-radius: 25px;
 }
 
 // .botRight {

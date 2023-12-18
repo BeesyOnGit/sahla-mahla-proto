@@ -110,6 +110,65 @@ export const editResource = async (req: Request, res: Response) => {
     }
 };
 
+export const bookmarkLikResource = async (req: Request, res: Response) => {
+    const { headers, params, query } = req;
+    const { like, bookmark } = query;
+    const { id } = params;
+    const { verifiedId }: Headers = headers;
+    try {
+        const filter: FilterQuery<resourcesType> = { _id: id };
+
+        const findResource = await ResourcesModel.findOne(filter);
+
+        if (!findResource) {
+            return res.json({ code: "E33" });
+        }
+        const { likes, bookMarks } = findResource;
+
+        if (like) {
+            const present = likes.indexOf(verifiedId!);
+            if (present > -1) {
+                likes.splice(present, 1);
+                editModelWithSave(findResource, { likes: likes });
+            }
+            if (present == -1) {
+                editModelWithSave(findResource, { likes: [...likes, verifiedId] });
+            }
+        }
+        if (bookmark) {
+            const present = bookMarks.indexOf(verifiedId!);
+            if (present > -1) {
+                bookMarks.splice(present, 1);
+                editModelWithSave(findResource, { bookMarks: bookMarks });
+            }
+            if (present == -1) {
+                editModelWithSave(findResource, { bookMarks: [...bookMarks, verifiedId] });
+            }
+        }
+
+        const saveResourceChanges = await findResource.save();
+
+        if (!saveResourceChanges) {
+            return res.json({ code: "E34" });
+        }
+
+        const { _id } = saveResourceChanges;
+
+        const activity: dayilyLogsType = {
+            doer: verifiedId!.toString(),
+            action: "resource liked/bookmarked",
+            concerned: _id.toString(),
+        };
+
+        AddToDailyActivity(activity);
+
+        return res.json({ code: "S32" });
+    } catch (error: any) {
+        console.log("🚀 ~ file: ResourcesControllers.ts:65 ~ uploadResource ~ error:", error);
+        return res.json({ code: "EO", error: error.message });
+    }
+};
+
 export const deleteResource = async (req: Request, res: Response) => {
     const { params, headers } = req;
     const { verifiedId }: Headers = headers;
@@ -156,45 +215,90 @@ export const deleteResource = async (req: Request, res: Response) => {
 
 export const getAllResources = async (req: Request, res: Response) => {
     const { headers, query } = req;
-    const { verifiedID }: Headers = headers;
-    const { categories, title, page } = query;
+    const { verifiedId }: Headers = headers;
+    const { search, page, resourceType, type } = query;
 
     const pageSize = 10;
     const pageNumber: any = page || 1;
 
     const titleMatchMap: any = {
-        true: { title },
-        false: {},
+        true: {},
+        false: { title: new RegExp(search?.toString()!, "i") },
+    };
+    const descriptionMatchMap: any = {
+        true: {},
+        false: { description: new RegExp(search?.toString()!, "i") },
     };
     const categoriesMatchMap = {
-        true: { categories: { $in: categories } },
-        false: {},
+        false: { categories: { $in: [new RegExp(search?.toString()!, "i")] } },
+        true: {},
+    };
+    const resourceTypeMatchMap = {
+        false: { resourceType },
+        true: {},
+    };
+    const typeMap: any = {
+        bookmarks: { bookMarks: { $in: [verifiedId] } },
+        likes: { likes: { $in: [verifiedId] } },
+        undefined: {},
+    };
+
+    const searchMatchMap = {
+        false: { $or: [titleMatchMap[`${!search}`], categoriesMatchMap[`${!search}`], descriptionMatchMap[`${!search}`]] },
+        true: {},
     };
 
     try {
         const resourceFilter: FilterQuery<resourcesType> = {
             public: true,
-            ...titleMatchMap[`${title ? true : false}`],
-            ...categoriesMatchMap[`${categories ? true : false}`],
+            ...searchMatchMap[`${!search}`],
+            ...resourceTypeMatchMap[`${!resourceType}`],
+            ...typeMap[`${type}`],
         };
+        console.log("🚀 ~ file: ResourcesControllers.ts:258 ~ getAllResources ~ resourceFilter:", resourceFilter);
+
         const resources = await ResourcesModel.find(resourceFilter)
+            .populate({
+                path: "owner",
+                select: "firstName familyName profilePicture -_id",
+                model: "freelance",
+            })
             .skip((pageNumber - 1) * pageSize)
             .limit(pageSize)
-            .select({
-                saves: "inclusion",
-                resourceThumbnail: "inclusion",
-                timesSold: "inclusion",
-                discount: "inclusion",
-                price: "inclusion",
-                categories: "inclusion",
-                title: "inclusion",
-                likes: "inclusion",
-                createdAt: "inclusion",
-            });
+            .select("-resourceWaterLink -resourceLink -description -categories -lastTimeSold -public");
 
         if (!resources || resources.length == 0) {
             return res.json({ code: "E33" });
         }
+
+        resources.forEach((resource) => {
+            const { likes, buyers, bookMarks } = resource;
+            let liked = false,
+                booked = false,
+                owned = false;
+
+            if (likes.includes(verifiedId!)) {
+                liked = true;
+            }
+            if (bookMarks.includes(verifiedId!)) {
+                booked = true;
+            }
+            if (buyers.includes(verifiedId!)) {
+                owned = true;
+            }
+            // @ts-ignore
+            resource.buyers = resource.buyers.length;
+            // @ts-ignore
+            resource.bookMarks = resource.bookMarks.length;
+            // @ts-ignore
+            resource.likes = resource.likes.length;
+            // @ts-ignore
+            resource.likes[1] = liked;
+            // @ts-ignore
+            resource.bookMarks[1] = booked;
+            // @ts-ignore
+            resource.buyers[1] = owned;
+        });
 
         return res.json({ code: "S34", data: resources });
     } catch (error: any) {

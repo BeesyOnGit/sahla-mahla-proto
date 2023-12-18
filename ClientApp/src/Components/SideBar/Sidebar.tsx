@@ -47,9 +47,7 @@ function Sidebar(props: sideBarType) {
                 onMouseLeave={() => changeHover()}
             >
                 <section className="logoSideBar">
-                    <h1>
-                        <span>WEEZ</span> <span>{sideBarLang[userLang].dashBoard}</span>
-                    </h1>
+                    <h1>S&M</h1>
                 </section>
                 <section className="PageNavigation">
                     {Array.isArray(navItems) &&

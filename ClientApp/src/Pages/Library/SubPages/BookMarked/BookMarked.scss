@@ -1,0 +1,25 @@
+.bookMarkGeneralContainer {
+    width: 100%;
+    height: 100%;
+    & > div:nth-child(1) {
+        width: 50%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1.25rem;
+        z-index: 1;
+        position: relative;
+    }
+}
+
+.bookeMarkedResources {
+    padding: 0.625rem 0 !important;
+    height: 92vh;
+}
+.selectedBooked {
+    background-color: var(--siteColor);
+    border-color: transparent;
+    & > * {
+        color: var(--backGroundColor);
+    }
+}

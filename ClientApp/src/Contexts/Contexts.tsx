@@ -58,9 +58,9 @@ export default function ContextProvider(props: any) {
     refresh section
     **************/
 
-    const [refresh, setRefresh] = useState(window.localStorage.lang);
+    const [refresh, setRefresh] = useState<boolean>(true);
 
-    const refreshApp = (lang: string) => {
+    const refreshApp = () => {
         setRefresh(!refresh);
     };
 

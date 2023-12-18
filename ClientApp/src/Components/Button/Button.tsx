@@ -1,5 +1,5 @@
 import React from "react";
-export type ButtonProps = React.HTMLAttributes<HTMLButtonElement> & {
+export type ButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
     icon?: string;
     content: string | number;
     type?: "button";

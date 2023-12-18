@@ -6,6 +6,7 @@ const ResourcesSchema = new mongoose.Schema<resourcesType>({
     },
     title: {
         type: String,
+        lowercase: true,
         required: true,
     },
     resourceThumbnail: {
@@ -21,7 +22,7 @@ const ResourcesSchema = new mongoose.Schema<resourcesType>({
         required: true,
     },
     owner: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
     description: {
@@ -53,14 +54,14 @@ const ResourcesSchema = new mongoose.Schema<resourcesType>({
         default: 0,
     },
     likes: {
-        type: Number,
+        type: [String],
         required: true,
-        default: 0,
+        default: [],
     },
-    saves: {
-        type: Number,
+    bookMarks: {
+        type: [String],
         required: true,
-        default: 0,
+        default: [],
     },
     lastTimeSold: {
         type: Number,
@@ -89,12 +90,13 @@ const ResourcesModel: mongoose.Model<resourcesType> = mongoose.model<resourcesTy
 export default ResourcesModel;
 
 export type resourcesType = {
+    _id?: string;
     title: string;
     resourceType: number;
     resourceThumbnail: string;
     resourceWaterLink: string;
     resourceLink: string;
-    owner: string;
+    owner: mongoose.Schema.Types.ObjectId | string;
     description: string;
     categories?: string[];
     createdAt: number;
@@ -103,8 +105,8 @@ export type resourcesType = {
     timesSold: number;
     lastTimeSold: number;
     public: boolean;
-    buyers: [string];
+    buyers: string[];
     owned?: boolean;
-    likes: number;
-    saves: number;
+    likes: string[];
+    bookMarks: string[];
 };

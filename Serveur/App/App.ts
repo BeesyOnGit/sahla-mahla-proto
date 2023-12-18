@@ -15,6 +15,7 @@ import EmailConfirmRoutes from "./Routes/UserConfirmRoutes";
 import AccountRoutes from "./Routes/AccountRoutes";
 import ResourcesRoutes from "./Routes/ResourcesRoutes";
 import PlanRoutes from "./Routes/PlansRoutes";
+import UtilitiesRoutes from "./Routes/UtilitiesRoutes";
 
 dotenv.config();
 
@@ -76,6 +77,7 @@ app.use("/confirmation", EmailConfirmRoutes);
 app.use("/account", AccountRoutes);
 app.use("/resources", ResourcesRoutes);
 app.use("/plans", PlanRoutes);
+app.use("/utils", UtilitiesRoutes);
 
 //************************************ # SERVER PORT SET # ****************************************//
 

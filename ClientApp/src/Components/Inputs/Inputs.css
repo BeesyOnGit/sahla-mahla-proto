@@ -48,7 +48,7 @@
 }
 .regularInput {
     background-color: var(--backGroundColor);
-    border-radius: var(--hardRadius);
+    border-radius: var(--generalRadius);
     border: none;
     justify-content: center;
     align-items: center;
@@ -149,5 +149,5 @@
 }
 
 .inpreq {
-    border: 3px solid var(--messagesnegativecolorhover);
+    border: 2px solid var(--messagesnegativecolorhover);
 }

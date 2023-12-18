@@ -28,6 +28,7 @@
     --fontColorSeconday: #767474;
 
     --siteColor: #ffffff;
+    --siteBorder: solid 0.0625rem var(--fontColorSeconday);
 
     --clientColor: #eb8015;
     --freelanceColor: #00d188;
@@ -196,23 +197,12 @@ body {
     gap: 20px;
 }
 
-.button {
-    padding: 10px 20px;
-    text-transform: capitalize;
-    text-align: center;
-    color: var(--navBarColor);
-    background-color: var(--accentColor);
-    border-radius: var(--generalRadius);
-    transition: all 300ms ease-out;
+.customScroll::-webkit-scrollbar {
+    width: 0.1875rem;
 }
-.button > * {
-    color: var(--navBarColor);
-}
-
-.button:hover {
-    cursor: pointer;
-    background-color: var(--accentColorLighter);
-    transform: scale(0.95);
+::-webkit-scrollbar-thumb {
+    background: var(--fontColorSeconday);
+    border-radius: var(--roundRadius);
 }
 
 .specialButton {

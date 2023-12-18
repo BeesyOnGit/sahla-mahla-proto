@@ -45,6 +45,7 @@ export type dayilyLogsType = {
         | "password change"
         | "phone verification"
         | "resource buy"
+        | "resource liked/bookmarked"
         | "resource added"
         | "resource edited"
         | "resource removed"

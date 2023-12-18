@@ -2,9 +2,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./NavItem.scss";
 import { useState } from "react";
 import { Contexts } from "../../Contexts/Contexts";
+import { urlPath } from "../../MiddleWear/ClientFunctions";
 export type navItemsType = {
     name: string;
-    navigation: string;
+    path: string;
     ico: string;
     notif?: number;
     hover?: boolean;
@@ -15,10 +16,10 @@ export type navItemsType = {
     hoverdItem?: number;
 };
 
-function NavItem({ name, navigation, ico, notif, hover, selected, index, setSelectedNav, setHoveredItem, hoverdItem }: navItemsType) {
+function NavItem({ name, path, ico, notif, hover, selected, index, setSelectedNav, setHoveredItem, hoverdItem }: navItemsType) {
     const { userLang } = Contexts();
 
-    const location = useLocation();
+    const { pathname } = useLocation();
 
     const navigate = useNavigate();
 
@@ -40,7 +41,7 @@ function NavItem({ name, navigation, ico, notif, hover, selected, index, setSele
         setHoveredItem(val);
     };
 
-    const selectedCondition = location.pathname == navigation;
+    const selectedCondition = urlPath(pathname) == path;
     selectedCondition ? setSelectedNav(index) : null;
 
     return (
@@ -55,7 +56,7 @@ function NavItem({ name, navigation, ico, notif, hover, selected, index, setSele
                 " " +
                 (ItemDeCoHash[`${index! - hoverdItem!}`] || "")
             }
-            onClick={() => navigate(navigation)}
+            onClick={() => navigate(path)}
             onMouseEnter={() => changeHover(index)}
             onMouseLeave={() => changeHover(undefined)}
         >
@@ -71,9 +72,9 @@ function NavItem({ name, navigation, ico, notif, hover, selected, index, setSele
                     </div>
                 </>
             ) : null} */}
-            {/* <div className="num2"></div> */}
+
             <i className={"inconnav " + ico}></i>
-            <span className={"navItemName " + texteClasses[`${hover}`] + " " + userLang}>{name}</span>
+            <span className={"navItemName " + texteClasses[`${hover}`]}>{name}</span>
 
             {notif ? <span className="navNotification bgWarning">{notif}</span> : null}
         </div>

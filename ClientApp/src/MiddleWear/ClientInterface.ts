@@ -14,6 +14,7 @@ export type InputType = {
     options?: { label: string; value: any }[];
     comboContent?: any;
     onComboChange?: Function;
+    innerInputIcon?: any;
     ref?: any;
     // submit?: boolean;
 } & Partial<React.InputHTMLAttributes<HTMLInputElement>>;

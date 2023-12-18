@@ -396,29 +396,30 @@ export const initiateUserColors = (userConfiguredColors: configColorType) => {
     document.documentElement.style.setProperty(`--${property}`, color);
 };
 
-// export const urlPath = (url: string) => {
-//     const urlArr = url.split("/");
-//     if (urlArr.length <= 2) {
-//         return urlArr.join("/");
-//     }
-//     while (urlArr.length > 2) {
-//         urlArr.pop();
-//     }
+export const urlPath = (url: string) => {
+    const urlArr = url.split("/");
+    if (urlArr.length <= 2) {
+        return urlArr.join("/");
+    }
+    while (urlArr.length > 2) {
+        urlArr.pop();
+    }
 
-//     return urlArr.join("/");
-// };
+    return urlArr.join("/");
+};
 
-// export const pathWithoutParam = (pathname: string, panthNum: number) => {
-//     const urlArr = pathname.split("/");
-//     if (urlArr.length <= panthNum) {
-//         return urlArr.join("/");
-//     }
-//     while (urlArr.length > panthNum) {
-//         urlArr.pop();
-//     }
+export const pathWithoutParam = (panthNum: number) => {
+    const { pathname } = window.location;
+    const urlArr = pathname.split("/");
+    if (urlArr.length <= panthNum) {
+        return urlArr.join("/");
+    }
+    while (urlArr.length > panthNum) {
+        urlArr.pop();
+    }
 
-//     return urlArr.join("/");
-// };
+    return urlArr.join("/");
+};
 
 export const idElementPrint = (ref: string) => {
     const iframe = document.createElement("iframe");
@@ -440,6 +441,9 @@ export const idElementPrint = (ref: string) => {
     // };
 };
 
+export const randomArrLength = (min: number, max: number) => {
+    return new Array(getRandomArbitrary(min, max)).fill(0);
+};
 export function getRandomArbitrary(min: number, max: number) {
     return Math.floor(Math.random() * (max - min) + min);
 }
@@ -448,7 +452,7 @@ export const generalAddEditFunction = async (
     e: any,
     {
         endPoint,
-        lang,
+
         successCode,
         setNewAlert,
         refresh,
@@ -461,7 +465,7 @@ export const generalAddEditFunction = async (
         endPoint: any;
         successCode: string;
         setNewAlert: Function;
-        lang: "ar" | "fr";
+
         getData?: boolean;
         optFunc?: Function;
         setApiWait: Function;
@@ -469,6 +473,11 @@ export const generalAddEditFunction = async (
     }
 ) => {
     e ? e.preventDefault() : null;
+
+    const lang: "ar" | "fr" | "en" = window.localStorage.lang;
+    if (!lang) {
+        return;
+    }
     try {
         if (apiWait == true) {
             return;
@@ -502,7 +511,6 @@ export const generalAddEditFunction = async (
 
 export const generalGetFunction = async ({
     endPoint,
-    lang,
     successCode,
     setNewAlert,
     setState,
@@ -515,12 +523,15 @@ export const generalGetFunction = async ({
     successCode: string;
     emptyCode?: string;
     setNewAlert: Function;
-    lang: "ar" | "fr";
     setState?: Function;
     field?: string;
     refresh?: Function;
     silent?: boolean;
 }) => {
+    const lang: "ar" | "fr" | "en" = window.localStorage.lang;
+    if (!lang) {
+        return;
+    }
     try {
         const res = await endPoint;
 
@@ -538,7 +549,8 @@ export const generalGetFunction = async ({
         }
         // setNewAlert({ type: "success", message: apiResponseLang[lang][code] });
         if (!setState && refresh) {
-            setNewAlert({ type: "success", message: apiResponseLang[lang][code] });
+            silent ? null : setNewAlert({ type: "warning", message: apiResponseLang[lang][code] });
+            // setNewAlert({ type: "success", message: apiResponseLang[lang][code] });
             return refresh();
         }
         return setState!(field ? data[field] : data);

@@ -50,3 +50,37 @@ export const freelanceLogin = async (loginInfos: LoginInputs) => {
         console.log("🚀 ~ file: ApiMiddleWear.ts:50 ~ freelanceLogin ~ error:", error);
     }
 };
+
+export const getResourcesApi = async (search: string) => {
+    try {
+        const res: Response = await axios.get(`${baseUrl}/resources${search}`, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:50 ~ freelanceLogin ~ error:", error);
+    }
+};
+export const likeBookResourceApi = async (id: string, type: string) => {
+    try {
+        const res: Response = await axios.get(`${baseUrl}/resources/like-book/${id}?${type}`, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:50 ~ freelanceLogin ~ error:", error);
+    }
+};
+export const getCategoriesApi = async () => {
+    try {
+        const res: Response = await axios.get(`${baseUrl}/utils/resource-categories`, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:50 ~ freelanceLogin ~ error:", error);
+    }
+};

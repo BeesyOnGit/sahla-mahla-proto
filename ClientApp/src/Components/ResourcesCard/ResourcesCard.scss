@@ -1,0 +1,129 @@
+.resourceGeneralContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.25rem 0.9375rem;
+    width: fit-content;
+    min-width: 18.75rem;
+    max-width: 20rem;
+    background-color: var(--navBarColor);
+    border-radius: var(--hardRadius);
+    align-self: self-start;
+    border: var(--siteBorder);
+    // box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+    & > div:nth-child(1) {
+        text-transform: capitalize;
+        font-weight: bold;
+        font-size: 1.1rem;
+        // padding: 0.625rem 0;
+    }
+}
+
+.resourceInfosContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 0;
+
+    .userIngfosContainer {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        // gap: 0.9375rem;
+        & > i {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+        }
+        & > div {
+            text-transform: capitalize;
+            font-size: 0.8rem;
+            padding: 0 0.625rem;
+        }
+    }
+    .cardprofileImg {
+        min-width: 1.875rem !important;
+        min-height: 1.875rem !important;
+        padding: 0 !important;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-radius: var(--roundRadius);
+    }
+}
+
+.resourcePopularityContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.625rem;
+    & > div {
+        border-radius: var(--roundRadius);
+        border: var(--siteBorder);
+        border-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.125rem 0.625rem;
+        background-color: var(--siteColor);
+        gap: 0.3125rem;
+    }
+    :hover {
+        cursor: pointer;
+    }
+
+    & > div > * {
+        font-size: 0.7rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--backGroundColor);
+        text-transform: capitalize;
+    }
+
+    .likedRes {
+        color: var(--messagesnegativecolor);
+    }
+    .bookedRes {
+        color: var(--messageidleecolor);
+    }
+}
+
+.resourceCardImage {
+    height: 10.9375rem;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: var(--smouthRadius);
+}
+
+.priceButContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.625rem 0;
+    .priceContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        & > div {
+            font-size: 1.1rem;
+        }
+        & > section {
+            display: flex;
+            flex-direction: row;
+            gap: 0.3125rem;
+            text-transform: capitalize;
+            font-size: 0.8rem;
+        }
+        & > section > * {
+            color: var(--fontColorSeconday);
+        }
+    }
+}

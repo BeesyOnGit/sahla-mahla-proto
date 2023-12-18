@@ -3,7 +3,7 @@ import "./Inputs.css";
 import { InputType } from "../../MiddleWear/ClientInterface";
 
 function Inputs(props: InputType) {
-    const { type, title, className, innerUnit, containerClass, ...otherPpops } = props;
+    const { type, title, className, innerUnit, innerInputIcon, containerClass, ...otherPpops } = props;
     const { required, value } = otherPpops;
     const [showPassWord, setShowPassWord] = useState<"password" | "text">("password");
 
@@ -15,7 +15,7 @@ function Inputs(props: InputType) {
     };
     const reqCondition: "true" | "false" = required && !value ? "true" : "false";
     return (
-        <div className={"inputsContainer " + containerClass}>
+        <div className={containerClass + " inputsContainer"}>
             {title ? <div> {title} :</div> : null}
             <input {...otherPpops} type={type == "password" ? showPassWord : type} className={className + " " + requiredMap[reqCondition]} />
             {type == "password" ? (
@@ -25,8 +25,8 @@ function Inputs(props: InputType) {
                         changePasswordVisibility();
                     }}
                 ></i>
-            ) : innerUnit ? (
-                <i className="innerUnit UnitsStyle"> {innerUnit} </i>
+            ) : innerUnit || innerInputIcon ? (
+                <i className={innerInputIcon + " innerUnit UnitsStyle"}> {innerUnit} </i>
             ) : null}
         </div>
     );
