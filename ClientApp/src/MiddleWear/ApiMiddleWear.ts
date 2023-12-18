@@ -39,6 +39,7 @@ export const clientLogin = async (loginInfos: LoginInputs) => {
         console.log("🚀 ~ file: ApiMiddleWear.ts:39 ~ clientLogin ~ error:", error);
     }
 };
+
 export const freelanceLogin = async (loginInfos: LoginInputs) => {
     try {
         const res: Response = await axios.post(`${baseUrl}/auth/freelance-login`, loginInfos, config);
@@ -47,7 +48,7 @@ export const freelanceLogin = async (loginInfos: LoginInputs) => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:50 ~ freelanceLogin ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:51 ~ freelanceLogin ~ error:", error);
     }
 };
 
@@ -59,9 +60,22 @@ export const getResourcesApi = async (search: string) => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:50 ~ freelanceLogin ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:63 ~ getResourcesApi ~ error:", error);
     }
 };
+
+export const getMyResourcesApi = async (search: string, reqType: string) => {
+    try {
+        const res: Response = await axios.get(`${baseUrl}/resources/my/${reqType}/${search}`, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:75 ~ getMyResourcesApi ~ error:", error);
+    }
+};
+
 export const likeBookResourceApi = async (id: string, type: string) => {
     try {
         const res: Response = await axios.get(`${baseUrl}/resources/like-book/${id}?${type}`, config);
@@ -70,9 +84,10 @@ export const likeBookResourceApi = async (id: string, type: string) => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:50 ~ freelanceLogin ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:87 ~ likeBookResourceApi ~ error:", error);
     }
 };
+
 export const getCategoriesApi = async () => {
     try {
         const res: Response = await axios.get(`${baseUrl}/utils/resource-categories`, config);
@@ -81,6 +96,6 @@ export const getCategoriesApi = async () => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:50 ~ freelanceLogin ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:99 ~ getCategoriesApi ~ error:", error);
     }
 };

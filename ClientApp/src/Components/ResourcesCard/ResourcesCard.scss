@@ -6,10 +6,11 @@
     padding: 1.25rem 0.9375rem;
     width: fit-content;
     min-width: 18.75rem;
-    max-width: 20rem;
+    // max-width: 20rem;
     background-color: var(--navBarColor);
     border-radius: var(--hardRadius);
     align-self: self-start;
+    justify-self: center;
     border: var(--siteBorder);
     // box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
     & > div:nth-child(1) {

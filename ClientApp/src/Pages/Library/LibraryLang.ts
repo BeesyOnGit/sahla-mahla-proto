@@ -8,6 +8,7 @@ type libraryLangType = {
         noFavorit: string;
         noLiked: string;
         resourceCard: {
+            donwload: string;
             likes: string;
             bookMark: string;
             bought: string;
@@ -30,6 +31,7 @@ export const LibraryLang: libraryLangType = {
         noLiked: "aucun j'aime pour l'instant",
         noFavorit: "aucun favori pour l'instant",
         resourceCard: {
+            donwload: "télécherger",
             likes: "aimé",
             bookMark: "favoris",
             bought: "acheté",
@@ -57,6 +59,7 @@ export const LibraryLang: libraryLangType = {
         noLiked: "no likes at the moment",
         noFavorit: "no favorites at the moment",
         resourceCard: {
+            donwload: "download",
             likes: "liked",
             bookMark: "bookmark",
             bought: "bought",
@@ -84,6 +87,7 @@ export const LibraryLang: libraryLangType = {
         noLiked: "لا توجد إعجابات في الوقت الحالي",
         noFavorit: "لا توجد مفضلات في الوقت الحالي",
         resourceCard: {
+            donwload: "تحميل",
             likes: "إعجاب",
             bookMark: "إشارة مرجعية",
             bought: "تم الشراء",

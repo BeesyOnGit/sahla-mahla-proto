@@ -125,6 +125,9 @@
 .inconnav {
     font-size: 1.2rem;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: var(--backGroundColor);
     // margin-right: 10px;
 }

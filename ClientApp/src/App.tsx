@@ -12,6 +12,10 @@ import Home from "./Pages/Home/Home";
 import Library from "./Pages/Library/Library";
 import AllLibrary from "./Pages/Library/SubPages/AllLibrary/AllLibrary";
 import BookMarked from "./Pages/Library/SubPages/BookMarked/BookMarked";
+import OwnedResources from "./Pages/ResourcesPage/subPages/SellingResources/SellingResources";
+import MyResources from "./Pages/ResourcesPage/subPages/MyResources/MyResources";
+import Resources from "./Pages/ResourcesPage/Resources";
+import SellingResources from "./Pages/ResourcesPage/subPages/SellingResources/SellingResources";
 // import { alerts } from "./MiddleWear/Signals";
 
 function App() {
@@ -24,6 +28,7 @@ function App() {
     useEffect(() => {
         setTheme(JSON.parse(darkMode));
     }, []);
+
     useEffect(() => {
         if (userLang == "ar") {
             const html = document.querySelector("html");
@@ -65,13 +70,24 @@ function App() {
                 name: sideBarLang[userLang].NavElems.resources,
                 path: "/resources",
                 ico: "fi fi-sr-images",
+                needValidation: true,
+                page: <Resources />,
+                subRoute: [
+                    {
+                        path: "owned",
+                        page: <MyResources />,
+                    },
+                    {
+                        path: "selling",
+                        page: <SellingResources />,
+                    },
+                ],
             },
             {
                 name: sideBarLang[userLang].NavElems.library,
                 path: "/library",
                 ico: "fi fi-sr-books",
                 page: <Library />,
-                needValidation: false,
                 subRoute: [
                     {
                         path: "all",
@@ -97,7 +113,7 @@ function App() {
             {
                 name: sideBarLang[userLang].NavElems.logout,
                 path: "/logout",
-                ico: "fi fi-br-sign-out-alt",
+                ico: "fi fi-br-sign-out-alt logout",
             },
         ],
         2: [

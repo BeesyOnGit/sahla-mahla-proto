@@ -302,7 +302,102 @@ export const getAllResources = async (req: Request, res: Response) => {
 
         return res.json({ code: "S34", data: resources });
     } catch (error: any) {
-        console.log("🚀 ~ file: ResourcesControllers.ts:181 ~ getAllResources ~ error:", error);
+        console.log("🚀 ~ file: ResourcesControllers.ts:305 ~ getAllResources ~ error:", error);
+        return res.json({ code: "EO", error: error.message });
+    }
+};
+export const getMyResources = async (req: Request, res: Response) => {
+    const { headers, query, params } = req;
+    const { verifiedId }: Headers = headers;
+    const { search, page, resourceType } = query;
+    const { reqType } = params;
+
+    const pageSize = 10;
+    const pageNumber: any = page || 1;
+
+    const titleMatchMap: any = {
+        true: {},
+        false: { title: new RegExp(search?.toString()!, "i") },
+    };
+    const descriptionMatchMap: any = {
+        true: {},
+        false: { description: new RegExp(search?.toString()!, "i") },
+    };
+    const categoriesMatchMap = {
+        false: { categories: { $in: [new RegExp(search?.toString()!, "i")] } },
+        true: {},
+    };
+    const resourceTypeMatchMap = {
+        false: { resourceType },
+        true: {},
+    };
+    const typeMap: any = {
+        owned: { buyers: { $in: [verifiedId] } },
+        selling: { owner: verifiedId },
+    };
+
+    const searchMatchMap = {
+        false: { $or: [titleMatchMap[`${!search}`], categoriesMatchMap[`${!search}`], descriptionMatchMap[`${!search}`]] },
+        true: {},
+    };
+
+    try {
+        const resourceFilter: FilterQuery<resourcesType> = {
+            ...searchMatchMap[`${!search}`],
+            ...resourceTypeMatchMap[`${!resourceType}`],
+            ...typeMap[`${reqType}`],
+        };
+        console.log("🚀 ~ file: ResourcesControllers.ts:351 ~ getMyResources ~ resourceFilter:", resourceFilter);
+
+        const resources = await ResourcesModel.find(resourceFilter)
+            .populate({
+                path: "owner",
+                select: "firstName familyName profilePicture ",
+                model: "freelance",
+            })
+            .skip((pageNumber - 1) * pageSize)
+            .limit(pageSize)
+            .select("-resourceWaterLink -description -categories -lastTimeSold -public");
+
+        if (!resources || resources.length == 0) {
+            return res.json({ code: "E33" });
+        }
+
+        resources.forEach((resource) => {
+            const { likes, buyers, bookMarks } = resource;
+            let liked = true,
+                booked = true,
+                owned = true;
+
+            if (!likes.includes(verifiedId!)) {
+                liked = false;
+            }
+            if (!bookMarks.includes(verifiedId!)) {
+                booked = false;
+            }
+
+            // @ts-ignore
+            if (!buyers.includes(verifiedId!) && resource.owner._id != verifiedId) {
+                owned = false;
+                resource.resourceLink = "";
+            }
+            // @ts-ignore
+            resource.buyers = resource.buyers.length;
+            // @ts-ignore
+            resource.bookMarks = resource.bookMarks.length;
+            // @ts-ignore
+            resource.likes = resource.likes.length;
+            // @ts-ignore
+            resource.likes[1] = liked;
+            // @ts-ignore
+            resource.bookMarks[1] = booked;
+            // @ts-ignore
+            resource.buyers[1] = owned;
+        });
+
+        return res.json({ code: "S34", data: resources });
+    } catch (error: any) {
+        console.log("🚀 ~ file: ResourcesControllers.ts:397 ~ getMyResources ~ error:", error);
         return res.json({ code: "EO", error: error.message });
     }
 };

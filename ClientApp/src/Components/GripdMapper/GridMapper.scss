@@ -1,0 +1,12 @@
+.gridMapperContainer {
+    width: 100%;
+    height: inherit;
+    display: grid;
+    // grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    // justify-content: start;
+    row-gap: 0.625rem;
+    column-gap: 0.625rem;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 0.625rem 0;
+}

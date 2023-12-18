@@ -11,15 +11,19 @@
         position: relative;
     }
 }
+.bookmarkGrodContainer {
+    height: 91vh;
+    margin-top: 0.625rem;
+}
 
 .bookeMarkedResources {
     padding: 0.625rem 0 !important;
     height: 92vh;
 }
-.selectedBooked {
-    background-color: var(--siteColor);
-    border-color: transparent;
-    & > * {
-        color: var(--backGroundColor);
-    }
-}
+// .selectedBooked {
+//     background-color: var(--siteColor);
+//     border-color: transparent;
+//     & > * {
+//         color: var(--backGroundColor);
+//     }
+// }

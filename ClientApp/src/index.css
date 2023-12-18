@@ -31,7 +31,7 @@
     --siteBorder: solid 0.0625rem var(--fontColorSeconday);
 
     --clientColor: #eb8015;
-    --freelanceColor: #00d188;
+    --freelanceColor: #205a57;
     --proColor: #4a95cd;
 
     --navShadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
@@ -92,6 +92,7 @@
     --clientColor: #00d188;
     --freelanceColor: #00d188;
     --proColor: #4a95cd;
+    /* #1f2a44 */
 
     --navShadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     --cardShadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -135,6 +136,17 @@
     flex-direction: row-reverse;
     text-align: end !important;
     right: 0px !important;
+}
+
+.overLcontainer {
+    position: absolute;
+    /* // top: 0; */
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 0;
+    /* // pointer-events: visible; */
 }
 
 /* #siteLogo {
@@ -203,6 +215,10 @@ body {
 ::-webkit-scrollbar-thumb {
     background: var(--fontColorSeconday);
     border-radius: var(--roundRadius);
+}
+
+.logout {
+    color: var(--messagesnegativecolor) !important;
 }
 
 .specialButton {

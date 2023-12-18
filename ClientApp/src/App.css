@@ -99,3 +99,11 @@ html {
 .pagesNavButton:hover > * {
     color: var(--backGroundColor);
 }
+
+.pagesNavSelected {
+    background-color: var(--siteColor);
+    border-color: transparent;
+}
+.pagesNavSelected > * {
+    color: var(--backGroundColor);
+}

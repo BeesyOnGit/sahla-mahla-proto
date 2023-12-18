@@ -1,0 +1,12 @@
+.resourcesPageGeneralContainer {
+    padding: 0.625rem 0;
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    .resourceOverL {
+        justify-content: flex-start;
+        gap: 0.9375rem;
+        position: relative;
+        padding: 0.625rem 0;
+    }
+}

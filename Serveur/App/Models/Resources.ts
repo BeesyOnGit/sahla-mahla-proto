@@ -22,7 +22,7 @@ const ResourcesSchema = new mongoose.Schema<resourcesType>({
         required: true,
     },
     owner: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true,
     },
     description: {
@@ -96,7 +96,7 @@ export type resourcesType = {
     resourceThumbnail: string;
     resourceWaterLink: string;
     resourceLink: string;
-    owner: mongoose.Schema.Types.ObjectId | string;
+    owner: string;
     description: string;
     categories?: string[];
     createdAt: number;

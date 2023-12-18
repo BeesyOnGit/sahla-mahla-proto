@@ -19,6 +19,7 @@ import Skuleton from "../../../../Components/Skuleton/Skeleton";
 import { resourcesType } from "../../../../../../Serveur/App/Models/Resources";
 import FullpageIcon from "../../../../Components/FullPageIcon/FullpageIcon";
 import ResourcesCard from "../../../../Components/ResourcesCard/ResourcesCard";
+import GridMapper from "../../../../Components/GripdMapper/GridMapper";
 
 function AllLibrary() {
     const { userLang, refreshApp, setNewAlert, refresh } = Contexts();
@@ -134,8 +135,17 @@ function AllLibrary() {
                           return <Skuleton key={i} style={{ width: "6%", height: "1.7rem", borderRadius: "var(--roundRadius)" }} />;
                       })}
             </div>
+            <div className="resourcesContainer">
+                <GridMapper
+                    toMap={resources}
+                    Component={ResourcesCard}
+                    emptyString={LibraryLang[userLang].noResources}
+                    emptyIcon="fi fi-br-image-slash"
+                    otherProps={{ likeFunc: likeBookResource }}
+                />
+            </div>
 
-            <div
+            {/* <div
                 className="resourcesContainer customScroll"
                 style={resources != "empty" ? { display: "grid", gridTemplateColumns: `repeat(${elemsN},1fr)` } : {}}
             >
@@ -150,7 +160,7 @@ function AllLibrary() {
                         return <ResourcesCard key={i} skull={true} />;
                     })
                 )}
-            </div>
+            </div> */}
         </section>
     );
 }

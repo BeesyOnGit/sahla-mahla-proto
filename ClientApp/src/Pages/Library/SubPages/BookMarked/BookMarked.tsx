@@ -18,6 +18,7 @@ import { resourcesType } from "../../../../../../Serveur/App/Models/Resources";
 import ResourcesCard from "../../../../Components/ResourcesCard/ResourcesCard";
 import FullpageIcon from "../../../../Components/FullPageIcon/FullpageIcon";
 import Skuleton from "../../../../Components/Skuleton/Skeleton";
+import GridMapper from "../../../../Components/GripdMapper/GridMapper";
 
 function BookMarked() {
     const { userLang, setNewAlert, refreshApp, refresh } = Contexts();
@@ -70,9 +71,10 @@ function BookMarked() {
     };
 
     const ImSelected = (category: string) => {
-        return type == category ? "selectedBooked" : "";
+        return type == category ? "pagesNavSelected" : "";
     };
     const togglebooked = (categeory: string) => {
+        setResources(null);
         if (type == categeory) {
             return URLSearchremove(navigate, "type");
         }
@@ -101,7 +103,7 @@ function BookMarked() {
                     onClick={() => togglebooked("likes")}
                 />
             </div>
-            <div
+            {/* <div
                 ref={ref}
                 className="resourcesContainer customScroll bookeMarkedResources"
                 style={resources != "empty" ? { display: "grid", gridTemplateColumns: `repeat(${elemsN},1fr)` } : {}}
@@ -117,6 +119,15 @@ function BookMarked() {
                         return <ResourcesCard key={i} skull={true} />;
                     })
                 )}
+            </div> */}
+            <div className="bookmarkGrodContainer">
+                <GridMapper
+                    toMap={resources}
+                    Component={ResourcesCard}
+                    emptyString={emptyIconMap[`${type}`]}
+                    emptyIcon="fi fi-br-image-slash"
+                    otherProps={{ likeFunc: likeBookResource }}
+                />
             </div>
         </section>
     );
