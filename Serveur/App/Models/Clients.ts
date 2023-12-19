@@ -155,4 +155,5 @@ export type clientType = {
         credits: number;
     };
     // comment Multi * a usage interne
+    _id?: string;
 };

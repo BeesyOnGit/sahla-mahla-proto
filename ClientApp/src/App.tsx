@@ -16,6 +16,7 @@ import OwnedResources from "./Pages/ResourcesPage/subPages/SellingResources/Sell
 import MyResources from "./Pages/ResourcesPage/subPages/MyResources/MyResources";
 import Resources from "./Pages/ResourcesPage/Resources";
 import SellingResources from "./Pages/ResourcesPage/subPages/SellingResources/SellingResources";
+import Profile from "./Pages/Profile/Profile";
 // import { alerts } from "./MiddleWear/Signals";
 
 function App() {
@@ -109,6 +110,7 @@ function App() {
                 name: sideBarLang[userLang].NavElems.profile,
                 path: "/profile",
                 ico: "fi fi-sr-user",
+                page: <Profile />,
             },
             {
                 name: sideBarLang[userLang].NavElems.logout,

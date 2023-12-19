@@ -93,7 +93,7 @@ function Resources() {
                 <Button
                     className={"pagesNavButton " + selectedNav("/resources/owned")}
                     icon="fi fi-sr-copy-image"
-                    content={resourcesLang[userLang].myResouresources}
+                    content={resourcesLang[userLang].myResources}
                     onClick={() => {
                         navigate("owned");
                     }}

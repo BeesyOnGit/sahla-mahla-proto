@@ -101,22 +101,6 @@ export const formatAsCurrency = (amount: number) => {
     return DZDCurr.format(amount);
 };
 
-export const dateFormater = (lang: string, date: Date | string | number, short?: boolean) => {
-    if (lang == "ar") {
-        const dateOptions: Intl.DateTimeFormatOptions = !short
-            ? { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }
-            : { month: "short", day: "numeric" };
-        const formatDate = new Date(date);
-        return formatDate.toLocaleDateString("ar-EG-u-nu-latn", dateOptions);
-    }
-
-    const dateOptions: Intl.DateTimeFormatOptions = !short
-        ? { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }
-        : { month: "short", day: "numeric" };
-    const formatDate = new Date(date);
-    return formatDate.toLocaleDateString("fr-FR", dateOptions);
-};
-
 interface mediaCompression {
     InputValues: any;
     width: number;
@@ -222,10 +206,11 @@ export const mediaCompressionMono = async ({ InputValues, width, quality, format
 //     return daysInRange - repoDays;
 // };
 
+export const formatForInput = (date: any) => {
+    return new Date(parseInt(date)).toISOString().split("T")[0];
+};
+
 export const getDateVal = (dateToForm: any, type: "from" | "to"): string => {
-    const formatForInput = (date: any) => {
-        return new Date(parseInt(date)).toISOString().split("T")[0];
-    };
     const date = new Date();
     const monthEnd = new Date(date.getFullYear(), date.getMonth() + 1, 1).getTime();
     const monthBegin = new Date(date.getFullYear(), date.getMonth(), 1, 23, 59, 59).getTime();
@@ -448,11 +433,27 @@ export function getRandomArbitrary(min: number, max: number) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
+export const dateFormater = (date: Date | string | number, short?: boolean) => {
+    const lang: "ar" | "fr" | "en" = window.localStorage.lang;
+    if (lang == "ar") {
+        const dateOptions: Intl.DateTimeFormatOptions = !short
+            ? { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }
+            : { month: "short", day: "numeric" };
+        const formatDate = new Date(date);
+        return formatDate.toLocaleDateString("ar-EG-u-nu-latn", dateOptions);
+    }
+
+    const dateOptions: Intl.DateTimeFormatOptions = !short
+        ? { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }
+        : { month: "short", day: "numeric" };
+    const formatDate = new Date(date);
+    return formatDate.toLocaleDateString("fr-FR", dateOptions);
+};
+
 export const generalAddEditFunction = async (
     e: any,
     {
         endPoint,
-
         successCode,
         setNewAlert,
         refresh,
@@ -465,7 +466,6 @@ export const generalAddEditFunction = async (
         endPoint: any;
         successCode: string;
         setNewAlert: Function;
-
         getData?: boolean;
         optFunc?: Function;
         setApiWait: Function;
@@ -488,18 +488,24 @@ export const generalAddEditFunction = async (
         const res = await endPoint;
 
         if (!res) {
+            setApiWait(false);
             return setNewAlert({ type: "error", message: apiResponseLang[lang].resErr });
         }
 
         const { code, data } = res;
 
-        if (code == "037") {
+        if (code == "EO") {
+            setApiWait(false);
             return setNewAlert({ type: "error", message: res.message });
         }
         if (code != successCode) {
+            setApiWait(false);
             return setNewAlert({ type: "warning", message: apiResponseLang[lang][code] });
         }
+
+        setApiWait(false);
         setNewAlert({ type: "success", message: apiResponseLang[lang][code] });
+
         if (!getData) {
             return refresh();
         }

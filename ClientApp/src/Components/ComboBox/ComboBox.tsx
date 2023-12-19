@@ -51,7 +51,7 @@ function ComboBox(props: ComboBoxType) {
             <Inputs
                 {...rest}
                 containerClass="selectInp"
-                className={className + "selectInp"}
+                className={className + " selectInp"}
                 type="text"
                 value={inputRes.label ? inputRes.label : ""}
                 // ref={principalRef}
@@ -65,7 +65,7 @@ function ComboBox(props: ComboBoxType) {
             />
 
             {optionsDisp ? (
-                <section className="optSection noscroll">
+                <section className="optSection customScroll">
                     {filteredChoices().map((opt, i) => {
                         const { label: lab, value } = opt;
                         return (
@@ -76,7 +76,7 @@ function ComboBox(props: ComboBoxType) {
                             </>
                         );
                     })}
-                    <div className="opts" key={250}></div>
+                    {/* <div className="opts" key={250}></div> */}
                 </section>
             ) : null}
         </div>

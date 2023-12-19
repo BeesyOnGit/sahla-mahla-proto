@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 export const DbConnection = async (dbName: string, dbUrl: string) => {
     try {
         mongoose.set("strictQuery", false);
+        mongoose.set("strict", false);
         const connection = await mongoose.connect(`${dbUrl}/${dbName}`);
         if (!connection) {
             return console.log("db connection unknown error");

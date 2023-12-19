@@ -8,11 +8,11 @@
 }
 .separationLine:nth-child(1) {
     width: 5%;
-    border-bottom: solid 1px black;
+    border-bottom: solid 1px var(--fontColorSeconday);
 }
 .separationLine2 {
-    width: 75%;
-    border-bottom: solid 1px black;
+    width: 100%;
+    border-bottom: solid 1px var(--fontColorSeconday);
 }
 .separationGeneralContainer {
     display: flex;

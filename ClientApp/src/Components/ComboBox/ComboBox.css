@@ -18,7 +18,7 @@
     top: 110%;
     background-color: var(--navBarColor);
     box-shadow: var(--cardShadow);
-    border-radius: var(--generalRadius);
+    border-radius: var(--hardRadius);
     overflow-x: hidden;
     overflow-y: scroll;
     max-height: 12.5rem;
@@ -33,5 +33,6 @@
 }
 .opts:hover {
     cursor: pointer;
-    background-color: var(--accentColor);
+    background-color: var(--siteColor);
+    color: var(--backGroundColor);
 }

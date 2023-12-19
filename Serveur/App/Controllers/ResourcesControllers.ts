@@ -260,7 +260,7 @@ export const getAllResources = async (req: Request, res: Response) => {
         const resources = await ResourcesModel.find(resourceFilter)
             .populate({
                 path: "owner",
-                select: "firstName familyName profilePicture -_id",
+                select: "firstName familyName profilePicture aprouved -_id",
                 model: "freelance",
             })
             .skip((pageNumber - 1) * pageSize)
@@ -352,7 +352,7 @@ export const getMyResources = async (req: Request, res: Response) => {
         const resources = await ResourcesModel.find(resourceFilter)
             .populate({
                 path: "owner",
-                select: "firstName familyName profilePicture ",
+                select: "firstName familyName profilePicture aprouved ",
                 model: "freelance",
             })
             .skip((pageNumber - 1) * pageSize)

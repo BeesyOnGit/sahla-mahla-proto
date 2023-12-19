@@ -107,3 +107,16 @@ html {
 .pagesNavSelected > * {
     color: var(--backGroundColor);
 }
+
+.InpStdclass {
+    padding: 0.625rem 0.9375rem;
+    border-radius: var(--hardRadius);
+    border: var(--siteBorder);
+    background-color: var(--backGroundColor);
+    color: var(--fontColorPrimary);
+    width: 100%;
+}
+::placeholder {
+    color: var(--fontColorPrimary);
+    text-transform: capitalize;
+}

@@ -1,11 +1,15 @@
 import axios from "axios";
 import { Contexts } from "../Contexts/Contexts";
 import { LoginInputs } from "../Pages/Login/Login";
+import { freelanceType } from "../../../Serveur/App/Models/Freelance";
+import { clientType } from "../../../Serveur/App/Models/Clients";
 
 //  = prod ? "" : "http://localhost:3000";
 const url = import.meta.env.VITE_API_URL;
+const cdnRrl = import.meta.env.VITE_CDN_URL;
 
 const baseUrl = `${url}`;
+const baseUrlCDN = `${cdnRrl}`;
 
 const authorizationToken = window.localStorage.user_token;
 const headers = { authorizationToken };
@@ -97,5 +101,73 @@ export const getCategoriesApi = async () => {
         }
     } catch (error) {
         console.log("🚀 ~ file: ApiMiddleWear.ts:99 ~ getCategoriesApi ~ error:", error);
+    }
+};
+export const getFreelanceInfospi = async (id?: string) => {
+    try {
+        const res: Response = await axios.get(`${baseUrl}/account/freelance/${id ? id : ""}`, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:110 ~ getFreelanceInfospi ~ error:", error);
+    }
+};
+export const getClientInfospi = async (id?: string) => {
+    try {
+        const res: Response = await axios.get(`${baseUrl}/account/client/${id ? id : ""}`, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:110 ~ getFreelanceInfospi ~ error:", error);
+    }
+};
+export const editFreelanceApi = async (id: string, payload: Partial<freelanceType>) => {
+    try {
+        const res: Response = await axios.post(`${baseUrl}/account/freelance/edit/${id}`, payload, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:133 ~ editFreelanceApi ~ error:", error);
+    }
+};
+export const editClientApi = async (id: string, payload: Partial<clientType>) => {
+    try {
+        const res: Response = await axios.post(`${baseUrl}/account/client/edit/${id}`, payload, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:133 ~ editFreelanceApi ~ error:", error);
+    }
+};
+
+export const uploadMedia = async (payload: any) => {
+    try {
+        const res: Response = await axios.post(`${baseUrlCDN}/cdn/add`, payload, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:133 ~ editFreelanceApi ~ error:", error);
+    }
+};
+
+export const getAdresseUtilsApi = async (utilType: string, search?: string) => {
+    try {
+        const res: Response = await axios.get(`${baseUrl}/utils/adress/${utilType}${search ? search : ""}`, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:111 ~ getAdresseUtilsApi ~ error:", error);
     }
 };

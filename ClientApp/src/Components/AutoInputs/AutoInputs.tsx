@@ -12,17 +12,19 @@ function AutoInputs({
     inputsArr,
     onSubmit,
     children,
+    className,
 }: {
-    inputsArr: Array<InputType> | Array<InputType[]>;
+    inputsArr: Array<InputType | InputType[]>;
     onSubmit: FormEventHandler<HTMLFormElement>;
     children?: any;
+    className?: string;
 }) {
     return (
-        <form className="inputsShowDiv" onSubmit={onSubmit}>
+        <form className={"inputsShowDiv " + className} onSubmit={onSubmit}>
             {inputsArr.map((e, i) => {
                 if (Array.isArray(e)) {
                     return (
-                        <div>
+                        <div className={e[0].containerClass}>
                             {e.map((elem, i) => {
                                 const { inputType, onChange, ...rest } = elem;
 

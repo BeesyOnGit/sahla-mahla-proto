@@ -188,6 +188,7 @@ export type freelanceType = {
         credits: number;
     };
     // comment Multi * a usage interne
+    _id?: string;
 };
 
 export type degreeType = {

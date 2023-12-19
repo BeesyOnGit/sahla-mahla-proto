@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import CryptoJS from "crypto-js";
 import dotenv from "dotenv";
-import { FilterQuery, Model } from "mongoose";
+import mongoose, { FilterQuery, Model } from "mongoose";
 import { writeFile } from "fs";
 import FreelanceModel, { freelanceType } from "../Models/Freelance";
 import ClientModel, { clientType } from "../Models/Clients";
@@ -75,6 +75,10 @@ export const verrifiySocket = async (socket: any, token: string, socketId: strin
     // }
 
     return { ...socket, [socketId]: location };
+};
+
+export const toObjectId = (id: string) => {
+    return new mongoose.Types.ObjectId(id);
 };
 
 export const hashPassword = async (plainPassword: string): Promise<string> => {

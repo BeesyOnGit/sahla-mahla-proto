@@ -1,6 +1,6 @@
 type resourcesLangType = {
     [key in "fr" | "ar" | "en"]: {
-        myResouresources: string;
+        myResources: string;
         sellingResources: string;
         noResourcesOwned: string;
         noResourcesToSell: string;
@@ -9,9 +9,21 @@ type resourcesLangType = {
 
 export const resourcesLang: resourcesLangType = {
     fr: {
-        myResouresources: "mes resources",
-        sellingResources: "resources a vendre",
-        noResourcesOwned: "aucune resource achtée pour l'instant",
-        noResourcesToSell: "aucune resrouce a vendre pour l'instant",
+        myResources: "mes ressources",
+        sellingResources: "ressources à vendre",
+        noResourcesOwned: "aucune ressource achetée pour l'instant",
+        noResourcesToSell: "aucune ressource à vendre pour l'instant",
+    },
+    en: {
+        myResources: "my resources",
+        sellingResources: "selling resources",
+        noResourcesOwned: "no resources owned yet",
+        noResourcesToSell: "no resources to sell at the moment",
+    },
+    ar: {
+        myResources: "مواردي",
+        sellingResources: "الموارد المعروضة للبيع",
+        noResourcesOwned: "لا يوجد موارد مملوكة حاليًا",
+        noResourcesToSell: "لا توجد موارد للبيع حاليًا",
     },
 };

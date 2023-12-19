@@ -16,6 +16,7 @@ export type InputType = {
     onComboChange?: Function;
     innerInputIcon?: any;
     ref?: any;
+    line?: boolean;
     // submit?: boolean;
 } & Partial<React.InputHTMLAttributes<HTMLInputElement>>;
 

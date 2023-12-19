@@ -9,11 +9,12 @@ import Button from "../Button/Button";
 import { formatAsCurrency } from "../../MiddleWear/ClientFunctions";
 import Skuleton from "../Skuleton/Skeleton";
 
-function ResourcesCard(props: Partial<resourcesType> & { likeFunc?: Function; skull?: boolean; noBuy: boolean }) {
+function ResourcesCard(props: Partial<resourcesType> & { likeFunc?: Function; skull?: boolean }) {
     const { userLang } = Contexts();
-    const { title, owner, likes, bookMarks, resourceThumbnail, price, discount, timesSold, buyers, _id, likeFunc, skull, noBuy, resourceLink } =
-        props;
+    const { title, owner, likes, bookMarks, resourceThumbnail, price, discount, timesSold, buyers, _id, likeFunc, skull, resourceLink } = props;
     const ownerInfos: any = owner;
+    console.log("🚀 ~ file: ResourcesCard.tsx:16 ~ ResourcesCard ~ owner:", owner);
+    console.log("🚀 ~ file: ResourcesCard.tsx:16 ~ ResourcesCard ~ ownerInfos:", ownerInfos);
 
     const bookedMap: any = {
         true: "bookedRes",
@@ -47,6 +48,7 @@ function ResourcesCard(props: Partial<resourcesType> & { likeFunc?: Function; sk
                             <div>
                                 {ownerInfos.firstName} {ownerInfos.familyName}
                             </div>
+                            {ownerInfos.aprouved && <i className="fi fi-ss-badge-check checkUser"></i>}
                         </div>
                         <div className="resourcePopularityContainer">
                             <div

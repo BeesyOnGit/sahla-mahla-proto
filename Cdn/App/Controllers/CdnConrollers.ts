@@ -15,9 +15,10 @@ export const addMedia = async (req: Request, res: Response) => {
     try {
         const fileName = await FilesSavingAsync({ data: picture, savePath: path! });
         const url = `${serverUrl}/${fileName}`;
-        return res.json({ code: "10", url });
-    } catch (error) {
+        return res.json({ code: "10", data: url });
+    } catch (error: any) {
         console.log("🚀 ~ file: CdnConrollers.ts:12 ~ addMedia ~ error:", error);
+        return res.json({ code: "EO", data: error.message });
     }
 };
 export const saveResource = async (req: Request, res: Response) => {
