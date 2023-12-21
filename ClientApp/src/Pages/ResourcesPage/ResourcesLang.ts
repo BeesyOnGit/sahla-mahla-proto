@@ -1,5 +1,7 @@
+import { langType } from "../../MiddleWear/ClientInterface";
+
 type resourcesLangType = {
-    [key in "fr" | "ar" | "en"]: {
+    [key in langType]: {
         myResources: string;
         sellingResources: string;
         noResourcesOwned: string;

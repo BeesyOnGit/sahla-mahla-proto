@@ -44,7 +44,7 @@ export const AuthVerification = async (req: Request, res: Response, next: NextFu
         const isUser = (await FreelanceModel.findOne(GeneralFilter)) || (await ClientModel.findOne(GeneralFilter));
 
         if (!isUser) {
-            return res.json({ code: "01" });
+            return res.json({ code: "E03" });
         }
 
         const { passWord: dbPass, _id: userId } = isUser;
@@ -109,6 +109,7 @@ export const encryptString = (infos: string) => {
         console.log("🚀 ~ file: ServerFunctions.ts:127 ~ cryptBillingInfos ~ error:", error);
     }
 };
+
 export const decryptString = (encryptedBilling: string) => {
     try {
         return CryptoJS.AES.decrypt(encryptedBilling, process.env.BILLING_ENCRIPTION_KEY!).toString(CryptoJS.enc.Utf8);
@@ -405,3 +406,35 @@ export const randomIdGenerator = (length: number) => {
 
     return id;
 };
+
+type PopulateParams = {
+    doc: any;
+    path: string;
+    firstModel: string;
+    secondModel: string;
+    select: string;
+};
+
+export async function populateFromModels({ doc, path, firstModel, secondModel, select }: PopulateParams) {
+    try {
+        if (!doc) {
+            return;
+        }
+        const tmpSave = doc[path];
+        await doc.populate({
+            path,
+            model: firstModel,
+            select,
+        });
+        if (!doc[path]) {
+            doc[path] = tmpSave;
+            await doc.populate({
+                path,
+                model: secondModel,
+                select,
+            });
+        }
+    } catch (err) {
+        console.log("🚀 ~ file: ProjectControllers.ts:168 ~ err:", err);
+    }
+}

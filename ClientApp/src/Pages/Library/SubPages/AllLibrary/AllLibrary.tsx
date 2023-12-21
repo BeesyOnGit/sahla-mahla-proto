@@ -109,32 +109,6 @@ function AllLibrary() {
 
     return (
         <section className="allLibContainer">
-            <div className="searchContainer">
-                <Inputs
-                    containerClass="searchInpParent"
-                    className="searchInpLib"
-                    innerInputIcon="fi fi-br-search"
-                    placeholder={LibraryLang[userLang].search}
-                    onChange={beginSearch}
-                />
-            </div>
-            <div className="libCategoriesContainer">
-                <div> {LibraryLang[userLang].categories[0]} </div>
-                {categeories
-                    ? categeories.map((category, i) => {
-                          return (
-                              <CategoriesSelect
-                                  key={i}
-                                  className={"categoriesElemsStyle " + ImSelected(category)}
-                                  category={LibraryLang[userLang].categories[category]}
-                                  onClick={() => toggleCategory(category)}
-                              />
-                          );
-                      })
-                    : randomArrLength(5, 10).map((e, i) => {
-                          return <Skuleton key={i} style={{ width: "6%", height: "1.7rem", borderRadius: "var(--roundRadius)" }} />;
-                      })}
-            </div>
             <div className="resourcesContainer">
                 <GridMapper
                     toMap={resources}
@@ -143,6 +117,34 @@ function AllLibrary() {
                     emptyIcon="fi fi-br-image-slash"
                     otherProps={{ likeFunc: likeBookResource }}
                 />
+            </div>
+            <div>
+                <div className="searchContainer">
+                    <Inputs
+                        containerClass="searchInpParent"
+                        className="searchInpLib"
+                        // innerInputIcon="fi fi-br-search"
+                        placeholder={LibraryLang[userLang].search}
+                        onChange={beginSearch}
+                    />
+                </div>
+                <div className="libCategoriesContainer">
+                    <div> {LibraryLang[userLang].categories[0]} </div>
+                    {categeories
+                        ? categeories.map((category, i) => {
+                              return (
+                                  <CategoriesSelect
+                                      key={i}
+                                      className={"categoriesElemsStyle " + ImSelected(category)}
+                                      category={LibraryLang[userLang].categories[category]}
+                                      onClick={() => toggleCategory(category)}
+                                  />
+                              );
+                          })
+                        : randomArrLength(5, 10).map((e, i) => {
+                              return <Skuleton key={i} style={{ width: "6%", height: "1.7rem", borderRadius: "var(--roundRadius)" }} />;
+                          })}
+                </div>
             </div>
 
             {/* <div

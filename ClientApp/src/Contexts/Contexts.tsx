@@ -1,12 +1,12 @@
 import { useState, useContext, createContext } from "react";
-import { alertType } from "../MiddleWear/ClientInterface";
+import { alertType, langType } from "../MiddleWear/ClientInterface";
 
 export interface ContextsType {
     darkMode: string;
     Token: string;
     // SToken: string;
     // SvToken: string;
-    userLang: "fr" | "ar" | "en";
+    userLang: langType;
     initialDkMode: Function;
     initialLanguage: Function;
     setAlertHandler: Function;
@@ -36,7 +36,7 @@ export default function ContextProvider(props: any) {
     language section
     **************/
 
-    const [userLang, setUserLang] = useState<"fr" | "ar" | "en">(window.localStorage.lang);
+    const [userLang, setUserLang] = useState<langType>(window.localStorage.lang);
 
     const initialLanguage = () => {
         if (window.localStorage.lang) {
@@ -48,7 +48,7 @@ export default function ContextProvider(props: any) {
         return setUserLang(window.localStorage.lang);
     };
 
-    const switchLanguage = (lang: "fr" | "ar" | "en") => {
+    const switchLanguage = (lang: langType) => {
         // location.reload();
         window.localStorage.lang = lang;
 

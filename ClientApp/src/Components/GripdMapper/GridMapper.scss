@@ -5,6 +5,7 @@
     // grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     // justify-content: start;
     row-gap: 0.625rem;
+    grid-auto-rows: min-content;
     column-gap: 0.625rem;
     overflow-x: hidden;
     overflow-y: scroll;

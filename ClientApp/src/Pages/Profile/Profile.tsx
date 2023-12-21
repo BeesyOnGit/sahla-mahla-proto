@@ -5,19 +5,13 @@ import { freelanceType } from "../../../../Serveur/App/Models/Freelance";
 import { clientType } from "../../../../Serveur/App/Models/Clients";
 import AutoInputs from "../../Components/AutoInputs/AutoInputs";
 import { generalAddEditFunction, generalGetFunction } from "../../MiddleWear/ClientFunctions";
-import {
-    editClientApi,
-    editFreelanceApi,
-    getAdresseUtilsApi,
-    getClientInfospi,
-    getFreelanceInfospi,
-    uploadMedia,
-} from "../../MiddleWear/ApiMiddleWear";
+import { editClientApi, editFreelanceApi, getUtilsApi, getClientInfospi, getFreelanceInfospi, uploadMedia } from "../../MiddleWear/ApiMiddleWear";
 import { Contexts } from "../../Contexts/Contexts";
 import { ProfileLang } from "./ProfileLang";
 
 function Profile() {
     const { userLang, refreshApp, refresh, setNewAlert, setApiWait, apiWait } = Contexts();
+    console.log("🚀 ~ file: Profile.tsx:14 ~ Profile ~ apiWait:", apiWait);
 
     const [profileForm, setProfileForm] = useState<Partial<freelanceType | clientType>>({});
     const [editedprofileForm, setEditedProfileForm] = useState<Partial<freelanceType | clientType>>({});
@@ -37,7 +31,7 @@ function Profile() {
 
     const getWilayas = () => {
         generalGetFunction({
-            endPoint: getAdresseUtilsApi("wilaya"),
+            endPoint: getUtilsApi("wilaya"),
             setNewAlert,
             setState: setWilaya,
             refresh: refreshApp,
@@ -46,7 +40,7 @@ function Profile() {
     };
     const getCommunes = (wilToSelect: string) => {
         generalGetFunction({
-            endPoint: getAdresseUtilsApi("commune", `?wilaya=${wilToSelect}`),
+            endPoint: getUtilsApi("commune", `?wilaya=${wilToSelect}`),
             setNewAlert,
             setState: setCommune,
             refresh: refreshApp,
@@ -87,7 +81,7 @@ function Profile() {
             }
 
             if (editedprofileForm.profilePicture) {
-                generalAddEditFunction("", {
+                return generalAddEditFunction("", {
                     endPoint: uploadMedia({ picture: editedprofileForm.profilePicture }),
                     successCode: "10",
                     setNewAlert,
@@ -101,6 +95,8 @@ function Profile() {
                     },
                 });
             }
+
+            return editProfile();
         } catch (error) {
             console.log("🚀 ~ file: Profile.tsx:88 ~ submit ~ error:", error);
         }

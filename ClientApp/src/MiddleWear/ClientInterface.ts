@@ -1,20 +1,25 @@
-import { ChangeEvent } from "react";
+import React, { ChangeEvent } from "react";
 
-export type InputType = {
+export type inputType = {
     title?: string;
     inputType?: "separation" | "regular" | "multi" | "button" | "combo" | "fileInp";
-    multiValues?: Array<string>;
+    multiValues?: any[];
+    textArea?: boolean;
     multipleLimit?: number | undefined;
+    multiple?: boolean;
     removeElem?: Function;
     addElemToListe?: Function;
     icon?: string;
     innerUnit?: string;
     content?: string;
+    comboContainerClass?: string;
     containerClass?: string;
     options?: { label: string; value: any }[];
     comboContent?: any;
     onComboChange?: Function;
     innerInputIcon?: any;
+    cols?: number;
+    rows?: number;
     ref?: any;
     line?: boolean;
     // submit?: boolean;
@@ -24,6 +29,8 @@ export type alertType = {
     type: "success" | "error" | "warning";
     message: string;
 };
+
+export type langType = "fr" | "ar" | "en";
 
 export type configColorType = {
     property: string;

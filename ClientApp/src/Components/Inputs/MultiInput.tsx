@@ -1,9 +1,9 @@
-import { InputType } from "../../MiddleWear/ClientInterface";
+import { inputType } from "../../MiddleWear/ClientInterface";
 import { requiredMap } from "./Inputs";
 import "./Inputs.css";
 import { useRef } from "react";
 
-function MultiInput(props: InputType) {
+function MultiInput(props: inputType) {
     const { multiValues, removeElem, addElemToListe, multipleLimit, required, className, ...otherPpops } = props;
     const { name } = otherPpops;
     const ref = useRef<HTMLInputElement>(null);

@@ -25,7 +25,7 @@
     --navBarColor: #ffffff;
 
     --fontColorPrimary: #262424;
-    --fontColorSeconday: #767474;
+    --fontColorSeconday: #cfcfcf;
 
     --siteColor: #ffffff;
     --siteBorder: solid 0.0625rem var(--fontColorSeconday);
@@ -85,7 +85,7 @@
     --navBarColor: #0c0c0c;
 
     --fontColorPrimary: #e8e8e8;
-    --fontColorSeconday: #c3c3c3;
+    --fontColorSeconday: #dedede;
 
     --siteColor: #ffffff;
 
@@ -130,6 +130,7 @@
     color: var(--fontColorPrimary);
     margin: 0;
     padding: 0;
+    font-family: Circular Std, Arial, Helvetica, sans-serif !important;
 }
 
 .ar {
@@ -145,7 +146,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    z-index: 0;
+    /* z-index: 0; */
     /* // pointer-events: visible; */
 }
 
@@ -190,6 +191,9 @@ body {
 
 .positiveResponse {
     background-color: var(--messagespositivecolorhover);
+}
+.iddleResponse {
+    background-color: var(--messageidleecolorhover);
 }
 .negativeResponse {
     background-color: var(--messagesnegativecolorhover);

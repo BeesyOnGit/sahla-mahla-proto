@@ -1,3 +1,5 @@
+import { langType } from "./ClientInterface";
+
 export const apiResponseLang: any = {
     fr: {
         EO: "autre erreur",
@@ -161,5 +163,44 @@ export const apiResponseLang: any = {
         S102: "resources deleted successfully",
         formMissing: "one or more mandatory field(s) is empty",
         resErr: "error while receiving response, please try again later",
+    },
+};
+
+type generalLangType = {
+    [key in langType]: {
+        priceUnit: string;
+    };
+};
+
+export const GeneralLang: generalLangType = {
+    fr: {
+        priceUnit: "DA",
+    },
+    en: {
+        priceUnit: "DA",
+    },
+    ar: {
+        priceUnit: "دج",
+    },
+};
+
+export const projectStatusLang: any = {
+    fr: {
+        "0": "lancé",
+        "1": "en cours",
+        "2": "terminé",
+        "3": "annulé",
+    },
+    en: {
+        "0": "launched",
+        "1": "in progress",
+        "2": "completed",
+        "3": "canceled",
+    },
+    ar: {
+        "0": "تم الإطلاق",
+        "1": "قيد التقدم",
+        "2": "مكتمل",
+        "3": "ألغيت",
     },
 };

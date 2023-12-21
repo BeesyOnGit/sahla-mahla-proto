@@ -1,10 +1,10 @@
 import { clientType } from "../../../../Serveur/App/Models/Clients";
 import { freelanceType } from "../../../../Serveur/App/Models/Freelance";
 import { formatForInput, mediaCompressionMono } from "../../MiddleWear/ClientFunctions";
-import { InputType, OnChangeEventType } from "../../MiddleWear/ClientInterface";
+import { inputType, OnChangeEventType, langType } from "../../MiddleWear/ClientInterface";
 import { ProfileLang } from "./ProfileLang";
 
-export type ProfileInputsType = {
+type ProfileInputsType = {
     state: Partial<freelanceType | clientType>;
     editedState: React.Dispatch<React.SetStateAction<Partial<freelanceType | clientType>>>;
     stateSetter: Function;
@@ -12,8 +12,8 @@ export type ProfileInputsType = {
     communes: any[] | null;
 };
 
-export const ProfileInputs = ({ editedState, state, stateSetter, wilayas, communes }: ProfileInputsType): Array<InputType | InputType[]> => {
-    const lang: "fr" | "ar" | "en" = window.localStorage.lang;
+export const ProfileInputs = ({ editedState, state, stateSetter, wilayas, communes }: ProfileInputsType): Array<inputType | inputType[]> => {
+    const lang: langType = window.localStorage.lang;
 
     const onChange = (e: OnChangeEventType) => {
         const { target } = e;
@@ -101,7 +101,7 @@ export const ProfileInputs = ({ editedState, state, stateSetter, wilayas, commun
     const { accountEndWith, accountNumber } = billing || {};
     const { wilaya, commune, street } = adress || {};
 
-    const Inputs: Array<InputType[] | InputType> = [
+    const Inputs: Array<inputType[] | inputType> = [
         {
             inputType: "separation",
             title: ProfileLang[lang].userInfosTitle,
@@ -260,7 +260,7 @@ export const ProfileInputs = ({ editedState, state, stateSetter, wilayas, commun
 };
 
 export const formatForCombo = (arr: any[], field: string) => {
-    let lang = window.localStorage.lang;
+    let lang: langType = window.localStorage.lang;
     if (!lang) {
         return [{ label: "choose language", value: "" }];
     }
@@ -276,14 +276,11 @@ export const formatForCombo = (arr: any[], field: string) => {
 };
 
 export const getHashMap = (arr: any[], field: string): any => {
-    let lang = window.localStorage.lang;
+    let lang: langType = window.localStorage.lang;
     if (!lang) {
         return;
     }
     let obj = {};
-    if (lang == "en") {
-        lang = "fr";
-    }
 
     arr.forEach((elem: any) => {
         obj = { ...obj, [elem[field]]: elem[lang] };

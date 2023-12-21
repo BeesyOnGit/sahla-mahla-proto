@@ -36,10 +36,10 @@
     transition: all 200ms ease-out;
 }
 
-.innerUnit:hover {
+/* .innerUnit:hover {
     cursor: pointer;
     transform: scale(0.9);
-}
+} */
 
 .UnitsStyle {
     font-size: 0.8rem;
@@ -121,11 +121,12 @@
     padding: 0.3125rem 0.625rem;
     border-radius: var(--roundRadius);
     gap: 0.3125rem;
-    background-color: var(--accentColor);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    /* background-color: var(--accentColor); */
+    border: var(--siteBorder);
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; */
 }
 .multiInputSelectedElem > * {
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -139,6 +140,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 .multipleInputs > i {
     color: var(--messagespositivecolor);
@@ -150,4 +152,28 @@
 
 .inpreq {
     border: 2px solid var(--messagesnegativecolorhover);
+}
+
+.inpsubContainer {
+    width: inherit;
+    position: relative;
+}
+
+/* For WebKit browsers (Chrome, Safari, etc.) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* For Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* For Microsoft Edge */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

@@ -1,5 +1,7 @@
+import { langType } from "../../MiddleWear/ClientInterface";
+
 export type loginLangType = {
-    [key in "ar" | "fr" | "en"]: {
+    [key in langType]: {
         titleFreelance: string;
         title: string;
         button: string;

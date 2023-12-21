@@ -6,6 +6,9 @@ const UtilitiesSchema = new mongoose.Schema<utilitiesType>({
     wilaya: {
         type: String,
     },
+    categoryCode: {
+        type: String,
+    },
     commune: {
         type: String,
     },
@@ -34,12 +37,13 @@ export default UtilitiesModel;
 
 export type utilitiesType = {
     resourcesCategories?: number[];
-    wilaya?: number;
+    wilaya?: string;
     fr?: string;
     ar?: string;
     utilType?: string;
     long?: string;
     lat?: string;
-    commune?: number;
+    commune?: string;
     postCode?: string;
+    categoryCode?: string;
 };

@@ -1,5 +1,7 @@
+import { langType } from "../../MiddleWear/ClientInterface";
+
 type libraryLangType = {
-    [key in "fr" | "ar" | "en"]: {
+    [key in langType]: {
         title: string;
         myBookmark: string;
         returnToLib: string;

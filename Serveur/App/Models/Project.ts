@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 const ProjectSchema = new mongoose.Schema<projectType>({
-    executor: {
+    contractor: {
         type: [mongoose.Schema.Types.ObjectId],
         required: true,
         ref: "freelance",
+        default: [],
     },
 
     buyer: {
@@ -12,18 +13,36 @@ const ProjectSchema = new mongoose.Schema<projectType>({
         ref: "clients",
     },
 
+    title: {
+        type: String,
+        required: true,
+        lowercase: true,
+    },
+
     buyerDeadline: {
         type: Number,
         required: true,
     },
 
-    executorDeadline: {
+    contractorDeadline: {
         type: Number,
     },
 
     finalDeadLine: {
         type: Number,
         required: true,
+        default: 0,
+    },
+
+    submitDeadLine: {
+        type: Number,
+        required: true,
+    },
+
+    canSubmit: {
+        type: Boolean,
+        required: true,
+        default: true,
     },
 
     description: {
@@ -35,10 +54,12 @@ const ProjectSchema = new mongoose.Schema<projectType>({
         type: [String],
         required: true,
     },
+
     amount: {
         type: Number,
         required: true,
     },
+
     submitters: {
         type: [
             {
@@ -49,7 +70,7 @@ const ProjectSchema = new mongoose.Schema<projectType>({
                 },
                 submitterDeadline: { type: Number, required: true },
                 submitterPrice: { type: Number, required: true },
-                submitterQuesrions: { type: String, required: true },
+                submitterQuestions: { type: String, required: true },
             },
         ],
         required: true,
@@ -81,12 +102,12 @@ const ProjectSchema = new mongoose.Schema<projectType>({
     projectStatus: {
         type: Number,
         default: 0,
-    }, // 0 : launched  , 1 : in progress , 2 : completed ,
+    },
 
-    projectStep: {
-        type: Number,
-        default: 0,
-    }, // 0 : available for bid , 1 : confirmed
+    // projectStep: {
+    //     type: Number,
+    //     default: 0,
+    // }, // 0 : available for bid , 1 : confirmed
 
     createdAt: {
         type: Number,
@@ -94,6 +115,7 @@ const ProjectSchema = new mongoose.Schema<projectType>({
             return new Date().getTime();
         },
     },
+
     lastActive: {
         type: Number,
         default: () => {
@@ -102,16 +124,23 @@ const ProjectSchema = new mongoose.Schema<projectType>({
     },
 });
 
+ProjectSchema.pre("save", function () {
+    this.lastActive = new Date().getTime();
+});
+
 const ProjectModel: mongoose.Model<projectType> = mongoose.model<projectType>("projects", ProjectSchema);
 export default ProjectModel;
 
 export type projectType = {
-    executor: mongoose.Schema.Types.ObjectId[];
-    buyer: mongoose.Schema.Types.ObjectId;
+    contractor: mongoose.Schema.Types.ObjectId[];
+    buyer: mongoose.Schema.Types.ObjectId | string;
 
+    title: string;
     buyerDeadline: number;
-    executorDeadline: number;
+    contractorDeadline: number;
     finalDeadLine: number;
+    submitDeadLine: number; //minute
+    canSubmit: boolean;
 
     description: string;
     targetFields: string[];
@@ -131,14 +160,16 @@ export type projectType = {
 
     lastActive: number;
 
-    projectStatus: number;
+    projectStatus: number; // 0 : launched  , 1 : in progress , 2 : completed , 3 : canceled
 
-    projectStep: number;
+    // projectStep: number;
+
+    _id?: string;
 };
 
 export type submittersListType = {
     submitter: mongoose.Schema.Types.ObjectId;
     submitterDeadline: number;
     submitterPrice: number;
-    submitterQuesrions: string;
+    submitterQuestions: string;
 };

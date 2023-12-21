@@ -52,7 +52,11 @@ export type dayilyLogsType = {
         | "plan added"
         | "plan edited"
         | "plan removed"
-        | "account certification";
+        | "account certification"
+        | "project created"
+        | "project edited"
+        | "project deleted"
+        | "submited on project";
     date?: number;
     concerned?: string;
     modification?: any;

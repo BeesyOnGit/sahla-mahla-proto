@@ -1,0 +1,24 @@
+.addOfferGeenralcontainer {
+    width: 100%;
+    height: 97vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-y: scroll;
+    .AddOfferInputsContainer {
+        width: 80%;
+        padding: 1.25rem 1.875rem;
+        background-color: var(--navBarColor);
+        border-radius: var(--hardRadius);
+        border: var(--siteBorder);
+    }
+}
+
+.comboClassAddOffer {
+    display: flex;
+    flex-direction: column;
+}
+
+.addOfferBasicInfos {
+    align-items: flex-start;
+}

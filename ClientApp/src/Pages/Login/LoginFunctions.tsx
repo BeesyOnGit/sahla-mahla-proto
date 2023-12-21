@@ -2,17 +2,17 @@ import { LoginInputs } from "./Login";
 import { LoginLang } from "./LoginLang";
 import { apiResponseLang } from "../../MiddleWear/ClientData";
 import { clientLogin, freelanceLogin } from "../../MiddleWear/ApiMiddleWear";
-import { InputType, OnChangeEventType } from "../../MiddleWear/ClientInterface";
+import { InputType, OnChangeEventType, langType } from "../../MiddleWear/ClientInterface";
 // import { setNewAlert } from "../../MiddleWear/Signals";
 
 // type InputEvent = React.ChangeEvent<HTMLInputElement>;
 // type ButtonEvent = React.MouseEvent<HTMLButtonElement>;
 
-const lang: "fr" | "ar" | "en" = window.localStorage.lang;
+const lang: langType = window.localStorage.lang;
 
 export const InputsContent = ({ state, setState, setNewAlert }: { state: LoginInputs; setState: Function; setNewAlert: Function }) => {
     if (!lang) {
-        setNewAlert({ message: "", type: "error" });
+        setNewAlert({ message: "no language", type: "error" });
         return [];
     }
     const onChange = (e: OnChangeEventType) => {

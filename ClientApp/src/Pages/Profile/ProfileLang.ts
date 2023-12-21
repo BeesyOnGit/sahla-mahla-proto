@@ -1,5 +1,7 @@
+import { langType } from "../../MiddleWear/ClientInterface";
+
 type profileLangType = {
-    [key in "fr" | "ar" | "en"]: {
+    [key in langType]: {
         userInfosTitle: string;
         billingInfosTitle: string;
         adressInfosTitle: string;

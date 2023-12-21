@@ -2,7 +2,7 @@ import { FormEventHandler } from "react";
 import MultiInput from "../Inputs/MultiInput";
 import Inputs from "../Inputs/Inputs";
 import Separation from "../Separation/Separation";
-import { InputType } from "../../MiddleWear/ClientInterface";
+import { inputType } from "../../MiddleWear/ClientInterface";
 import "./AutoInputs.css";
 import Button from "../Button/Button";
 import ComboBox from "../ComboBox/ComboBox";
@@ -14,7 +14,7 @@ function AutoInputs({
     children,
     className,
 }: {
-    inputsArr: Array<InputType | InputType[]>;
+    inputsArr: Array<inputType | inputType[]>;
     onSubmit: FormEventHandler<HTMLFormElement>;
     children?: any;
     className?: string;
@@ -28,7 +28,7 @@ function AutoInputs({
                             {e.map((elem, i) => {
                                 const { inputType, onChange, ...rest } = elem;
 
-                                return componentsMap[inputType!]({ ...rest, onChange: onChange, key: i });
+                                return componentsMap[inputType!] ? componentsMap[inputType!]({ ...rest, onChange: onChange, key: i }) : null;
                             })}
                         </div>
                     );

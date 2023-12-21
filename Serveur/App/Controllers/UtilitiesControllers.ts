@@ -18,7 +18,7 @@ export const getCategories = async (req: Request, res: Response) => {
         return res.json({ code: "EO", error: error.message });
     }
 };
-export const getadressUtils = async (req: Request, res: Response) => {
+export const getUtils = async (req: Request, res: Response) => {
     const { params, query } = req;
     const { util } = params;
     const { wilaya } = query;
@@ -39,7 +39,7 @@ export const getadressUtils = async (req: Request, res: Response) => {
 
         return res.json({ code: "S52", data: adresses });
     } catch (error: any) {
-        console.log("🚀 ~ file: UtilitiesControllers.ts:42 ~ getadressUtils ~ error:", error);
+        console.log("🚀 ~ file: UtilitiesControllers.ts:42 ~ getUtils ~ error:", error);
         return res.json({ code: "EO", error: error.message });
     }
 };

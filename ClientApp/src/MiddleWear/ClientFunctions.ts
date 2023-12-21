@@ -206,9 +206,25 @@ export const mediaCompressionMono = async ({ InputValues, width, quality, format
 //     return daysInRange - repoDays;
 // };
 
-export const formatForInput = (date: any) => {
-    return new Date(parseInt(date)).toISOString().split("T")[0];
+export const formatForInput = (date: any, full?: "full") => {
+    if (full == "full") {
+        return dateToISOStringPreserveTimezone(date).split(".")[0];
+    }
+    return dateToISOStringPreserveTimezone(date).split("T")[0];
 };
+
+function dateToISOStringPreserveTimezone(dateFournished: Date | number | string) {
+    const date = new Date(dateFournished);
+    const tzOffset = date.getTimezoneOffset() * 60000; // offset in milliseconds
+    const localISOTime = new Date(date.getTime() - tzOffset).toISOString().slice(0, -1);
+    // const timezoneOffset =
+    //     (tzOffset < 0 ? "+" : "-") +
+    //     ("0" + Math.abs(tzOffset / 3600000)).slice(-2) + // Hours
+    //     ":" +
+    //     ("0" + (Math.abs(tzOffset / 60000) % 60)).slice(-2); // Minutes
+
+    return localISOTime;
+}
 
 export const getDateVal = (dateToForm: any, type: "from" | "to"): string => {
     const date = new Date();
@@ -496,7 +512,7 @@ export const generalAddEditFunction = async (
 
         if (code == "EO") {
             setApiWait(false);
-            return setNewAlert({ type: "error", message: res.message });
+            return setNewAlert({ type: "error", message: res.error });
         }
         if (code != successCode) {
             setApiWait(false);
@@ -546,9 +562,13 @@ export const generalGetFunction = async ({
         }
 
         const { code, data } = res;
+
         if (emptyCode && code == emptyCode) {
             silent ? null : setNewAlert({ type: "warning", message: apiResponseLang[lang][code] });
             return setState ? setState("empty") : undefined;
+        }
+        if (code == "EO") {
+            return setNewAlert({ type: "error", message: res.error });
         }
         if (code != successCode) {
             return silent ? null : setNewAlert({ type: "warning", message: apiResponseLang[lang][code] });

@@ -1,15 +1,29 @@
 import { useEffect, useState } from "react";
 import "./ComboBox.css";
+import "../Inputs/Inputs.css";
 import Inputs from "../Inputs/Inputs";
-import { InputType } from "../../MiddleWear/ClientInterface";
+import { inputType } from "../../MiddleWear/ClientInterface";
 
-export type ComboBoxType = InputType & {
+export type ComboBoxType = inputType & {
     options: { label: string; value: any }[];
     comboContent?: { label: string; value: any };
 };
 
 function ComboBox(props: ComboBoxType) {
-    const { options, onComboChange, name, nonce, className, containerClass, comboContent: content, ...rest } = props;
+    const {
+        options,
+        onComboChange,
+        name,
+        nonce,
+        className,
+        containerClass,
+        comboContent: content,
+        multiple,
+        multiValues,
+        removeElem,
+        comboContainerClass,
+        ...rest
+    } = props;
     const [inputRes, setInputRes] = useState<{ label: string; value: any }>({ label: content?.label || "", value: content?.value || "" });
 
     const [optionsDisp, setOptionsDisps] = useState<boolean>(false);
@@ -24,8 +38,10 @@ function ComboBox(props: ComboBoxType) {
     const setInputs = (label: string, value: any) => {
         setInputRes({ label, value });
         if (nonce) {
+            multiple && setInputRes({ label: "", value: "" });
             return onComboChange!({ name, nonce, value, label });
         }
+        multiple && setInputRes({ label: "", value: "" });
         return onComboChange!({ name, value, label });
     };
 
@@ -43,16 +59,16 @@ function ComboBox(props: ComboBoxType) {
     };
     // !inputRes.label;
     const filterCombo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        return setInputRes({ ...inputRes, label: e.target.value });
+        return setInputRes({ ...inputRes, label: e.target.value.toLowerCase() });
     };
 
     return (
-        <div className={containerClass + " comboGeneralContainer"}>
+        <div className={comboContainerClass + " comboGeneralContainer"}>
             <Inputs
                 {...rest}
-                containerClass="selectInp"
+                containerClass={"selectInp " + containerClass}
                 className={className + " selectInp"}
-                type="text"
+                type="texte"
                 value={inputRes.label ? inputRes.label : ""}
                 // ref={principalRef}
                 onChange={filterCombo}
@@ -63,6 +79,18 @@ function ComboBox(props: ComboBoxType) {
                     changeOptVisibility();
                 }}
             />
+            {multiple && multiValues!.length > 0 ? (
+                <div className="MultiInputSelectedShow">
+                    {multiValues?.map((elem: any, i) => {
+                        return (
+                            <div key={i} className="multiInputSelectedElem">
+                                <div> {elem} </div>
+                                <i className="fi fi-sr-cross-circle" onClick={() => removeElem!(name, i)}></i>
+                            </div>
+                        );
+                    })}
+                </div>
+            ) : null}
 
             {optionsDisp ? (
                 <section className="optSection customScroll">

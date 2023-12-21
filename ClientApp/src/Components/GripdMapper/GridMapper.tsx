@@ -31,7 +31,7 @@ function GridMapper(props: gridmappertype) {
                     return Component({ ...elem, ...otherProps, key: i });
                 })
             ) : toMap == "empty" ? (
-                <FullpageIcon icon="fi fi-br-image-slash" texte={emptyString} />
+                <FullpageIcon icon={emptyIcon ? emptyIcon : "fi fi-br-image-slash"} texte={emptyString} />
             ) : (
                 randomArrLength(10, 17).map((e, i) => {
                     return Component({ skull: true, key: i });

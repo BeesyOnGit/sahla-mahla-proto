@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./Inputs.css";
-import { InputType } from "../../MiddleWear/ClientInterface";
+import { inputType } from "../../MiddleWear/ClientInterface";
 
-function Inputs(props: InputType) {
-    const { type, title, className, innerUnit, innerInputIcon, containerClass, ...otherPpops } = props;
+function Inputs(props: inputType) {
+    const { type, title, className, innerUnit, innerInputIcon, containerClass, textArea, ...otherPpops } = props;
     const { required, value } = otherPpops;
     const [showPassWord, setShowPassWord] = useState<"password" | "text">("password");
 
@@ -17,17 +17,28 @@ function Inputs(props: InputType) {
     return (
         <div className={containerClass + " inputsContainer"}>
             {title ? <div> {title} :</div> : null}
-            <input {...otherPpops} type={type == "password" ? showPassWord : type} className={className + " " + requiredMap[reqCondition]} />
-            {type == "password" ? (
-                <i
-                    className="fi fi-sr-eye innerUnit"
-                    onClick={() => {
-                        changePasswordVisibility();
-                    }}
-                ></i>
-            ) : innerUnit || innerInputIcon ? (
-                <i className={innerInputIcon + " innerUnit UnitsStyle"}> {innerUnit} </i>
-            ) : null}
+            {textArea ? (
+                //@ts-ignore
+                <textarea
+                    {...otherPpops}
+                    // type={type == "password" ? showPassWord : type}
+                    className={className + " " + requiredMap[reqCondition]}
+                ></textarea>
+            ) : (
+                <div className="inpsubContainer">
+                    <input {...otherPpops} type={type == "password" ? showPassWord : type} className={className + " " + requiredMap[reqCondition]} />
+                    {type == "password" ? (
+                        <i
+                            className="fi fi-sr-eye innerUnit"
+                            onClick={() => {
+                                changePasswordVisibility();
+                            }}
+                        ></i>
+                    ) : innerUnit || innerInputIcon ? (
+                        <i className={innerInputIcon + " innerUnit UnitsStyle"}> {innerUnit} </i>
+                    ) : null}
+                </div>
+            )}
         </div>
     );
 }

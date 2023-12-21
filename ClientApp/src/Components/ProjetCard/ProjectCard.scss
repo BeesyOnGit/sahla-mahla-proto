@@ -1,0 +1,89 @@
+.projectCardGenContainer {
+    display: flex;
+    flex-direction: column;
+    // min-height: 12.5rem;
+    height: fit-content;
+    justify-content: flex-start;
+    align-items: flex-start;
+    // gap: 0.625rem;
+    border-radius: var(--hardRadius);
+    border: var(--siteBorder);
+    overflow: hidden;
+    background-color: var(--navBarColor);
+    & > h1:nth-child(1) {
+        padding: 1.25rem;
+        background-color: var(--fontColorSeconday);
+        width: 100%;
+        font-size: 1.1rem;
+        text-transform: capitalize;
+        text-align: start;
+        position: relative;
+        & > div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+            & > span {
+                text-transform: capitalize;
+                font-size: 0.7rem;
+                padding: 0.3125rem 0.625rem;
+                border-end-start-radius: var(--smouthRadius);
+                color: var(--navBarColor);
+                font-weight: 100;
+            }
+        }
+    }
+    & > section {
+        width: 100%;
+        padding: 1.25rem 0.9375rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 0.625rem;
+        & > div {
+            padding: 0 0.625rem;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 0.3125rem;
+            & > span:nth-child(1) {
+                text-transform: capitalize;
+                font-size: 0.9rem;
+            }
+            & > span {
+                text-transform: capitalize;
+            }
+        }
+        & > div:nth-child(3) {
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: flex-start;
+            & > span:hover {
+                cursor: pointer;
+                color: var(--siteColor);
+                transition: all 300ms ease-out;
+            }
+            & > p {
+                font-size: 0.8rem;
+                padding: 0.625rem 0;
+                font-weight: lighter;
+            }
+        }
+    }
+}
+
+.projectsubButton {
+    width: 100%;
+}
+
+.timerProject {
+    padding: 0.125rem 0.625rem;
+    font-size: 0.9rem;
+    background-color: var(--fontColorSeconday);
+    border-radius: var(--roundRadius);
+}

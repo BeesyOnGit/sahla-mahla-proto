@@ -17,6 +17,9 @@ import MyResources from "./Pages/ResourcesPage/subPages/MyResources/MyResources"
 import Resources from "./Pages/ResourcesPage/Resources";
 import SellingResources from "./Pages/ResourcesPage/subPages/SellingResources/SellingResources";
 import Profile from "./Pages/Profile/Profile";
+import Projects from "./Pages/Projects/Projects";
+import AllProjects from "./Pages/Projects/subPages/AllProjects/AllProjects";
+import AddOffer from "./Pages/Projects/subPages/AddOffer/AddOffer";
 // import { alerts } from "./MiddleWear/Signals";
 
 function App() {
@@ -66,6 +69,18 @@ function App() {
                 name: sideBarLang[userLang].NavElems.findWork,
                 path: "/offers",
                 ico: "fi fi-sr-briefcase",
+                page: <Projects />,
+                needValidation: true,
+                subRoute: [
+                    {
+                        path: "all",
+                        page: <AllProjects />,
+                    },
+                    {
+                        path: "new",
+                        page: <AddOffer />,
+                    },
+                ],
             },
             {
                 name: sideBarLang[userLang].NavElems.resources,
