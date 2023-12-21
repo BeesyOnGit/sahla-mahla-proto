@@ -61,12 +61,13 @@
 .divmodal {
     opacity: 1;
     /* width: 100%; */
-    max-width: 400px;
+    max-width: 31.25rem;
     position: relative;
     top: 15vh;
     left: 50%;
     pointer-events: all;
     transform: translateX(-50%);
+
     /* transition: opacity 500ms 300ms ease-out, top 500ms 100ms ease-out */
     transition: opacity 300ms 500ms ease-out, top 300ms 400ms ease-out;
     z-index: 5;
@@ -74,7 +75,8 @@
 
 .divacces {
     background-color: var(--navBarColor);
-    padding: 40px 15px;
-    border-radius: var(--generalRadius);
-    box-shadow: var(--cardShadow);
+    padding: 2.5rem 3.125rem;
+    border-radius: var(--hardRadius);
+    /* box-shadow: var(--cardShadow); */
+    border: var(--siteBorder);
 }

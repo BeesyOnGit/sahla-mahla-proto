@@ -277,6 +277,9 @@ export const formatForCombo = (arr: any[], field: string) => {
 
 export const getHashMap = (arr: any[], field: string): any => {
     let lang: langType = window.localStorage.lang;
+    if (!arr) {
+        return null;
+    }
     if (!lang) {
         return;
     }

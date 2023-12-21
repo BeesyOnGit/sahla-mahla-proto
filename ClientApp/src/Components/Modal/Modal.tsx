@@ -1,18 +1,20 @@
 import "./Modal.css";
-import { Contexts } from "../../Contexts/Contexts";
 
-function Modal({ children }: any) {
-    const { modalDisp, setModalDisp } = Contexts();
-
+type modalType = {
+    modalDisp: boolean;
+    setModalDisp: Function;
+    children: any;
+};
+function Modal({ children, modalDisp, setModalDisp }: modalType) {
     return (
-        <div className={modalDisp == 0 ? "Modal hidden" : "Modal"}>
+        <div className={modalDisp == false ? "Modal hidden" : "Modal"}>
             <div
-                className={modalDisp == 0 ? "overlaymodal hidden" : "overlaymodal"}
+                className={modalDisp == false ? "overlaymodal hidden" : "overlaymodal"}
                 onClick={() => {
-                    setModalDisp(0);
+                    setModalDisp(false);
                 }}
             ></div>
-            <div className={modalDisp == 0 ? "divmodal hidden" : "divmodal"}>
+            <div className={modalDisp == false ? "divmodal hidden" : "divmodal"}>
                 <div className="divacces">{children}</div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./ProjectCard.scss";
+import "../Inputs/Inputs.css";
 import "../ResourcesCard/ResourcesCard.scss";
 import { projectType } from "../../../../Serveur/App/Models/Project";
 import { freelanceType } from "../../../../Serveur/App/Models/Freelance";
@@ -10,24 +11,30 @@ import { dateFormater, formatAsCurrency } from "../../MiddleWear/ClientFunctions
 import LazyImage from "../LazyImage/LazyImage";
 import Button from "../Button/Button";
 import { projectStatusLang } from "../../MiddleWear/ClientData";
+import { langType } from "../../MiddleWear/ClientInterface";
 
-function ProjectCard(props: Partial<projectType> & { buyer: Partial<freelanceType | clientType> }) {
+function ProjectCard(props: Partial<projectType> & { buyer: Partial<freelanceType | clientType>; submitFunc?: Function; fieldsMap: any }) {
     const { userLang } = Contexts();
 
     const [showDesc, setShowDesc] = useState<boolean>(false);
-    const [timeLeft, setTimeLeft] = useState<boolean>(false);
-    const { title, targetFields, amount, submitDeadLine, buyerDeadline, description, projectStatus, buyer } = props;
+    const [timeLeft, setTimeLeft] = useState<number>(0);
+    const { title, targetFields, amount, submitDeadLine, buyerDeadline, description, projectStatus, buyer, submitFunc, _id, fieldsMap } = props;
     const { firstName, familyName, profilePicture, aprouved } = buyer || {};
+    const expired = restTime(submitDeadLine!) <= 0;
 
     useEffect(() => {
+        if (expired) {
+            return;
+        }
+
         const interv = setInterval(() => {
-            setTimeLeft(!timeLeft);
+            setTimeLeft(restTime(submitDeadLine!));
         }, 1000);
 
         return () => {
             clearInterval(interv);
         };
-    });
+    }, []);
 
     const textArray = description?.split("\n").map((line, index) => (
         <React.Fragment key={index}>
@@ -35,6 +42,7 @@ function ProjectCard(props: Partial<projectType> & { buyer: Partial<freelanceTyp
             <br />
         </React.Fragment>
     ));
+
     return (
         <div className="projectCardGenContainer">
             <h1>
@@ -45,13 +53,13 @@ function ProjectCard(props: Partial<projectType> & { buyer: Partial<freelanceTyp
             </h1>
             <section>
                 <div>
-                    <span> {ProjectLang[userLang].card.proposedDeadline} </span> <span>:</span> <span> {dateFormater(buyerDeadline!, true)} </span>
+                    <span> {ProjectLang[userLang].card.proposedDeadline} </span> <span>:</span> <span> {dateFormater(buyerDeadline!)} </span>
                 </div>
                 <div>
                     <span> {ProjectLang[userLang].card.amount} </span> <span>:</span> <span> {formatAsCurrency(amount!)} </span>
                 </div>
 
-                <div>
+                <section>
                     <span
                         onClick={() => {
                             setShowDesc(!showDesc);
@@ -60,9 +68,23 @@ function ProjectCard(props: Partial<projectType> & { buyer: Partial<freelanceTyp
                         {ProjectLang[userLang].card.seeMoreDetails}
                     </span>
                     {showDesc && description && <p> {textArray} </p>}
-                </div>
+                </section>
+
+                <section>
+                    <span>{ProjectLang[userLang].card.fieldsWanted}</span>
+                    <div className="customScroll">
+                        {targetFields?.map((elem: any, i) => {
+                            return (
+                                <div key={i} className="multiInputSelectedElem">
+                                    <div> {fieldsMap ? fieldsMap[elem] : null} </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </section>
                 <div>
-                    <span> {ProjectLang[userLang].card.submitableUntil} </span> <span className="timerProject"> {getTimeLeft(submitDeadLine!)} </span>
+                    <span> {ProjectLang[userLang].card.submitableUntil} </span>
+                    <span className={"timerProject " + expirationclassMap[`${expired}`]}>{getTimeLeft(timeLeft)} </span>
                 </div>
                 <div className="userIngfosContainer">
                     {profilePicture ? <LazyImage src={profilePicture} className="cardprofileImg" /> : <i className="fi fi-sr-circle-user"></i>}
@@ -71,7 +93,15 @@ function ProjectCard(props: Partial<projectType> & { buyer: Partial<freelanceTyp
                     </div>
                     {aprouved && <i className="fi fi-ss-badge-check checkUser"></i>}
                 </div>
-                <Button content={ProjectLang[userLang].card.submitOffer} icon="" onClick={() => {}} className="pagesNavButton projectsubButton" />
+                <Button
+                    content={ProjectLang[userLang].card.submitOffer}
+                    icon=""
+                    disabled={expired}
+                    onClick={() => {
+                        submitFunc ? submitFunc(_id) : () => {};
+                    }}
+                    className={"pagesNavButton projectsubButton " + expirationButtonclassMap[`${expired}`]}
+                />
             </section>
         </div>
     );
@@ -86,14 +116,27 @@ const statusClassed: any = {
     3: "negativeResponse",
 };
 
-const getTimeLeft = (timestamp: number) => {
-    const now = new Date().getTime();
-    const difference = timestamp - now;
+const expirationclassMap: any = {
+    true: "negativeResponse resWhilteCol",
+    false: "",
+};
+const expirationButtonclassMap: any = {
+    true: "buttonDesabled",
+    false: "",
+};
 
-    const lang = window.localStorage.lang;
+const restTime = (timestamp: number): number => {
+    const now = new Date().getTime();
+    return timestamp - now;
+};
+
+const getTimeLeft = (timestamp: number) => {
+    const difference = timestamp;
+
+    const lang: langType = window.localStorage.lang;
 
     if (difference <= 0) {
-        return "0";
+        return ProjectLang[lang].card.expired;
     }
 
     const seconds = Math.floor((difference / 1000) % 60);

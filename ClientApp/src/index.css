@@ -205,6 +205,10 @@ body {
     color: var(--navBarColor);
 }
 
+.resWhilteCol {
+    color: var(--navBarColor);
+}
+
 .buttonAndIcon {
     display: flex;
     flex-direction: row;
@@ -215,6 +219,7 @@ body {
 
 .customScroll::-webkit-scrollbar {
     width: 0.1875rem;
+    height: 0.1875rem;
 }
 ::-webkit-scrollbar-thumb {
     background: var(--fontColorSeconday);

@@ -11,7 +11,6 @@ function AddOffer() {
     const { userLang, setNewAlert, refreshApp, apiWait, setApiWait } = Contexts();
 
     const [offerForm, setOfferForm] = useState<Partial<projectType>>({});
-    console.log("🚀 ~ file: AddOffer.tsx:14 ~ AddOffer ~ offerForm:", offerForm);
     const [fields, setFields] = useState<any[] | null>(null);
 
     useEffect(() => {

@@ -3,7 +3,7 @@ import { Contexts } from "../Contexts/Contexts";
 import { LoginInputs } from "../Pages/Login/Login";
 import { freelanceType } from "../../../Serveur/App/Models/Freelance";
 import { clientType } from "../../../Serveur/App/Models/Clients";
-import { projectType } from "../../../Serveur/App/Models/Project";
+import { projectType, submittersListType } from "../../../Serveur/App/Models/Project";
 
 //  = prod ? "" : "http://localhost:3000";
 const url = import.meta.env.VITE_API_URL;
@@ -186,6 +186,17 @@ export const getProjectsApi = async (search?: string) => {
 export const createProjectApi = async (project: Partial<projectType>) => {
     try {
         const res: Response = await axios.post(`${baseUrl}/projects/`, project, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:182 ~ getProjectsApi ~ error:", error);
+    }
+};
+export const submitOfferToProjectApi = async (offer: Partial<submittersListType>, id: string) => {
+    try {
+        const res: Response = await axios.post(`${baseUrl}/projects/submit/${id}`, offer, config);
 
         if (res) {
             return res.data;

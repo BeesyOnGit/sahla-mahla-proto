@@ -8,11 +8,12 @@ import ProjectModel, { projectType } from "../Models/Project";
 
 export const createProjetc = async (req: Request, res: Response) => {
     const { body, headers, params } = req;
-    const { verifiedId }: Headers = headers;
+    const { verifiedId, userType }: Headers = headers;
     try {
         const newProject: projectType = {
             ...body,
             buyer: verifiedId,
+            buyerType: userType,
         };
         const createProject = await ProjectModel.create(newProject);
 
@@ -108,13 +109,20 @@ export const deleteProject = async (req: Request, res: Response) => {
         return res.json({ code: "EO", error: error.message });
     }
 };
+
 export const getAllProjects = async (req: Request, res: Response) => {
     const { headers, params, query } = req;
     const { verifiedId }: Headers = headers;
+    const { page } = query;
+
+    const pageSize = 10;
+    const pageNumber: any = page || 1;
     try {
-        const projectFound = await ProjectModel.find().select(
-            "-submitters -finalLink -temporaryLink -resourcesListe -contractor -contractorDeadline -finalDeadline"
-        );
+        const projectFound = await ProjectModel.find()
+            .sort({ createdAt: -1 })
+            .skip((pageNumber - 1) * pageSize)
+            .limit(pageSize)
+            .select("-submitters -finalLink -temporaryLink -resourcesListe -contractor -contractorDeadline -finalDeadline");
 
         if (!projectFound || projectFound.length == 0) {
             return res.json({ code: "E62" });
@@ -133,6 +141,34 @@ export const getAllProjects = async (req: Request, res: Response) => {
         return res.json({ code: "S64", data: projectFound });
     } catch (error: any) {
         console.log("🚀 ~ file: ProjectControllers.ts:134 ~ getAllProjects ~ error:", error);
+        return res.json({ code: "EO", error: error.message });
+    }
+};
+
+export const submitParticipation = async (req: Request, res: Response) => {
+    const { headers, params, body } = req;
+    const { verifiedId }: Headers = headers;
+    const { id } = params;
+
+    const filter: FilterQuery<projectType> = { _id: id };
+    try {
+        const projecttoSubmitTo = await ProjectModel.findOne(filter);
+
+        if (!projecttoSubmitTo) {
+            return res.json({ code: "E62" });
+        }
+
+        projecttoSubmitTo.submitters.push({ ...body, submitter: verifiedId });
+
+        const saveModifs = await projecttoSubmitTo.save();
+
+        if (!saveModifs) {
+            return res.json({ code: "E66" });
+        }
+
+        return res.json({ code: "S65" });
+    } catch (error: any) {
+        console.log("🚀 ~ file: ProjectControllers.ts:163 ~ submitParticipation ~ error:", error);
         return res.json({ code: "EO", error: error.message });
     }
 };

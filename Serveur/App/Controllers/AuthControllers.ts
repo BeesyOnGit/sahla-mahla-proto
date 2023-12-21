@@ -250,13 +250,6 @@ export const userAuth = async (req: Request, res: Response) => {
             return res.json({ code: "E03" });
         }
 
-        const activity: dayilyLogsType = {
-            doer: _id.toString(),
-            action: "login client",
-        };
-
-        AddToDailyActivity(activity);
-
         return res.json({ code: "S04", data });
     } catch (error: any) {
         console.log("🚀 ~ file: AuthControllers.ts:248 ~ userAuth ~ error:", error);

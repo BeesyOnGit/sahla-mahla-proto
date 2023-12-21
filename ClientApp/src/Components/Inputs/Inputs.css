@@ -133,6 +133,9 @@
     text-transform: capitalize;
     font-weight: 100;
 }
+.multiInputSelectedElem > div {
+    white-space: nowrap;
+}
 
 .multiInputSelectedElem > i {
     color: var(--messagesnegativecolorhover);

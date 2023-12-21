@@ -18,6 +18,9 @@ const env = process.env.ENVIRONEMENT;
 const SITE_URL = process.env.SITE_URL;
 export type Headers = IncomingHttpHeaders & {
     verifiedId?: string;
+    userType?: number;
+    validMail?: boolean;
+    validPhone?: boolean;
     authorizationtoken?: string;
 };
 
@@ -41,15 +44,28 @@ export const AuthVerification = async (req: Request, res: Response, next: NextFu
 
         const GeneralFilter: FilterQuery<freelanceType | clientType> = { _id };
 
-        const isUser = (await FreelanceModel.findOne(GeneralFilter)) || (await ClientModel.findOne(GeneralFilter));
+        const findClient = await ClientModel.findOne(GeneralFilter);
+        if (findClient) {
+            const { emailConfirmation, phoneConfirmation, _id } = findClient;
+            headers.userType = 2;
+            headers.validMail = emailConfirmation;
+            headers.validPhone = phoneConfirmation;
+            headers.verifiedId = _id.toString();
+        }
 
-        if (!isUser) {
+        const findFreelance = await FreelanceModel.findOne(GeneralFilter);
+        if (findFreelance) {
+            const { emailConfirmation, phoneConfirmation, _id } = findFreelance;
+            headers.userType = 1;
+            headers.validMail = emailConfirmation;
+            headers.validPhone = phoneConfirmation;
+            headers.verifiedId = _id.toString();
+        }
+
+        if (!findClient && !findFreelance) {
             return res.json({ code: "E03" });
         }
 
-        const { passWord: dbPass, _id: userId } = isUser;
-
-        headers.verifiedId = userId.toString();
         return next();
     } catch (error) {
         console.log("🚀 ~ file: ServerFunctions.ts:64 ~ AuthVerification ~ error:", error);
@@ -415,25 +431,21 @@ type PopulateParams = {
     select: string;
 };
 
-export async function populateFromModels({ doc, path, firstModel, secondModel, select }: PopulateParams) {
+export async function populateFromModels({ doc, path, select }: PopulateParams) {
+    const modelsToPopulateFromMap: any = {
+        1: "freelance",
+        2: "clients",
+    };
     try {
         if (!doc) {
             return;
         }
-        const tmpSave = doc[path];
+
         await doc.populate({
             path,
-            model: firstModel,
+            model: modelsToPopulateFromMap[doc.buyerType],
             select,
         });
-        if (!doc[path]) {
-            doc[path] = tmpSave;
-            await doc.populate({
-                path,
-                model: secondModel,
-                select,
-            });
-        }
     } catch (err) {
         console.log("🚀 ~ file: ProjectControllers.ts:168 ~ err:", err);
     }

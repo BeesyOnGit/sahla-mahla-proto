@@ -79,10 +79,3 @@ export type userConfirmationType = {
     validUpTo: number;
     used: boolean;
 };
-
-export type submittersListType = {
-    submitter: mongoose.Schema.Types.ObjectId;
-    submitterDeadline: number;
-    submitterPrice: number;
-    submitterQuesrions: string;
-};

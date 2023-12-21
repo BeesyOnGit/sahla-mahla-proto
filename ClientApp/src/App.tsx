@@ -208,6 +208,7 @@ function App() {
                         const { path, page, needValidation, subRoute } = elem;
                         return (
                             <Route
+                                key={i}
                                 path={path}
                                 element={
                                     <RouteProtection needValidation key={i}>
@@ -220,8 +221,17 @@ function App() {
                                         const { path, page, needValidation } = e;
                                         return (
                                             <Route
+                                                key={i}
                                                 path={path}
-                                                element={needValidation ? <RouteProtection needValidation>{page}</RouteProtection> : page}
+                                                element={
+                                                    needValidation ? (
+                                                        <RouteProtection key={i} needValidation>
+                                                            {page}
+                                                        </RouteProtection>
+                                                    ) : (
+                                                        page
+                                                    )
+                                                }
                                             />
                                         );
                                     })}

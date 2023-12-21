@@ -15,6 +15,10 @@ type projectsType = {
             offerTargetFields: string;
             subButton: string;
             submitableUntil: string;
+            proposedPrice: string;
+            proposedDeadline: string;
+            anyQuestion: string;
+            submitOffer: string;
         };
 
         card: {
@@ -25,6 +29,7 @@ type projectsType = {
             submitOffer: string;
             seeMoreDetails: string;
             fieldsWanted: string;
+            expired: string;
         };
     };
 };
@@ -44,6 +49,10 @@ export const ProjectLang: projectsType = {
             offerDeadline: "deadline",
             subButton: "soumettre offre",
             submitableUntil: "soumissions finies dans",
+            proposedPrice: "prix proposé",
+            proposedDeadline: "délai proposé",
+            anyQuestion: "des question ?",
+            submitOffer: "soumettre une offre",
         },
         card: {
             amount: "budget",
@@ -53,6 +62,7 @@ export const ProjectLang: projectsType = {
             submitOffer: "participer",
             seeMoreDetails: "voir plus de détails",
             fieldsWanted: "domaines visés",
+            expired: "expiré",
         },
     },
     en: {
@@ -69,6 +79,10 @@ export const ProjectLang: projectsType = {
             offerDeadline: "deadline",
             subButton: "submit offer",
             submitableUntil: "submissions finish in",
+            proposedPrice: "proposed price",
+            proposedDeadline: "proposed deadline",
+            anyQuestion: "any questions ?",
+            submitOffer: "submit an offer",
         },
         card: {
             amount: "budget",
@@ -78,6 +92,7 @@ export const ProjectLang: projectsType = {
             submitOffer: "participate",
             seeMoreDetails: "see more details",
             fieldsWanted: "targeted fields",
+            expired: "expired",
         },
     },
     ar: {
@@ -94,6 +109,10 @@ export const ProjectLang: projectsType = {
             offerDeadline: "الموعد النهائي",
             subButton: "تقديم العرض",
             submitableUntil: "تنتهي التقديمات في",
+            proposedPrice: "السعر المقترح",
+            proposedDeadline: "الموعد المقترح",
+            anyQuestion: "هل هناك أي أسئلة ؟",
+            submitOffer: "تقديم عرض",
         },
         card: {
             amount: "الميزانية",
@@ -103,6 +122,7 @@ export const ProjectLang: projectsType = {
             submitOffer: "المشاركة",
             seeMoreDetails: "رؤية المزيد من التفاصيل",
             fieldsWanted: "المجالات المستهدفة",
+            expired: "منتهي الصلاحية",
         },
     },
 };

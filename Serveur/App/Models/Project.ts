@@ -12,6 +12,10 @@ const ProjectSchema = new mongoose.Schema<projectType>({
         required: true,
         ref: "clients",
     },
+    buyerType: {
+        type: Number,
+        required: true,
+    },
 
     title: {
         type: String,
@@ -70,7 +74,7 @@ const ProjectSchema = new mongoose.Schema<projectType>({
                 },
                 submitterDeadline: { type: Number, required: true },
                 submitterPrice: { type: Number, required: true },
-                submitterQuestions: { type: String, required: true },
+                submitterQuestions: { type: String },
             },
         ],
         required: true,
@@ -134,6 +138,7 @@ export default ProjectModel;
 export type projectType = {
     contractor: mongoose.Schema.Types.ObjectId[];
     buyer: mongoose.Schema.Types.ObjectId | string;
+    buyerType: number;
 
     title: string;
     buyerDeadline: number;

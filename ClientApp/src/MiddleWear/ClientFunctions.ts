@@ -1,7 +1,7 @@
 import { FormEventHandler, useSyncExternalStore } from "react";
 import { useState, useEffect } from "react";
 import { apiResponseLang } from "./ClientData";
-import { configColorType } from "./ClientInterface";
+import { configColorType, langType } from "./ClientInterface";
 
 export function useWindowDimensions() {
     const hasWindow: Boolean = typeof window !== "undefined";
@@ -450,20 +450,18 @@ export function getRandomArbitrary(min: number, max: number) {
 }
 
 export const dateFormater = (date: Date | string | number, short?: boolean) => {
-    const lang: "ar" | "fr" | "en" = window.localStorage.lang;
+    const lang: langType = window.localStorage.lang;
     if (lang == "ar") {
         const dateOptions: Intl.DateTimeFormatOptions = !short
-            ? { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }
+            ? { month: "short", day: "numeric", year: "numeric" }
             : { month: "short", day: "numeric" };
         const formatDate = new Date(date);
         return formatDate.toLocaleDateString("ar-EG-u-nu-latn", dateOptions);
     }
-
-    const dateOptions: Intl.DateTimeFormatOptions = !short
-        ? { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }
-        : { month: "short", day: "numeric" };
+    const preferedLang = navigator.language;
+    const dateOptions: Intl.DateTimeFormatOptions = !short ? { month: "short", day: "numeric", year: "numeric" } : { month: "short", day: "numeric" };
     const formatDate = new Date(date);
-    return formatDate.toLocaleDateString("fr-FR", dateOptions);
+    return formatDate.toLocaleDateString(preferedLang, dateOptions);
 };
 
 export const generalAddEditFunction = async (
