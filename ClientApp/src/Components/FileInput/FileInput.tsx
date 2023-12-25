@@ -1,9 +1,9 @@
-import { InputType } from "../../MiddleWear/ClientInterface";
+import { inputType } from "../../MiddleWear/ClientInterface";
 import Button from "../Button/Button";
 import "./FileInput.css";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
-function FileInput(props: InputType) {
+function FileInput(props: inputType) {
     const { content, icon, className, value, ...rest } = props;
     const ref: React.LegacyRef<HTMLInputElement> = useRef(null);
     const val: any = value ? value : "";
@@ -11,19 +11,28 @@ function FileInput(props: InputType) {
     const click = () => {
         ref.current!.click();
     };
+
+    useEffect(() => {}, [ref.current]);
+    console.log("🚀 ~ file: FileInput.tsx:18 ~ FileInput ~ ref.current:", ref.current?.value);
+
     return (
         <div className={"fileInputGeneralContainer " + className}>
             <Button
                 content={content!}
                 icon={icon}
-                className="button"
+                className="pagesNavButton"
                 type="button"
                 onClick={() => {
                     click();
                 }}
             />
             <input className="inputFileCl" ref={ref} {...rest} type="file" />
-            {value ? <img src={val} className="previewImgInp" /> : null}
+            {val && (
+                <div className="inputFileIconsCont">
+                    <i className="fi fi-sr-memo-circle-check inpIcon"></i>
+                    <span> {ref.current?.value.split("fakepath")[ref.current?.value.split("fakepath").length - 1]} </span>
+                </div>
+            )}
         </div>
     );
 }

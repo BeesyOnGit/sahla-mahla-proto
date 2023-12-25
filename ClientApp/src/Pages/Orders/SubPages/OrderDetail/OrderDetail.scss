@@ -1,0 +1,133 @@
+.orderDetailContainer {
+    width: 100%;
+    height: 100vh;
+    padding: 1.25rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-y: scroll;
+    & > section {
+        width: 80%;
+        background-color: var(--navBarColor);
+        border: var(--siteBorder);
+        border-radius: var(--hardRadius);
+        padding: 1.25rem 1.875rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.625rem;
+        & > p {
+            font-size: 0.8rem;
+            color: var(--fontColorSeconday);
+        }
+    }
+
+    .orderDetDesc {
+        border: var(--siteBorder);
+        border-radius: var(--hardRadius);
+        padding: 0.625rem;
+        font-size: 0.9rem;
+    }
+
+    .orderbaseInfContainer {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+        gap: 0.9375rem;
+        & > div {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 0.3125rem;
+            & > span {
+                text-transform: capitalize;
+                font-size: 0.9rem;
+            }
+            & > span:nth-child(3) {
+                padding: 0.3125rem 0.9375rem;
+                background-color: var(--messagespositivecolorhover);
+                color: var(--backGroundColor);
+                border-radius: var(--roundRadius);
+                font-size: 0.8rem;
+            }
+        }
+    }
+    .orderDetSubtitle {
+        text-transform: capitalize;
+        width: 100%;
+        padding: 0.625rem;
+        text-align: center;
+    }
+
+    .ordersPartiesContainer {
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
+        align-items: flex-start;
+        border: var(--siteBorder);
+        padding: 0.625rem 0.9375rem;
+        border-radius: var(--hardRadius);
+        & > div {
+            width: 50%;
+            height: max-content;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+
+            & > div:nth-child(1) {
+                height: 100%;
+                text-transform: capitalize;
+                width: 100%;
+                text-align: start;
+            }
+        }
+    }
+
+    .orderDetPropalsCont {
+        padding: 0.625rem 0.9375rem;
+        border: var(--siteBorder);
+        border-radius: var(--hardRadius);
+        max-height: 40vh;
+        overflow-y: scroll;
+    }
+}
+.orderDetTitle {
+    & > div {
+        font-size: 1.4rem;
+        white-space: nowrap;
+    }
+}
+
+.orderConfirmationContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.9375rem;
+    & > span {
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-transform: capitalize;
+    }
+    & > div:nth-child(2) {
+        padding: 3.125rem 0;
+    }
+    & > div:nth-child(3) {
+        padding: 1.25rem 0;
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+    }
+}
+
+.orderFilesContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.9375rem 0;
+}

@@ -1,5 +1,13 @@
 import { Request, Response } from "express";
-import { FilesSavingAsync, randomIdGenerator, removeFile, saveImageAsync, thumbnailResource, watermarkResource } from "../MiddleWear/ServerFunctions";
+import {
+    FilesSavingAsync,
+    TokenVerifier,
+    randomIdGenerator,
+    removeFile,
+    saveImageAsync,
+    thumbnailResource,
+    watermarkResource,
+} from "../MiddleWear/ServerFunctions";
 
 import dotenv from "dotenv";
 
@@ -66,6 +74,33 @@ export const saveResource = async (req: Request, res: Response) => {
             resourceWaterLink: `${serverUrl}/${saveWatermark}/${owner}`,
         };
         return res.json({ code: "S101", url });
+    } catch (error) {
+        console.log("🚀 ~ file: CdnConrollers.ts:12 ~ addMedia ~ error:", error);
+        return res.json({ code: "E101" });
+    }
+};
+
+export const saveUserFile = async (req: Request, res: Response) => {
+    const { body, headers } = req;
+    let { resource, owner } = body;
+    const { authorizationtoken }: any = headers;
+    try {
+        if (!owner) {
+            owner = TokenVerifier(authorizationtoken)!.id;
+            if (!owner) {
+                return res.json({ code: "E103" });
+            }
+        }
+        const fileName = `${randomIdGenerator(10)}-${randomIdGenerator(10)}`;
+        const resUserPath = `${resourcesPath}/${owner}`;
+        const saveOriginalImage = await saveImageAsync({ data: resource, savePath: resUserPath, fileName });
+
+        if (!saveOriginalImage) {
+            return res.json({ code: "E101" });
+        }
+
+        const url = `${resourcesUrl}/${owner}/${saveOriginalImage}`;
+        return res.json({ code: "S101", data: url });
     } catch (error) {
         console.log("🚀 ~ file: CdnConrollers.ts:12 ~ addMedia ~ error:", error);
         return res.json({ code: "E101" });

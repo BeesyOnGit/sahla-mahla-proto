@@ -5,14 +5,15 @@ import "./GridMapper.scss";
 
 type gridmappertype = {
     toMap: any[] | null | "empty";
-    Component: any;
+    Component?: any;
     otherProps?: any;
     emptyString: string;
     emptyIcon: string;
+    children?: any;
 };
 
 function GridMapper(props: gridmappertype) {
-    const { Component, toMap, otherProps, emptyString, emptyIcon } = props;
+    const { toMap, otherProps, emptyString, emptyIcon, children } = props;
 
     const ref = useRef<HTMLDivElement>(null);
 
@@ -26,15 +27,15 @@ function GridMapper(props: gridmappertype) {
             className="gridMapperContainer customScroll"
             style={toMap != "empty" ? { display: "grid", gridTemplateColumns: `repeat(${elemsN},1fr)` } : {}}
         >
-            {Array.isArray(toMap) ? (
+            {Array.isArray(toMap) && toMap.length > 0 ? (
                 toMap.map((elem, i) => {
-                    return Component({ ...elem, ...otherProps, key: i });
+                    return React.cloneElement(children, { ...elem, ...otherProps, key: i });
                 })
             ) : toMap == "empty" ? (
                 <FullpageIcon icon={emptyIcon ? emptyIcon : "fi fi-br-image-slash"} texte={emptyString} />
             ) : (
                 randomArrLength(10, 17).map((e, i) => {
-                    return Component({ skull: true, key: i });
+                    return React.cloneElement(children, { skull: true, key: i });
                 })
             )}
         </div>

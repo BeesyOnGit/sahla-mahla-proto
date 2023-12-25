@@ -51,6 +51,9 @@ export const AuthVerification = async (req: Request, res: Response, next: NextFu
             headers.validMail = emailConfirmation;
             headers.validPhone = phoneConfirmation;
             headers.verifiedId = _id.toString();
+            res.cookie("userType", 2, {
+                maxAge: 1000 * 60 * 10,
+            });
         }
 
         const findFreelance = await FreelanceModel.findOne(GeneralFilter);
@@ -60,6 +63,9 @@ export const AuthVerification = async (req: Request, res: Response, next: NextFu
             headers.validMail = emailConfirmation;
             headers.validPhone = phoneConfirmation;
             headers.verifiedId = _id.toString();
+            res.cookie("userType", 1, {
+                maxAge: 1000 * 60 * 10,
+            });
         }
 
         if (!findClient && !findFreelance) {

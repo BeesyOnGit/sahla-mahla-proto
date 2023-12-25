@@ -26,6 +26,7 @@ export const createProjetc = async (req: Request, res: Response) => {
         const activity: dayilyLogsType = {
             doer: _id.toString(),
             action: "project created",
+            concerned: createProject._id,
         };
 
         AddToDailyActivity(activity);
@@ -36,6 +37,7 @@ export const createProjetc = async (req: Request, res: Response) => {
         return res.json({ code: "EO", error: error.message });
     }
 };
+
 export const editProject = async (req: Request, res: Response) => {
     const { body, headers, params } = req;
     const { id } = params;
@@ -49,7 +51,7 @@ export const editProject = async (req: Request, res: Response) => {
 
         const { buyer } = currProjectInfos;
 
-        if (verifiedId != buyer) {
+        if (verifiedId != buyer && !body.editAsContractor) {
             return res.json({ code: "E63" });
         }
 
@@ -65,6 +67,7 @@ export const editProject = async (req: Request, res: Response) => {
         const activity: dayilyLogsType = {
             doer: buyer.toString(),
             action: "project edited",
+            concerned: saveProjectInfos._id,
         };
 
         AddToDailyActivity(activity);
@@ -75,6 +78,7 @@ export const editProject = async (req: Request, res: Response) => {
         return res.json({ code: "EO", error: error.message });
     }
 };
+
 export const deleteProject = async (req: Request, res: Response) => {
     const { headers, params } = req;
     const { id } = params;
@@ -112,13 +116,32 @@ export const deleteProject = async (req: Request, res: Response) => {
 
 export const getAllProjects = async (req: Request, res: Response) => {
     const { headers, params, query } = req;
-    const { verifiedId }: Headers = headers;
-    const { page } = query;
+    const { verifiedId, userType }: Headers = headers;
+    const { page, order }: any = query;
 
     const pageSize = 10;
     const pageNumber: any = page || 1;
+    const now = new Date().getTime();
+    const orderMap: any = {
+        [order]: { 1: {}, 2: {} },
+
+        my: {
+            1: {
+                $or: [
+                    { buyer: verifiedId, projectStatus: { $in: [0, 1, 2] }, isApproved: false },
+                    { contractor: { $in: [verifiedId] }, projectStatus: { $in: [1, 2] }, isApproved: false },
+                ],
+            },
+            2: { buyer: verifiedId, projectStatus: { $in: [0, 1, 2] }, isApproved: false },
+        },
+        recap: {
+            1: { $or: [{ buyer: verifiedId }, { contractor: { $in: [verifiedId] } }] },
+            2: { $or: [{ buyer: verifiedId }, { contractor: { $in: [verifiedId] } }] },
+        },
+        involved: { 1: { "submitters.submitter": verifiedId }, 2: {} },
+    };
     try {
-        const projectFound = await ProjectModel.find()
+        const projectFound = await ProjectModel.find({ ...orderMap[order][userType!] })
             .sort({ createdAt: -1 })
             .skip((pageNumber - 1) * pageSize)
             .limit(pageSize)
@@ -151,11 +174,17 @@ export const submitParticipation = async (req: Request, res: Response) => {
     const { id } = params;
 
     const filter: FilterQuery<projectType> = { _id: id };
+    const now = new Date().getTime();
     try {
         const projecttoSubmitTo = await ProjectModel.findOne(filter);
 
         if (!projecttoSubmitTo) {
             return res.json({ code: "E62" });
+        }
+        const { submitDeadLine, canSubmit, projectStatus } = projecttoSubmitTo;
+
+        if (submitDeadLine < now || canSubmit == false || projectStatus > 0) {
+            return res.json({ code: "E67" });
         }
 
         projecttoSubmitTo.submitters.push({ ...body, submitter: verifiedId });
@@ -169,6 +198,76 @@ export const submitParticipation = async (req: Request, res: Response) => {
         return res.json({ code: "S65" });
     } catch (error: any) {
         console.log("🚀 ~ file: ProjectControllers.ts:163 ~ submitParticipation ~ error:", error);
+        return res.json({ code: "EO", error: error.message });
+    }
+};
+
+export const projectDetail = async (req: Request, res: Response) => {
+    const { headers, params, query } = req;
+    const { verifiedId, userType }: Headers = headers;
+    const { id } = params;
+    const {}: any = query;
+
+    // const orderMap: any = {
+    //     [order]: { 1: {}, 2: {} },
+
+    //     my: {
+    //         1: { $or: [{ buyer: verifiedId }, { contractor: { $in: [verifiedId] } }], projectStatus: 2 },
+    //         2: { buyer: verifiedId },
+    //     },
+    //     recap: {
+    //         1: { $or: [{ buyer: verifiedId }, { contractor: { $in: [verifiedId] } }] },
+    //         2: { $or: [{ buyer: verifiedId }, { contractor: { $in: [verifiedId] } }] },
+    //     },
+    //     involved: { 1: { "submitters.submitter": verifiedId }, 2: {} },
+    // };
+    try {
+        const projectFound: any = await ProjectModel.findOne({ _id: id })
+            .populate({
+                path: "contractor",
+                model: "freelance",
+                select: "firstName familyName profilePicture aprouved",
+            })
+            .populate({
+                path: "submitters.submitter",
+                model: "freelance",
+                select: "firstName familyName profilePicture aprouved",
+            });
+
+        if (!projectFound) {
+            return res.json({ code: "E62" });
+        }
+
+        const { buyer, contractor } = projectFound;
+
+        if (buyer != verifiedId && !contractor.toString().includes(verifiedId!)) {
+            return res.json({ code: "E68" });
+        }
+        let copyProject: Partial<projectType> & { owned?: boolean; contracted?: boolean } = {};
+
+        if (buyer == verifiedId) {
+            copyProject.owned = true;
+        }
+        if (contractor.toString().includes(verifiedId!)) {
+            copyProject.contracted = true;
+            if (buyer != verifiedId) {
+                copyProject.submitters = [];
+            }
+        }
+
+        await populateFromModels({
+            doc: projectFound,
+            path: "buyer",
+            firstModel: "clients",
+            secondModel: "freelance",
+            select: "firstName familyName profilePicture aprouved _id",
+        });
+
+        copyProject = { ...{ ...projectFound._doc }, ...copyProject };
+
+        return res.json({ code: "S64", data: copyProject });
+    } catch (error: any) {
+        console.log("🚀 ~ file: ProjectControllers.ts:134 ~ getAllProjects ~ error:", error);
         return res.json({ code: "EO", error: error.message });
     }
 };

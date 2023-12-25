@@ -160,6 +160,17 @@ export const uploadMedia = async (payload: any) => {
         console.log("🚀 ~ file: ApiMiddleWear.ts:133 ~ editFreelanceApi ~ error:", error);
     }
 };
+export const uploadFile = async (payload: any) => {
+    try {
+        const res: Response = await axios.post(`${baseUrlCDN}/cdn/files`, payload, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:133 ~ editFreelanceApi ~ error:", error);
+    }
+};
 
 export const getUtilsApi = async (utilType: string, search?: string) => {
     try {
@@ -194,9 +205,34 @@ export const createProjectApi = async (project: Partial<projectType>) => {
         console.log("🚀 ~ file: ApiMiddleWear.ts:182 ~ getProjectsApi ~ error:", error);
     }
 };
+export const editProjectApi = async (edited: Partial<projectType>, id: string) => {
+    try {
+        const { search } = window.location;
+        const res: Response = await axios.post(`${baseUrl}/projects/edit/${id}${search ? search : ""}`, edited, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:182 ~ getProjectsApi ~ error:", error);
+    }
+};
+
 export const submitOfferToProjectApi = async (offer: Partial<submittersListType>, id: string) => {
     try {
         const res: Response = await axios.post(`${baseUrl}/projects/submit/${id}`, offer, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:182 ~ getProjectsApi ~ error:", error);
+    }
+};
+
+export const getProjectdetailsApi = async (id: string) => {
+    try {
+        const res: Response = await axios.get(`${baseUrl}/projects/${id}`, config);
 
         if (res) {
             return res.data;

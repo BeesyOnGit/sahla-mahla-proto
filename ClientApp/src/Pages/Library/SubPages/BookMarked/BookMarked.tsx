@@ -121,13 +121,9 @@ function BookMarked() {
                 )}
             </div> */}
             <div className="bookmarkGrodContainer">
-                <GridMapper
-                    toMap={resources}
-                    Component={ResourcesCard}
-                    emptyString={emptyIconMap[`${type}`]}
-                    emptyIcon="fi fi-br-image-slash"
-                    otherProps={{ likeFunc: likeBookResource }}
-                />
+                <GridMapper toMap={resources} emptyString={emptyIconMap[`${type}`]} emptyIcon="fi fi-br-image-slash">
+                    <ResourcesCard likeFunc={likeBookResource} />
+                </GridMapper>
             </div>
         </section>
     );

@@ -106,6 +106,19 @@ html {
     transition: all 300ms ease-out;
 }
 
+.pagesNavButtonRed {
+    background-color: var(--messagesnegativecolorhover);
+    opacity: 0.8;
+    border-color: transparent;
+}
+.pagesNavButtonRed > * {
+    color: var(--backGroundColor);
+}
+.pagesNavButtonRed:hover {
+    opacity: 1;
+    background-color: var(--messagesnegativecolor);
+}
+
 .pagesNavButton > i {
     display: flex;
     justify-content: center;
@@ -118,6 +131,9 @@ html {
 .pagesNavSelected {
     background-color: var(--siteColor);
     border-color: transparent;
+}
+.pagesNavSelected:hover {
+    filter: brightness(1.2);
 }
 .pagesNavSelected > * {
     color: var(--backGroundColor);
@@ -134,4 +150,16 @@ html {
 ::placeholder {
     color: var(--fontColorPrimary);
     text-transform: capitalize;
+}
+
+.langSelectInp {
+    padding: 0.625rem 0;
+    background-color: var(--siteColor);
+    border: none;
+    text-align: center;
+    font-weight: bold;
+    width: fit-content;
+    color: var(--backGroundColor);
+}
+.langSelectInp > * {
 }

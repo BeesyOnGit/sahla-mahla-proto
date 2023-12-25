@@ -18,6 +18,9 @@
         text-transform: capitalize;
         text-align: start;
         position: relative;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
         & > div {
             position: absolute;
             top: 0;

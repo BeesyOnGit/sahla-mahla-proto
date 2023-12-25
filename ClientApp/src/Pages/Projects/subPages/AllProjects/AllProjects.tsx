@@ -86,15 +86,10 @@ function AllProjects() {
             <Modal modalDisp={modalDisp} setModalDisp={setModalDisp}>
                 <AutoInputs inputsArr={inputs} onSubmit={submitParticipation} />
             </Modal>
-            {projects && (
-                <GridMapper
-                    toMap={projects}
-                    Component={ProjectCard}
-                    emptyString={ProjectLang[userLang].noProjects}
-                    otherProps={{ fieldsMap: getHashMap(fields!, "categoryCode"), submitFunc }}
-                    emptyIcon="fi fi-br-edit-alt"
-                />
-            )}
+
+            <GridMapper toMap={projects} emptyString={ProjectLang[userLang].noProjects} emptyIcon="fi fi-br-edit-alt">
+                <ProjectCard fieldsMap={getHashMap(fields!, "categoryCode")} submitFunc={submitFunc} />
+            </GridMapper>
         </section>
     );
 }

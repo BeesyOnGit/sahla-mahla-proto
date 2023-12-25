@@ -103,9 +103,9 @@ export const formatAsCurrency = (amount: number) => {
 
 interface mediaCompression {
     InputValues: any;
-    width: number;
-    quality: number;
-    format: "jpeg" | "png" | "webp";
+    width?: number;
+    quality?: number;
+    format?: "jpeg" | "png" | "webp";
 }
 
 export const mediaCompressionArr = async ({ InputValues, width, quality, format }: mediaCompression) => {
@@ -137,8 +137,8 @@ export const mediaCompressionArr = async ({ InputValues, width, quality, format 
 
                 image.onload = (e: any) => {
                     let canvas = document.createElement("canvas");
-                    let ratio = width / image.width;
-                    canvas.width = width;
+                    let ratio = width! / image.width;
+                    canvas.width = width!;
                     canvas.height = image.height * ratio;
 
                     let context: any = canvas.getContext("2d");
@@ -172,8 +172,8 @@ export const mediaCompressionMono = async ({ InputValues, width, quality, format
 
             image.onload = (e: any) => {
                 let canvas = document.createElement("canvas");
-                let ratio = width / image.width;
-                canvas.width = width;
+                let ratio = width! / image.width;
+                canvas.width = width!;
                 canvas.height = image.height * ratio;
 
                 let context: any = canvas.getContext("2d");
@@ -183,6 +183,19 @@ export const mediaCompressionMono = async ({ InputValues, width, quality, format
 
                 return resolve(imageUrl);
             };
+        };
+    });
+};
+export const fileToBase64Mono = async ({ InputValues }: mediaCompression) => {
+    return new Promise((resolve) => {
+        const file = InputValues;
+
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file);
+
+        reader.onload = (event: any) => {
+            return resolve(event.target.result);
         };
     });
 };
@@ -251,8 +264,8 @@ export const linkToURL = async ({ InputValues, width, quality, format }: mediaCo
 
             image.onload = (e: any) => {
                 let canvas = document.createElement("canvas");
-                let ratio = width / image.width;
-                canvas.width = width;
+                let ratio = width! / image.width;
+                canvas.width = width!;
                 canvas.height = image.height * ratio;
 
                 let context: any = canvas.getContext("2d");
@@ -520,7 +533,7 @@ export const generalAddEditFunction = async (
         setApiWait(false);
         setNewAlert({ type: "success", message: apiResponseLang[lang][code] });
 
-        if (!getData) {
+        if (!getData && !optFunc) {
             return refresh();
         }
         return optFunc ? optFunc(data) : refresh();

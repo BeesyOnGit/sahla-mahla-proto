@@ -42,13 +42,9 @@ function MyResources() {
     return (
         <div className="ownedResGenContainer">
             {
-                <GridMapper
-                    toMap={resources}
-                    Component={ResourcesCard}
-                    emptyString={resourcesLang[userLang].noResourcesOwned}
-                    emptyIcon="fi fi-br-image-slash"
-                    otherProps={{ likeFunc: likeBookResource }}
-                />
+                <GridMapper toMap={resources} emptyString={resourcesLang[userLang].noResourcesOwned} emptyIcon="fi fi-br-image-slash">
+                    <ResourcesCard likeFunc={likeBookResource} />
+                </GridMapper>
             }
         </div>
     );

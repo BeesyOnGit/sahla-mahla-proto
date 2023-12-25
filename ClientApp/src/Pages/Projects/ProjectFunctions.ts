@@ -5,7 +5,7 @@ import { ProjectLang } from "./ProjectsLang";
 import { formatForCombo, getHashMap } from "../Profile/ProfileFunctions";
 import { GeneralLang } from "../../MiddleWear/ClientData";
 
-type offerInputsType = {
+export type offerInputsType = {
     state: Partial<projectType>;
     stateSetter: Function;
     editedState?: React.Dispatch<React.SetStateAction<Partial<projectType>>>;

@@ -144,7 +144,7 @@ export type projectType = {
     buyerDeadline: number;
     contractorDeadline: number;
     finalDeadLine: number;
-    submitDeadLine: number; //minute
+    submitDeadLine: number;
     canSubmit: boolean;
 
     description: string;

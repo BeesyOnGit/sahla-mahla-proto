@@ -5,15 +5,18 @@ import "./Sidebar.scss";
 import { sideBarLang } from "./sidebarLang";
 import { Contexts } from "../../Contexts/Contexts";
 import { useWindowDimensions } from "../../MiddleWear/ClientFunctions";
+import { SidebarItem } from "../../App";
+import ComboBox from "../ComboBox/ComboBox";
 
 export type sideBarType = {
     navItems: navItemsType[];
+    children?: any;
 };
 
 function Sidebar(props: sideBarType) {
     const { userLang } = Contexts();
     const { width, height } = useWindowDimensions();
-    const { navItems } = props;
+    const { navItems, children } = props;
 
     const [notifStat, setNotifStat] = useState("");
     const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -51,23 +54,28 @@ function Sidebar(props: sideBarType) {
                 </section>
                 <section className="PageNavigation">
                     {Array.isArray(navItems) &&
-                        navItems.map((e: any, index: number) => {
-                            return (
-                                <NavItem
-                                    key={index}
-                                    {...e}
-                                    index={index}
-                                    notif={notifStat[e.name] || null}
-                                    hover={isHovered}
-                                    selected={selectedNavItem}
-                                    setSelectedNav={setSelectedNav}
-                                    hoverdItem={hoveredNavItem}
-                                    setHoveredItem={sethoveredNav}
-                                />
-                            );
-                        })}
+                        navItems
+                            .filter((e: any, i) => {
+                                return e.ignoreNav == false;
+                            })
+                            .map((e: any, index: number) => {
+                                return (
+                                    <NavItem
+                                        key={index}
+                                        {...e}
+                                        index={index}
+                                        // notif={notifStat[e.name!] || null}
+                                        hover={isHovered}
+                                        selected={selectedNavItem}
+                                        setSelectedNav={setSelectedNav}
+                                        hoverdItem={hoveredNavItem}
+                                        setHoveredItem={sethoveredNav}
+                                    />
+                                );
+                            })}
                 </section>
-                {ShowButtonCondition ? <i className="fi fi-sr-angle-circle-left SideBarHideButton" onClick={() => toggleSideBar()}></i> : null}
+                {children}
+                {/* {ShowButtonCondition ? <i className="fi fi-sr-angle-circle-left SideBarHideButton" onClick={() => toggleSideBar()}></i> : null} */}
             </div>
         </>
     );

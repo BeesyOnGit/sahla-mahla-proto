@@ -1,0 +1,59 @@
+.submitterElemContainer {
+    width: 100%;
+    background-color: var(--fontcolorSeconday);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: start;
+    align-items: center;
+    padding: 0.3125rem 0.9375rem;
+    & > span {
+        padding: 0.125rem 1.25rem;
+        border-radius: var(--roundRadius);
+        font-size: 0.9rem;
+        width: fit-content;
+        height: fit-content;
+    }
+}
+
+.bounce2 {
+    animation: bounce2 2s ease infinite;
+    color: gold;
+}
+@keyframes bounce2 {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-0.625rem);
+    }
+    60% {
+        transform: translateY(-0.3125rem);
+    }
+}
+
+.hithere {
+    color: gold;
+    animation: hithere 1500ms ease infinite;
+}
+@keyframes hithere {
+    30% {
+        transform: scale(1.2);
+    }
+    40%,
+    60% {
+        transform: rotate(-20deg) scale(1.2);
+    }
+    50% {
+        transform: rotate(20deg) scale(1.2);
+    }
+    70% {
+        transform: rotate(0deg) scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

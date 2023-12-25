@@ -20,10 +20,13 @@ import Profile from "./Pages/Profile/Profile";
 import Projects from "./Pages/Projects/Projects";
 import AllProjects from "./Pages/Projects/subPages/AllProjects/AllProjects";
 import AddOffer from "./Pages/Projects/subPages/AddOffer/AddOffer";
+import Orders from "./Pages/Orders/Orders";
+import OrderDetail from "./Pages/Orders/SubPages/OrderDetail/OrderDetail";
+import ComboBox from "./Components/ComboBox/ComboBox";
 // import { alerts } from "./MiddleWear/Signals";
 
 function App() {
-    const { darkMode, userLang, initialLanguage, Token } = Contexts();
+    const { darkMode, userLang, initialLanguage, Token, switchLanguage } = Contexts();
     const { pathname } = useLocation();
     // const dimentions = useWindowDimensions();
     const navigate = useNavigate();
@@ -47,6 +50,7 @@ function App() {
         1: [
             {
                 name: sideBarLang[userLang].NavElems.home,
+                ignoreNav: false,
                 path: "/home",
                 ico: "fi fi-sr-home",
                 page: <Home />,
@@ -61,12 +65,23 @@ function App() {
             },
             {
                 name: sideBarLang[userLang].NavElems.orders,
+                ignoreNav: false,
                 path: "/orders",
                 ico: "fi fi-br-list",
-                page: <div>orders</div>,
+                needValidation: true,
+                page: <Orders />,
+            },
+            {
+                name: "",
+                ignoreNav: true,
+                path: "/orders/:id",
+                ico: "",
+                needValidation: true,
+                page: <OrderDetail />,
             },
             {
                 name: sideBarLang[userLang].NavElems.findWork,
+                ignoreNav: false,
                 path: "/offers",
                 ico: "fi fi-sr-briefcase",
                 page: <Projects />,
@@ -84,6 +99,7 @@ function App() {
             },
             {
                 name: sideBarLang[userLang].NavElems.resources,
+                ignoreNav: false,
                 path: "/resources",
                 ico: "fi fi-sr-images",
                 needValidation: true,
@@ -101,6 +117,7 @@ function App() {
             },
             {
                 name: sideBarLang[userLang].NavElems.library,
+                ignoreNav: false,
                 path: "/library",
                 ico: "fi fi-sr-books",
                 page: <Library />,
@@ -118,17 +135,20 @@ function App() {
             },
             {
                 name: sideBarLang[userLang].NavElems.commManagement,
+                ignoreNav: false,
                 path: "/gst-comm",
                 ico: "fi fi-sr-chart-pie-alt",
             },
             {
                 name: sideBarLang[userLang].NavElems.profile,
+                ignoreNav: false,
                 path: "/profile",
                 ico: "fi fi-sr-user",
                 page: <Profile />,
             },
             {
                 name: sideBarLang[userLang].NavElems.logout,
+                ignoreNav: false,
                 path: "/logout",
                 ico: "fi fi-br-sign-out-alt logout",
             },
@@ -136,6 +156,7 @@ function App() {
         2: [
             {
                 name: sideBarLang[userLang].NavElems.home,
+                ignoreNav: false,
                 path: "/home",
                 ico: "fi fi-sr-home",
                 page: <Home />,
@@ -143,6 +164,7 @@ function App() {
             },
             {
                 name: sideBarLang[userLang].NavElems.myOrders,
+                ignoreNav: false,
                 path: "/myorders",
                 ico: "fi fi-br-list",
                 // subRoute: [
@@ -155,6 +177,7 @@ function App() {
             },
             {
                 name: sideBarLang[userLang].NavElems.library,
+                ignoreNav: false,
                 path: "/library",
                 ico: "fi fi-sr-books",
                 page: <Library />,
@@ -169,27 +192,32 @@ function App() {
             },
             {
                 name: sideBarLang[userLang].NavElems.commManagement,
+                ignoreNav: false,
                 path: "/gst-comm",
                 ico: "fi fi-sr-chart-pie-alt",
             },
             {
                 name: sideBarLang[userLang].NavElems.profile,
+                ignoreNav: false,
                 path: "/profile",
                 ico: "fi fi-sr-user",
             },
             {
                 name: sideBarLang[userLang].NavElems.delivery,
+                ignoreNav: false,
                 path: "/delivery",
                 ico: "i fi-sr-shipping-fast",
             },
             {
                 name: sideBarLang[userLang].NavElems.support,
+                ignoreNav: false,
                 path: "/support",
                 ico: "fi fi-sr-user-headset",
             },
 
             {
                 name: sideBarLang[userLang].NavElems.logout,
+                ignoreNav: false,
                 path: "/logout",
                 ico: "fi fi-br-sign-out-alt",
             },
@@ -199,7 +227,18 @@ function App() {
     return (
         <div className="AppContainer">
             <Alerts />
-            {!hideNav[pathname] && <Sidebar navItems={navitems[1]} />}
+            {!hideNav[pathname] && (
+                <Sidebar navItems={navitems[1]}>
+                    <ComboBox
+                        className="langSelectInp"
+                        options={comboLangOp}
+                        comboContent={{ label: comboBoxMap[userLang], value: userLang }}
+                        onComboChange={(e: any) => {
+                            switchLanguage(e.value);
+                        }}
+                    />
+                </Sidebar>
+            )}
             <section className="routes">
                 <Routes>
                     <Route path="/login" element={!Token ? <Login /> : <Navigate to="/" />} />
@@ -261,9 +300,22 @@ const hideNav: any = {
 
 export type SidebarItem = {
     name: string;
+    ignoreNav: boolean;
     ico: string;
     path: string;
     page?: JSX.Element;
     needValidation?: boolean;
     subRoute?: { path: string; page: JSX.Element; needValidation?: boolean }[];
+};
+
+const comboLangOp = [
+    { label: "français", value: "fr" },
+    { label: "english", value: "en" },
+    { label: "العربية", value: "ar" },
+];
+
+const comboBoxMap = {
+    fr: "français",
+    ar: "العربية",
+    en: "english",
 };

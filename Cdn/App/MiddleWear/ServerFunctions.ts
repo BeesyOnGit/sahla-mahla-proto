@@ -2,6 +2,9 @@ import { writeFile, rm } from "fs/promises";
 import { createCanvas, loadImage } from "canvas";
 import { mimeToFormats } from "./formatMimes";
 import fs from "fs";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const FilesSavingAsync = ({ data, savePath }: { data: string; savePath: string }) => {
     const Path = savePath;
@@ -196,3 +199,14 @@ export function ensureDirectoryExists(directoryPath: string) {
         });
     });
 }
+
+export const TokenVerifier = (token: string): any => {
+    try {
+        if (token == undefined) {
+            return false;
+        }
+        return jwt.verify(token, process.env.TOKEN_ENCRIPTION_KEY!);
+    } catch (error) {
+        console.log("🚀 ~ file: ServerFunctions.ts:93 ~ TokenVerifier ~ error:", error);
+    }
+};

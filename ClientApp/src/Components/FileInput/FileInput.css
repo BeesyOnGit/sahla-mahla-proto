@@ -15,3 +15,24 @@
     object-fit: contain;
     border-radius: var(--generalRadius);
 }
+
+.inpIcon {
+    font-size: 1.5rem;
+    color: var(--messagespositivecolorhover);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputFileIconsCont {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+}
+.inputFileIconsCont > span {
+    font-size: 0.8rem;
+    text-align: center;
+    text-transform: capitalize;
+}

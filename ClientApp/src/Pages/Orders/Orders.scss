@@ -1,0 +1,21 @@
+.ordersGeneralContainer {
+    padding: 0.625rem 0;
+}
+.ordersNavContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    gap: 0.625rem;
+}
+
+.ordersListeContainer {
+    height: 92vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.625rem;
+    // padding: 0.625rem 0;
+    // overflow-y: scroll;
+}

@@ -8,13 +8,12 @@ import { Contexts } from "../../Contexts/Contexts";
 import Button from "../Button/Button";
 import { formatAsCurrency } from "../../MiddleWear/ClientFunctions";
 import Skuleton from "../Skuleton/Skeleton";
+import ProfileComp from "../ProfileComp/ProfileComp";
 
 function ResourcesCard(props: Partial<resourcesType> & { likeFunc?: Function; skull?: boolean }) {
     const { userLang } = Contexts();
     const { title, owner, likes, bookMarks, resourceThumbnail, price, discount, timesSold, buyers, _id, likeFunc, skull, resourceLink } = props;
     const ownerInfos: any = owner;
-    console.log("🚀 ~ file: ResourcesCard.tsx:16 ~ ResourcesCard ~ owner:", owner);
-    console.log("🚀 ~ file: ResourcesCard.tsx:16 ~ ResourcesCard ~ ownerInfos:", ownerInfos);
 
     const bookedMap: any = {
         true: "bookedRes",
@@ -25,31 +24,18 @@ function ResourcesCard(props: Partial<resourcesType> & { likeFunc?: Function; sk
         false: "",
     };
 
-    const donwloadFunc = () => {
-        console.log("clicked");
-
-        const a = document.createElement("a");
-        a.href = resourceLink!;
-        a.target = "_blank";
-        a.click();
-    };
     return (
         <div className="resourceGeneralContainer">
             {!skull ? (
                 <>
                     <div className="resourcesTitle"> {title} </div>
                     <div className="resourceInfosContainer">
-                        <div className="userIngfosContainer">
-                            {ownerInfos.profilePicture ? (
-                                <LazyImage src={ownerInfos.profilePicture} className="cardprofileImg" />
-                            ) : (
-                                <i className="fi fi-sr-circle-user"></i>
-                            )}
-                            <div>
-                                {ownerInfos.firstName} {ownerInfos.familyName}
-                            </div>
-                            {ownerInfos.aprouved && <i className="fi fi-ss-badge-check checkUser"></i>}
-                        </div>
+                        <ProfileComp
+                            aprouved={ownerInfos.aprouved}
+                            firstName={ownerInfos.firstName}
+                            familyName={ownerInfos.familyName}
+                            profilePicture={ownerInfos.profilePicture}
+                        />
                         <div className="resourcePopularityContainer">
                             <div
                                 onClick={() => {
@@ -91,7 +77,9 @@ function ResourcesCard(props: Partial<resourcesType> & { likeFunc?: Function; sk
                                 // disabled={JSON.parse(buyers![1])}
                                 content={LibraryLang[userLang].resourceCard.donwload}
                                 className="pagesNavButton"
-                                onClick={donwloadFunc}
+                                onClick={() => {
+                                    donwloadFunc(resourceLink);
+                                }}
                             />
                         )}
                     </div>
@@ -110,3 +98,12 @@ function ResourcesCard(props: Partial<resourcesType> & { likeFunc?: Function; sk
 }
 
 export default ResourcesCard;
+
+export const donwloadFunc = (link: string) => {
+    console.log("clicked");
+
+    const a = document.createElement("a");
+    a.href = link!;
+    a.target = "_blank";
+    a.click();
+};
