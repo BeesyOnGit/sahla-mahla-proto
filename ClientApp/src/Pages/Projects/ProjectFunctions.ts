@@ -205,7 +205,7 @@ export const createEditOfferInputs = ({ editedState, state, stateSetter, fields 
             title: ProjectLang[lang].inputs.submitableUntil,
             onChange: dateChange,
             step: "1",
-            min: formatForInput(new Date().getTime(), "full"),
+            min: formatForInput(dateWithMinutes(30), "full"),
             max: formatForInput(dateWithMinutes(1440), "full"),
             value: submitDeadLine ? formatForInput(submitDeadLine, "full") : "",
             required: submitDeadLine ? false : true,

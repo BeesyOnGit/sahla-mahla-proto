@@ -239,7 +239,7 @@ function App() {
                     />
                 </Sidebar>
             )}
-            <section className="routes">
+            <section className={"routes " + (!Token ? "routesNoPadd" : "")}>
                 <Routes>
                     <Route path="/login" element={!Token ? <Login /> : <Navigate to="/" />} />
                     <Route path="/" element={<Navigate to="/home" />}></Route>

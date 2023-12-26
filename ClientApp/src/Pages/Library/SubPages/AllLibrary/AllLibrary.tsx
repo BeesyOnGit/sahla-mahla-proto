@@ -109,11 +109,6 @@ function AllLibrary() {
 
     return (
         <section className="allLibContainer">
-            <div className="resourcesContainer">
-                <GridMapper toMap={resources} emptyString={LibraryLang[userLang].noResources} emptyIcon="fi fi-br-image-slash">
-                    <ResourcesCard likeFunc={likeBookResource} />
-                </GridMapper>
-            </div>
             <div>
                 <div className="searchContainer">
                     <Inputs
@@ -141,6 +136,11 @@ function AllLibrary() {
                               return <Skuleton key={i} style={{ width: "6%", height: "1.7rem", borderRadius: "var(--roundRadius)" }} />;
                           })}
                 </div>
+            </div>
+            <div className="resourcesContainer">
+                <GridMapper toMap={resources} emptyString={LibraryLang[userLang].noResources} emptyIcon="fi fi-br-image-slash">
+                    <ResourcesCard likeFunc={likeBookResource} />
+                </GridMapper>
             </div>
 
             {/* <div

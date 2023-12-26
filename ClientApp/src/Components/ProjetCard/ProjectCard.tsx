@@ -116,7 +116,7 @@ function ProjectCard(
                             <span> {ProjectLang[userLang].card.submitableUntil} </span>
                             <span className={"timerProject " + expirationclassMap[`${expired}`]}>{getTimeLeft(timeLeft)} </span>
                         </div>
-                        <ProfileComp aprouved={aprouved} firstName={firstName} familyName={familyName} profilePicture={profilePicture} />
+                        <ProfileComp aprouved={aprouved} firstName={firstName} familyName={familyName} profilePicture={profilePicture} short />
                         {detail && (
                             <Button
                                 content={OrdersLang[userLang].buttDetail}

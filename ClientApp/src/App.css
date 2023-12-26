@@ -38,6 +38,10 @@ html {
     padding: 0 1.25rem;
 }
 
+.routesNoPadd {
+    padding: 0;
+}
+
 /* .regularInput {
     background-color: var(--navBarColor);
     border-radius: var(--roundRadius);
