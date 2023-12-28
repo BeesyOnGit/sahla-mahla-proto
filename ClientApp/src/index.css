@@ -239,6 +239,22 @@ body {
     display: none;
 }
 
+@keyframes bounce2 {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-0.625rem);
+    }
+    60% {
+        transform: translateY(-0.3125rem);
+    }
+}
+
 /* button {
     border-radius: 8px;
     border: 1px solid transparent;

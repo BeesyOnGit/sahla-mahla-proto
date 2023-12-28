@@ -12,11 +12,11 @@ dotenv.config();
 export const uploadResource = async (req: Request, res: Response) => {
     const { body, headers } = req;
     const { verifiedId }: Headers = headers;
-    const { resource, ...restBody }: Partial<resourcesType> & { resource: string } = body;
+    const { resourceLink: rslink, ...restBody }: Partial<resourcesType> & { resource: string } = body;
     const { price, discount } = restBody;
     try {
         const uploadData = {
-            resource,
+            resource: rslink,
             owner: verifiedId,
         };
         const cdnurl = process.env.CDN_DOMAIN;

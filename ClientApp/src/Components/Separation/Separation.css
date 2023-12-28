@@ -2,7 +2,7 @@
     text-transform: capitalize;
     margin: 0rem 0.9375rem;
     font-size: 0.9rem;
-    width: 30%;
+    width: fit-content;
     /* border: 1px solid black;
     border-radius: var(--generalRadius); */
 }

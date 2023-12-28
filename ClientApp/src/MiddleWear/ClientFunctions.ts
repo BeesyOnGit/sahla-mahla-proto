@@ -200,6 +200,10 @@ export const fileToBase64Mono = async ({ InputValues }: mediaCompression) => {
     });
 };
 
+export const setUserType = (type: number) => {
+    return window.localStorage.setItem("_user_type", type.toString());
+};
+
 // export const getDaysOfWorkFromRange = ({ from, to }: { from?: number; to?: number }) => {
 //     const date = new Date();
 //     if (!from) {

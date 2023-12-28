@@ -2,7 +2,7 @@ import { LoginInputs } from "./Login";
 import { LoginLang } from "./LoginLang";
 import { apiResponseLang } from "../../MiddleWear/ClientData";
 import { clientLogin, freelanceLogin } from "../../MiddleWear/ApiMiddleWear";
-import { InputType, OnChangeEventType, langType } from "../../MiddleWear/ClientInterface";
+import { inputType, OnChangeEventType, langType } from "../../MiddleWear/ClientInterface";
 // import { setNewAlert } from "../../MiddleWear/Signals";
 
 // type InputEvent = React.ChangeEvent<HTMLInputElement>;
@@ -10,9 +10,19 @@ import { InputType, OnChangeEventType, langType } from "../../MiddleWear/ClientI
 
 const lang: langType = window.localStorage.lang;
 
-export const InputsContent = ({ state, setState, setNewAlert }: { state: LoginInputs; setState: Function; setNewAlert: Function }) => {
+export const InputsContent = ({
+    state,
+    setState,
+    setNewAlert,
+    lang,
+}: {
+    state: LoginInputs;
+    setState: Function;
+    setNewAlert: Function;
+    lang: langType;
+}) => {
     if (!lang) {
-        setNewAlert({ message: "no language", type: "error" });
+        // setNewAlert({ message: "no language", type: "error" });
         return [];
     }
     const onChange = (e: OnChangeEventType) => {
@@ -21,14 +31,15 @@ export const InputsContent = ({ state, setState, setNewAlert }: { state: LoginIn
         }
         return setState({ ...state, [e.target.name]: e.target.value });
     };
-    const Inputs: Array<InputType> = [
+
+    const Inputs: Array<inputType> = [
         {
             type: "text",
             name: "id",
             placeholder: LoginLang[lang].inputs.id,
             onChange,
             containerClass: "w-full logInputsClass",
-            className: "regularInput",
+            className: "regularInput w-full",
             required: true,
             value: state.id,
         },
@@ -38,7 +49,7 @@ export const InputsContent = ({ state, setState, setNewAlert }: { state: LoginIn
             placeholder: LoginLang[lang].inputs.pass,
             onChange,
             containerClass: "w-full logInputsClass",
-            className: "regularInput",
+            className: "regularInput w-full",
             required: true,
             value: state.passWord,
         },
@@ -46,7 +57,17 @@ export const InputsContent = ({ state, setState, setNewAlert }: { state: LoginIn
     return Inputs;
 };
 
-export const loginFunction = async ({ form, userType, setNewAlert }: { form: LoginInputs; userType: 1 | 2; setNewAlert: Function }) => {
+export const loginFunction = async ({
+    form,
+    userType,
+    setNewAlert,
+    lang,
+}: {
+    form: LoginInputs;
+    userType: 1 | 2;
+    setNewAlert: Function;
+    lang: langType;
+}) => {
     const { id, passWord } = form;
     if (!lang) {
         setNewAlert({ message: "", type: "error" });

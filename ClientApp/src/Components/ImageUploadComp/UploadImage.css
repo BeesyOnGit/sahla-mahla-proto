@@ -1,0 +1,20 @@
+.placehoderImageUpload {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+}
+
+.imageUploadeImageDisp {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.labelSpanUploadImage {
+    text-align: center;
+    font-size: 0.8em;
+}

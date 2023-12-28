@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Login.css";
-import { URLSearchAdd, URLSearchParse, URLSearchremove, useWindowDimensions } from "../../MiddleWear/ClientFunctions";
+import { URLSearchAdd, URLSearchParse, URLSearchremove, setUserType, useWindowDimensions } from "../../MiddleWear/ClientFunctions";
 import { Contexts } from "../../Contexts/Contexts";
 import { LoginLang } from "./LoginLang";
 import Inputs from "../../Components/Inputs/Inputs";
@@ -26,15 +26,17 @@ function Login() {
     useEffect(() => {
         if (!userType) {
             URLSearchAdd(navigate, { userType: 1 });
+            setUserType(1);
         }
     }, []);
 
-    const InputsValue = InputsContent({ state: loginForm, setState: setLoginForm, setNewAlert });
+    const InputsValue = InputsContent({ state: loginForm, setState: setLoginForm, setNewAlert, lang: userLang });
 
     const handleLogin = () => {
-        loginFunction({ form: loginForm, userType, setNewAlert });
+        loginFunction({ form: loginForm, userType, setNewAlert, lang: userLang });
     };
     const changeLogType = (type: number) => {
+        setUserType(type);
         URLSearchremove(null, "userType");
         URLSearchAdd(navigate, { userType: type });
         setLoginForm({});

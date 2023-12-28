@@ -1,0 +1,25 @@
+.addResformContainer {
+    height: 89vh;
+}
+.resourceImageContainer {
+    width: 100%;
+    padding: 0.625rem 0;
+    border: var(--siteBorder);
+    border-radius: var(--hardRadius);
+}
+
+.resourceImageOrIcon {
+    & > i {
+        font-size: 2rem;
+    }
+    & > span {
+        text-transform: capitalize;
+        font-size: 1.1rem;
+    }
+    & > * {
+        color: var(--fontColorSeconday);
+    }
+    &:hover {
+        cursor: pointer;
+    }
+}

@@ -145,7 +145,7 @@ html {
 
 .InpStdclass {
     padding: 0.625rem 0.9375rem;
-    border-radius: var(--hardRadius);
+    border-radius: var(--hardRadius) !important;
     border: var(--siteBorder);
     background-color: var(--backGroundColor);
     color: var(--fontColorPrimary);

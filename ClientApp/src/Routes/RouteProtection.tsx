@@ -4,7 +4,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { autUserVerif } from "../MiddleWear/ApiMiddleWear";
 import { Contexts } from "../Contexts/Contexts";
 import { userAuthDataType } from "../../../Serveur/App/Controllers/AuthControllers";
-import { initiateUserColors } from "../MiddleWear/ClientFunctions";
+import { initiateUserColors, setUserType } from "../MiddleWear/ClientFunctions";
 
 export type routeProtectionType = {
     children: any;
@@ -26,6 +26,8 @@ function RouteProtection({ children, openFor, needValidation }: routeProtectionT
                 const res = await autUserVerif();
                 const { code, data }: { code: string; data: userAuthDataType } = res;
                 const { auth, userType, validMail, validPhone } = data || {};
+
+                setUserType(userType);
 
                 const openCond = openFor ? openFor == userType : true;
 

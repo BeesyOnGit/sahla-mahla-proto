@@ -2,7 +2,7 @@ import React, { ChangeEvent } from "react";
 
 export type inputType = {
     title?: string;
-    inputType?: "separation" | "regular" | "multi" | "button" | "combo" | "fileInp";
+    inputType?: "separation" | "regular" | "multi" | "button" | "combo" | "fileInp" | "imgInput";
     multiValues?: any[];
     textArea?: boolean;
     multipleLimit?: number | undefined;

@@ -23,9 +23,9 @@
 }
 
 .innerUnit {
-    position: absolute;
+    /* position: absolute;
     top: 0;
-    right: 0.625rem;
+    right: 0.625rem; */
     font-size: 1.3rem;
     display: flex;
     justify-content: center;
@@ -146,11 +146,16 @@
     cursor: pointer;
 }
 .multipleInputs > i {
-    color: var(--messagespositivecolor);
+    color: var(--siteColor);
     font-size: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    transition: all 300ms ease-out;
+}
+.multipleInputs > i:hover {
+    animation: bounce2 2s ease infinite;
 }
 
 .inpreq {
@@ -160,8 +165,28 @@
 .inpsubContainer {
     width: inherit;
     position: relative;
+    border-radius: inherit;
+}
+.inpsubContainer > input {
+    border-radius: inherit;
 }
 
+.inputPassIconClass:hover {
+    cursor: pointer;
+    transform: scale(0.95);
+}
+
+.innerUnitContainer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    pointer-events: none;
+}
 /* For WebKit browsers (Chrome, Safari, etc.) */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {

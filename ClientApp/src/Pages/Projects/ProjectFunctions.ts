@@ -5,14 +5,14 @@ import { ProjectLang } from "./ProjectsLang";
 import { formatForCombo, getHashMap } from "../Profile/ProfileFunctions";
 import { GeneralLang } from "../../MiddleWear/ClientData";
 
-export type offerInputsType = {
-    state: Partial<projectType>;
+export type offerInputsType<T> = {
+    state: Partial<T>;
     stateSetter: Function;
-    editedState?: React.Dispatch<React.SetStateAction<Partial<projectType>>>;
+    editedState?: React.Dispatch<React.SetStateAction<Partial<T>>>;
     fields?: any[];
 };
 
-export const createEditOfferInputs = ({ editedState, state, stateSetter, fields }: offerInputsType): Array<inputType | inputType[]> => {
+export const createEditOfferInputs = ({ editedState, state, stateSetter, fields }: offerInputsType<projectType>): Array<inputType | inputType[]> => {
     const lang: langType = window.localStorage.lang;
 
     const onChange = (e: OnChangeEventType) => {
@@ -227,7 +227,7 @@ export const projectSubmissionForm = ({
     editedState,
     state,
     stateSetter,
-}: offerInputsType & { state: Partial<submittersListType> }): Array<inputType | inputType[]> => {
+}: offerInputsType<projectType> & { state: Partial<submittersListType> }): Array<inputType | inputType[]> => {
     const lang: langType = window.localStorage.lang;
 
     const onChange = (e: OnChangeEventType) => {

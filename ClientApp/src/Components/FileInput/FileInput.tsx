@@ -13,7 +13,6 @@ function FileInput(props: inputType) {
     };
 
     useEffect(() => {}, [ref.current]);
-    console.log("🚀 ~ file: FileInput.tsx:18 ~ FileInput ~ ref.current:", ref.current?.value);
 
     return (
         <div className={"fileInputGeneralContainer " + className}>

@@ -7,6 +7,7 @@ import "./AutoInputs.css";
 import Button from "../Button/Button";
 import ComboBox from "../ComboBox/ComboBox";
 import FileInput from "../FileInput/FileInput";
+import UploadImage from "../ImageUploadComp/UploadImage";
 
 function AutoInputs({
     inputsArr,
@@ -49,6 +50,7 @@ const componentsMap: any = {
     button: Button,
     combo: ComboBox,
     fileInp: FileInput,
+    imgInput: UploadImage,
 };
 
 export default AutoInputs;

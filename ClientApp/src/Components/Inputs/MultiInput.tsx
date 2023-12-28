@@ -1,12 +1,37 @@
 import { inputType } from "../../MiddleWear/ClientInterface";
 import { requiredMap } from "./Inputs";
 import "./Inputs.css";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function MultiInput(props: inputType) {
     const { multiValues, removeElem, addElemToListe, multipleLimit, required, className, ...otherPpops } = props;
     const { name } = otherPpops;
     const ref = useRef<HTMLInputElement>(null);
+    const refIcon = useRef<HTMLDivElement>(null);
+    const [keyPressTrigger, setKeyPressTrigger] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (!keyPressTrigger) {
+            return;
+        }
+        const eventListen: any = document.addEventListener("keypress", (ev) => {
+            if (ev.key == "Enter") {
+                ev.preventDefault();
+                // console.log(ev.key);
+            }
+            if (ev.key == "Enter" && keyPressTrigger) {
+                // ev.preventDefault();
+                // console.log("entered");
+
+                refIcon.current?.click();
+                return removeEventListener("keypress", eventListen);
+            }
+        });
+        () => {
+            return removeEventListener("keypress", eventListen);
+        };
+    }, [keyPressTrigger]);
+
     const execAddElem = () => {
         if (!ref || !ref.current) {
             return;
@@ -25,16 +50,27 @@ function MultiInput(props: inputType) {
     return (
         <div className="multiInputGeneralContainer">
             <div className="inputsContainer multipleInputs">
-                <input {...otherPpops} ref={ref} className={className + " " + requiredMap[reqCondition]} />
+                <input
+                    {...otherPpops}
+                    ref={ref}
+                    className={className + " " + requiredMap[reqCondition]}
+                    onFocus={() => {
+                        setKeyPressTrigger(true);
+                    }}
+                    onBlur={() => {
+                        setKeyPressTrigger(false);
+                    }}
+                />
 
                 <i
                     className="fi fi-sr-square-plus"
                     onClick={() => {
                         execAddElem();
                     }}
+                    ref={refIcon}
                 ></i>
             </div>
-            {multiValues ? (
+            {Array.isArray(multiValues) && multiValues.length > 0 && (
                 <div className="MultiInputSelectedShow">
                     {multiValues?.map((elem, i) => {
                         return (
@@ -45,7 +81,7 @@ function MultiInput(props: inputType) {
                         );
                     })}
                 </div>
-            ) : null}
+            )}
         </div>
     );
 }

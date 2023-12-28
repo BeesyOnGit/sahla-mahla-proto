@@ -23,6 +23,7 @@ import AddOffer from "./Pages/Projects/subPages/AddOffer/AddOffer";
 import Orders from "./Pages/Orders/Orders";
 import OrderDetail from "./Pages/Orders/SubPages/OrderDetail/OrderDetail";
 import ComboBox from "./Components/ComboBox/ComboBox";
+import AddResource from "./Pages/ResourcesPage/subPages/AddResource/AddResource";
 // import { alerts } from "./MiddleWear/Signals";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
     const { pathname } = useLocation();
     // const dimentions = useWindowDimensions();
     const navigate = useNavigate();
+    const userType: 1 | 2 = window.localStorage._user_type || 1;
 
     initialLanguage();
     useEffect(() => {
@@ -112,6 +114,10 @@ function App() {
                     {
                         path: "selling",
                         page: <SellingResources />,
+                    },
+                    {
+                        path: "add",
+                        page: <AddResource />,
                     },
                 ],
             },
@@ -233,6 +239,7 @@ function App() {
                         className="langSelectInp"
                         options={comboLangOp}
                         comboContent={{ label: comboBoxMap[userLang], value: userLang }}
+                        // innerInputIcon="fi fi-rr-globe"
                         onComboChange={(e: any) => {
                             switchLanguage(e.value);
                         }}
@@ -242,41 +249,42 @@ function App() {
             <section className={"routes " + (!Token ? "routesNoPadd" : "")}>
                 <Routes>
                     <Route path="/login" element={!Token ? <Login /> : <Navigate to="/" />} />
-                    <Route path="/" element={<Navigate to="/home" />}></Route>
-                    {navitems[1].map((elem, i) => {
-                        const { path, page, needValidation, subRoute } = elem;
-                        return (
-                            <Route
-                                key={i}
-                                path={path}
-                                element={
-                                    <RouteProtection needValidation key={i}>
-                                        {page}
-                                    </RouteProtection>
-                                }
-                            >
-                                {subRoute &&
-                                    subRoute.map((e, i) => {
-                                        const { path, page, needValidation } = e;
-                                        return (
-                                            <Route
-                                                key={i}
-                                                path={path}
-                                                element={
-                                                    needValidation ? (
-                                                        <RouteProtection key={i} needValidation>
-                                                            {page}
-                                                        </RouteProtection>
-                                                    ) : (
-                                                        page
-                                                    )
-                                                }
-                                            />
-                                        );
-                                    })}
-                            </Route>
-                        );
-                    })}
+                    <Route path="/" element={!Token ? <Navigate to="/login" /> : <Navigate to="/home" />}></Route>
+                    {userLang &&
+                        navitems[userType].map((elem, i) => {
+                            const { path, page, needValidation, subRoute } = elem;
+                            return (
+                                <Route
+                                    key={i}
+                                    path={path}
+                                    element={
+                                        <RouteProtection needValidation={needValidation} key={i}>
+                                            {page}
+                                        </RouteProtection>
+                                    }
+                                >
+                                    {subRoute &&
+                                        subRoute.map((e, i) => {
+                                            const { path, page, needValidation } = e;
+                                            return (
+                                                <Route
+                                                    key={i}
+                                                    path={path}
+                                                    element={
+                                                        needValidation ? (
+                                                            <RouteProtection key={i} needValidation>
+                                                                {page}
+                                                            </RouteProtection>
+                                                        ) : (
+                                                            page
+                                                        )
+                                                    }
+                                                />
+                                            );
+                                        })}
+                                </Route>
+                            );
+                        })}
                     <Route
                         path="/validation-page"
                         element={

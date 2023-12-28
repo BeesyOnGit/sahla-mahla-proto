@@ -258,22 +258,24 @@ export const sendConfirmationMail = async (email: string, userType: number, user
 const sendEmail = async ({ mailToUse, to, text, html, subject }: sendMailType) => {
     const mailsPreset: any = {
         "no-reply": {
-            user: "no-reply@arabatii.com",
-            pass: "x1rCmH#Adjgjxy5K",
-            from: "NO-REPLY Sahla & Mahla no-reply@arabatii.com",
+            user: "no-reply@sahla-mahla.com",
+            pass: "fktKtqTYzVEPkJfmbUL7",
+            from: "NO-REPLY Sahla & Mahla no-reply@sahla-mahla.com",
         },
     };
     try {
         const transporter = nodeMailer.createTransport({
-            host: "arabatii.com",
-            port: 465,
-            secure: true,
+            host: "mail.sahla-mahla.com",
+            port: 587,
+            // secure: true,
             auth: {
                 user: mailsPreset[mailToUse].user,
                 pass: mailsPreset[mailToUse].pass,
             },
             tls: {
                 rejectUnauthorized: false,
+                // minVersion: "TLSv1.3",
+                // ciphers: "SSLv3",
             },
         });
 
