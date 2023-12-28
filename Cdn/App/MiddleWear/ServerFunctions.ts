@@ -125,7 +125,7 @@ export const watermarkResource = async ({ data, width }: compressImageType) => {
             contextGlob.drawImage(image, 0, 0, canvas.width, canvas.height);
 
             //////// watermark
-            const imgLoad = await loadImage("C:/Users/THINKBOOK/Desktop/sahla-mahla-prototype/Cdn/CdnResources/watermarkLogo.png");
+            const imgLoad = await loadImage(process.env.WATERMARK_PATH!);
 
             let context = canvas.getContext("2d");
             context.globalAlpha = 0.7;
