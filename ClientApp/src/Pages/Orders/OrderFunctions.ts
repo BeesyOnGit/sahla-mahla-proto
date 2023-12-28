@@ -1,9 +1,10 @@
+import { projectType } from "../../../../Serveur/App/Models/Project";
 import { fileToBase64Mono, mediaCompressionMono } from "../../MiddleWear/ClientFunctions";
 import { OnChangeEventType, inputType, langType } from "../../MiddleWear/ClientInterface";
 import { offerInputsType } from "../Projects/ProjectFunctions";
 import { OrdersLang } from "./OrdersLang";
 
-export const submissionLinksInputs = ({ editedState, state, stateSetter }: offerInputsType): Array<inputType | inputType[]> => {
+export const submissionLinksInputs = ({ editedState, state, stateSetter }: offerInputsType<projectType>): Array<inputType | inputType[]> => {
     const lang: langType = window.localStorage.lang;
 
     const onChange = (e: OnChangeEventType) => {
