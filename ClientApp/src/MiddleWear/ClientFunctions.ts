@@ -510,11 +510,9 @@ export const generalAddEditFunction = async (
         return;
     }
     try {
-        console.log("🚀 ~ file: ClientFunctions.ts:514 ~ apiWait:", apiWait);
         if (apiWait) {
             return;
         }
-        console.log("exec api");
 
         setApiWait(true);
 

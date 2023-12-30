@@ -11,7 +11,6 @@ import { ProfileLang } from "./ProfileLang";
 
 function Profile() {
     const { userLang, refreshApp, refresh, setNewAlert, setApiWait, apiWait } = Contexts();
-    console.log("🚀 ~ file: Profile.tsx:14 ~ Profile ~ apiWait:", apiWait);
 
     const [profileForm, setProfileForm] = useState<Partial<freelanceType | clientType>>({});
     const [editedprofileForm, setEditedProfileForm] = useState<Partial<freelanceType | clientType>>({});
@@ -27,7 +26,7 @@ function Profile() {
         if (profileForm.adress?.wilaya) {
             getCommunes(profileForm.adress.wilaya);
         }
-    }, [profileForm]);
+    }, [profileForm.adress?.wilaya]);
 
     const getWilayas = () => {
         generalGetFunction({
