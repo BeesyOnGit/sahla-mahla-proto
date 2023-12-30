@@ -240,6 +240,7 @@ export const createEditResourcesInputs = ({
             content: resourcesLang[lang].addResInputs.addResButton,
             icon: "fi fi-sr-money-bills ",
             className: "pagesNavButton profButtonFullW",
+            apiButton: true,
         },
     ];
 

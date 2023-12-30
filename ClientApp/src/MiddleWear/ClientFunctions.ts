@@ -510,9 +510,11 @@ export const generalAddEditFunction = async (
         return;
     }
     try {
-        if (apiWait == true) {
+        console.log("🚀 ~ file: ClientFunctions.ts:514 ~ apiWait:", apiWait);
+        if (apiWait) {
             return;
         }
+        console.log("exec api");
 
         setApiWait(true);
 
@@ -526,16 +528,16 @@ export const generalAddEditFunction = async (
         const { code, data } = res;
 
         if (code == "EO") {
-            setApiWait(false);
-            return setNewAlert({ type: "error", message: res.error });
+            setNewAlert({ type: "error", message: res.error });
+            return setApiWait(false);
         }
         if (code != successCode) {
-            setApiWait(false);
-            return setNewAlert({ type: "warning", message: apiResponseLang[lang][code] });
+            setNewAlert({ type: "warning", message: apiResponseLang[lang][code] });
+            return setApiWait(false);
         }
 
-        setApiWait(false);
         setNewAlert({ type: "success", message: apiResponseLang[lang][code] });
+        setApiWait(false);
 
         if (!getData && !optFunc) {
             return refresh();

@@ -29,7 +29,12 @@ function AddResource() {
     };
 
     const submitOffer = (e: React.FormEvent<HTMLFormElement>) => {
-        generalAddEditFunction(e, {
+        e.preventDefault();
+
+        if (apiWait) {
+            return;
+        }
+        generalAddEditFunction(null, {
             endPoint: addResourceApi(resourceForm),
             successCode: "S31",
             refresh: refreshApp,

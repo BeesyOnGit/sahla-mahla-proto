@@ -22,6 +22,7 @@ export type inputType = {
     rows?: number;
     ref?: any;
     line?: boolean;
+    apiButton?: boolean;
     // submit?: boolean;
 } & Partial<React.InputHTMLAttributes<HTMLInputElement>>;
 

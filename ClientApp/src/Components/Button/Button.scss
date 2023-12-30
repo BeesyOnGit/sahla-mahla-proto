@@ -1,0 +1,17 @@
+.pagesNavButton {
+    & > div.LoaderContainer {
+        & > div.GenraLloader {
+            border-color: var(--siteColor);
+            border-left-color: transparent;
+        }
+    }
+    &:hover {
+        & > div.LoaderContainer {
+            & > div.GenraLloader {
+                border-color: var(--backGroundColor);
+                border-left-color: transparent;
+            }
+        }
+    }
+}
+// .pagesnavbutton: hover .;
