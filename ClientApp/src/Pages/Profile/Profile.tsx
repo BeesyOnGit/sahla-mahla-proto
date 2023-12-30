@@ -85,7 +85,7 @@ function Profile() {
                     endPoint: uploadMedia({ picture: editedprofileForm.profilePicture }),
                     successCode: "10",
                     setNewAlert,
-                    getData: true,
+                    // getData: true,
                     refresh: () => {},
                     setApiWait,
                     apiWait,
