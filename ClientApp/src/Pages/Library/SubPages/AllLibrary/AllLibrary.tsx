@@ -33,7 +33,6 @@ function AllLibrary() {
     const [resources, setResources] = useState<resourcesType[] | null | "empty">(null);
 
     const containerWidth = document.getElementsByClassName("resourcesContainer")[0];
-    let elemsN = Math.floor(containerWidth?.clientWidth / 310);
 
     useEffect(() => {
         getResCategories();
@@ -71,6 +70,7 @@ function AllLibrary() {
             setNewAlert,
             setState: setCategories,
             refresh: refreshApp,
+            silent: true,
         });
     };
 

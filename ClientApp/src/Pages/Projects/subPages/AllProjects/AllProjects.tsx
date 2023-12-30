@@ -39,6 +39,7 @@ function AllProjects() {
             setState: setFields,
             refresh: refreshApp,
             successCode: "S52",
+            silent: true,
         });
     };
 

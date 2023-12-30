@@ -44,6 +44,7 @@ function Resources() {
             setNewAlert,
             setState: setCategories,
             refresh: refreshApp,
+            silent: true,
         });
     };
 

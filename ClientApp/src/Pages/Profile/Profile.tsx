@@ -35,6 +35,7 @@ function Profile() {
             setState: setWilaya,
             refresh: refreshApp,
             successCode: "S52",
+            silent: true,
         });
     };
     const getCommunes = (wilToSelect: string) => {
@@ -44,6 +45,7 @@ function Profile() {
             setState: setCommune,
             refresh: refreshApp,
             successCode: "S52",
+            silent: true,
         });
     };
     const getProfile = () => {
@@ -53,6 +55,7 @@ function Profile() {
             setState: setProfileForm,
             refresh: refreshApp,
             successCode: "S23",
+            silent: true,
         });
     };
 

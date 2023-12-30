@@ -4,20 +4,11 @@ import "../AllLibrary/AllLibrary.scss";
 import Button from "../../../../Components/Button/Button";
 import { LibraryLang } from "../../LibraryLang";
 import { Contexts } from "../../../../Contexts/Contexts";
-import {
-    URLSearchAdd,
-    URLSearchParse,
-    URLSearchremove,
-    generalGetFunction,
-    randomArrLength,
-    useWindowDimensions,
-} from "../../../../MiddleWear/ClientFunctions";
+import { URLSearchAdd, URLSearchParse, URLSearchremove, generalGetFunction, useWindowDimensions } from "../../../../MiddleWear/ClientFunctions";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getResourcesApi, likeBookResourceApi } from "../../../../MiddleWear/ApiMiddleWear";
 import { resourcesType } from "../../../../../../Serveur/App/Models/Resources";
 import ResourcesCard from "../../../../Components/ResourcesCard/ResourcesCard";
-import FullpageIcon from "../../../../Components/FullPageIcon/FullpageIcon";
-import Skuleton from "../../../../Components/Skuleton/Skeleton";
 import GridMapper from "../../../../Components/GripdMapper/GridMapper";
 
 function BookMarked() {
@@ -31,11 +22,6 @@ function BookMarked() {
     const navigate = useNavigate();
 
     const { width } = useWindowDimensions();
-
-    const ref = useRef<HTMLDivElement>(null);
-    const containerWidth = document.getElementsByClassName("resourcesContainer")[0];
-
-    let elemsN = Math.floor(containerWidth?.clientWidth / 310);
 
     useEffect(() => {
         if (!type) {
