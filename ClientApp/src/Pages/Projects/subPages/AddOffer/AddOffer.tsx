@@ -28,7 +28,13 @@ function AddOffer() {
     };
 
     const submitOffer = (e: React.FormEvent<HTMLFormElement>) => {
-        generalAddEditFunction(e, {
+        e.preventDefault();
+
+        if (apiWait) {
+            return;
+        }
+
+        generalAddEditFunction(null, {
             endPoint: createProjectApi(offerForm),
             successCode: "S61",
             refresh: refreshApp,

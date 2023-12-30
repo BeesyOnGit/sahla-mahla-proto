@@ -372,6 +372,7 @@ export const projectSubmissionForm = ({
             content: ProjectLang[lang].inputs.subButton,
             icon: "fi fi-sr-comet",
             className: "pagesNavButton profButtonFullW",
+            apiButton: true,
         },
     ];
 

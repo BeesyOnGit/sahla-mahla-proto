@@ -253,6 +253,7 @@ export const ProfileInputs = ({ editedState, state, stateSetter, wilayas, commun
             content: ProfileLang[lang].inputs.subButton,
             icon: "fi fi-sr-comet",
             className: "pagesNavButton profButtonFullW",
+            apiButton: true,
         },
     ];
 
