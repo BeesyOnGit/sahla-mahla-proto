@@ -555,6 +555,7 @@ export const generalGetFunction = async ({
     emptyCode,
     refresh,
     silent,
+    cb,
 }: {
     endPoint: any;
     successCode: string;
@@ -564,6 +565,7 @@ export const generalGetFunction = async ({
     field?: string;
     refresh?: Function;
     silent?: boolean;
+    cb?: Function;
 }) => {
     const lang: "ar" | "fr" | "en" = window.localStorage.lang;
     if (!lang) {
@@ -588,12 +590,13 @@ export const generalGetFunction = async ({
         if (code != successCode) {
             return silent ? null : setNewAlert({ type: "warning", message: apiResponseLang[lang][code] });
         }
-        // setNewAlert({ type: "success", message: apiResponseLang[lang][code] });
-        if (!setState && refresh) {
-            silent ? null : setNewAlert({ type: "warning", message: apiResponseLang[lang][code] });
-            // setNewAlert({ type: "success", message: apiResponseLang[lang][code] });
-            return refresh();
-        }
-        return setState!(field ? data[field] : data);
+
+        silent ? null : setNewAlert({ type: "success", message: apiResponseLang[lang][code] });
+
+        refresh && refresh();
+
+        cb ? cb() : null;
+
+        return setState && setState!(field ? data[field] : data);
     } catch (error) {}
 };

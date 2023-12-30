@@ -143,6 +143,10 @@ function OrderDetail() {
         const { submitter: sub, submitterDeadline, submitterPrice } = submitter!;
         const editObject = { contractor: [sub], amount: submitterPrice, finalDeadLine: submitterDeadline, projectStatus: 1, canSubmit: false };
 
+        if (apiWait) {
+            return;
+        }
+
         generalAddEditFunction("", {
             endPoint: editProjectApi(editObject, _id!),
             successCode: "S62",

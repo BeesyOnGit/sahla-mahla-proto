@@ -80,6 +80,17 @@ export const getResourcesApi = async (search: string) => {
         console.log("🚀 ~ file: ApiMiddleWear.ts:63 ~ getResourcesApi ~ error:", error);
     }
 };
+export const deleteResourceApi = async (id: string) => {
+    try {
+        const res: Response = await axios.delete(`${baseUrl}/resources/${id}`, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:63 ~ getResourcesApi ~ error:", error);
+    }
+};
 
 export const getMyResourcesApi = async (search: string, reqType: string) => {
     try {

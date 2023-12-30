@@ -10,9 +10,10 @@ import { formatAsCurrency } from "../../MiddleWear/ClientFunctions";
 import Skuleton from "../Skuleton/Skeleton";
 import ProfileComp from "../ProfileComp/ProfileComp";
 
-function ResourcesCard(props: Partial<resourcesType> & { likeFunc?: Function; skull?: boolean }) {
+function ResourcesCard(props: Partial<resourcesType> & { likeFunc?: Function; skull?: boolean; deleteFunc?: Function }) {
     const { userLang } = Contexts();
-    const { title, owner, likes, bookMarks, resourceThumbnail, price, discount, timesSold, buyers, _id, likeFunc, skull, resourceLink } = props;
+    const { title, owner, likes, bookMarks, resourceThumbnail, price, discount, timesSold, buyers, _id, likeFunc, skull, resourceLink, deleteFunc } =
+        props;
     const ownerInfos: any = owner;
 
     const bookedMap: any = {
@@ -83,6 +84,16 @@ function ResourcesCard(props: Partial<resourcesType> & { likeFunc?: Function; sk
                             />
                         )}
                     </div>
+                    {deleteFunc && (
+                        <Button
+                            content={LibraryLang[userLang].resourceCard.deleteBut}
+                            icon="fi fi-br-cross"
+                            className="pagesNavButton pagesNavButtonRed profButtonFullW"
+                            onClick={() => {
+                                deleteFunc(_id, title);
+                            }}
+                        />
+                    )}
                 </>
             ) : (
                 <>

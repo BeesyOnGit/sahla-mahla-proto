@@ -9,6 +9,7 @@ type orderLangType = {
         emptyInvolvStr: string;
         emptyRecapStr: string;
         buttDetail: string;
+        deleteResourceTitle: string;
         ordDetail: {
             finalDeadline: string;
             noDeadline: string;
@@ -45,6 +46,8 @@ export const OrdersLang: orderLangType = {
         emptyInvolvStr: "pas de devis pour l'instant",
         emptyRecapStr: "pas de vue générale pour l'instant",
         buttDetail: "détails de l'offre",
+        deleteResourceTitle: "supprimer cette ressource",
+
         ordDetail: {
             finalDeadline: "deadline finale",
             noDeadline: "pas encore de deadline finale",
@@ -78,6 +81,8 @@ export const OrdersLang: orderLangType = {
         emptyInvolvStr: "no involved items at the moment",
         emptyRecapStr: "no summary at the moment",
         buttDetail: "offer details",
+        deleteResourceTitle: "delete this resource",
+
         ordDetail: {
             finalDeadline: "final deadline",
             noDeadline: "no final deadline yet",
@@ -111,6 +116,7 @@ export const OrdersLang: orderLangType = {
         emptyInvolvStr: "لا يوجد عناصر متورطة حالياً",
         emptyRecapStr: "لا يوجد ملخص حالياً",
         buttDetail: "تفاصيل العرض",
+        deleteResourceTitle: "حذف هذا المورد",
         ordDetail: {
             finalDeadline: "الموعد النهائي",
             noDeadline: "لا يوجد موعد نهائي بعد",

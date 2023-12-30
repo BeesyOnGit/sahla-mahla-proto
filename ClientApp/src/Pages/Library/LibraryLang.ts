@@ -16,6 +16,7 @@ type libraryLangType = {
             bought: string;
             timesSold: string;
             buyButton: string;
+            deleteBut: string;
         };
         categories: {
             [key in number]: string;
@@ -39,6 +40,7 @@ export const LibraryLang: libraryLangType = {
             bought: "acheté",
             timesSold: "fois",
             buyButton: "acheter",
+            deleteBut: "supprimer",
         },
         categories: {
             "0": "catégories",
@@ -67,6 +69,7 @@ export const LibraryLang: libraryLangType = {
             bought: "bought",
             timesSold: "times",
             buyButton: "buy",
+            deleteBut: "delete",
         },
         categories: {
             "0": "categories",
@@ -95,6 +98,7 @@ export const LibraryLang: libraryLangType = {
             bought: "تم الشراء",
             timesSold: "مرات",
             buyButton: "شراء",
+            deleteBut: "حذف",
         },
         categories: {
             "0": "التصنيفات",
