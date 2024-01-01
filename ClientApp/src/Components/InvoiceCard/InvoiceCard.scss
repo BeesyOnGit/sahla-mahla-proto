@@ -1,0 +1,38 @@
+.invCardGeneralContainer {
+    padding: 1.25rem 0.9375rem;
+    background-color: var(--navBarColor);
+    border: var(--siteBorder);
+    border-radius: var(--hardRadius);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.625rem;
+    & > div {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0.3125rem;
+        & > span {
+            text-transform: capitalize;
+        }
+    }
+
+    .incHeaderContianer {
+        justify-content: space-between;
+        text-transform: capitalize;
+        & > div:nth-child(1) {
+            font-size: 1.2rem;
+        }
+    }
+}
+
+.invStyle {
+    border-radius: var(--roundRadius);
+    padding: 0.3125rem 0.625rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: capitalize;
+    color: var(--backGroundColor);
+}

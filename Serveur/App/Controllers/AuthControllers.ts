@@ -17,6 +17,7 @@ import { sendConfirmationMail } from "./UserConfirmatioControllers";
 import { FilterQuery } from "mongoose";
 import ClientModel, { clientType } from "../Models/Clients";
 import { dayilyLogsType } from "../Models/DailyLogs";
+import UserSequencesModel from "../Models/UsersSequences";
 dotenv.config();
 
 export const freelanceRegister = async (req: Request, res: Response) => {
@@ -53,6 +54,12 @@ export const freelanceRegister = async (req: Request, res: Response) => {
             return res.json({ code: "ER" });
         }
         const { _id } = registerFreelance;
+
+        const createSequence = await UserSequencesModel.create({ user: _id });
+
+        if (!createSequence) {
+            return res.json({ code: "ER" });
+        }
 
         const activity: dayilyLogsType = {
             doer: _id.toString(),

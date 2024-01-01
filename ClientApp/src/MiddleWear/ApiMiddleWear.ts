@@ -30,7 +30,7 @@ export const autUserVerif = async () => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:36 ~ autUserVerif ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:33 ~ autUserVerif ~ error:", error);
     }
 };
 
@@ -42,7 +42,7 @@ export const clientLogin = async (loginInfos: LoginInputs) => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:39 ~ clientLogin ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:45 ~ clientLogin ~ error:", error);
     }
 };
 
@@ -54,7 +54,7 @@ export const freelanceLogin = async (loginInfos: LoginInputs) => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:51 ~ freelanceLogin ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:57 ~ freelanceLogin ~ error:", error);
     }
 };
 
@@ -66,7 +66,7 @@ export const addResourceApi = async (resource: Partial<resourcesType>) => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:68 ~ getResourcesApi ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:69 ~ addResourceApi ~ error:", error);
     }
 };
 export const getResourcesApi = async (search: string) => {
@@ -77,7 +77,7 @@ export const getResourcesApi = async (search: string) => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:63 ~ getResourcesApi ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:80 ~ getResourcesApi ~ error:", error);
     }
 };
 export const deleteResourceApi = async (id: string) => {
@@ -88,7 +88,7 @@ export const deleteResourceApi = async (id: string) => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:63 ~ getResourcesApi ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:91 ~ deleteResourceApi ~ error:", error);
     }
 };
 
@@ -100,7 +100,7 @@ export const getMyResourcesApi = async (search: string, reqType: string) => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:75 ~ getMyResourcesApi ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:103 ~ getMyResourcesApi ~ error:", error);
     }
 };
 
@@ -112,7 +112,7 @@ export const likeBookResourceApi = async (id: string, type: string) => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:87 ~ likeBookResourceApi ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:115 ~ likeBookResourceApi ~ error:", error);
     }
 };
 
@@ -124,7 +124,7 @@ export const getCategoriesApi = async () => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:99 ~ getCategoriesApi ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:127 ~ getCategoriesApi ~ error:", error);
     }
 };
 export const getFreelanceInfospi = async (id?: string) => {
@@ -135,7 +135,7 @@ export const getFreelanceInfospi = async (id?: string) => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:110 ~ getFreelanceInfospi ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:138 ~ getFreelanceInfospi ~ error:", error);
     }
 };
 export const getClientInfospi = async (id?: string) => {
@@ -146,7 +146,7 @@ export const getClientInfospi = async (id?: string) => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:110 ~ getFreelanceInfospi ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:149 ~ getClientInfospi ~ error:", error);
     }
 };
 export const editFreelanceApi = async (id: string, payload: Partial<freelanceType>) => {
@@ -157,7 +157,7 @@ export const editFreelanceApi = async (id: string, payload: Partial<freelanceTyp
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:133 ~ editFreelanceApi ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:160 ~ editFreelanceApi ~ error:", error);
     }
 };
 export const editClientApi = async (id: string, payload: Partial<clientType>) => {
@@ -168,7 +168,7 @@ export const editClientApi = async (id: string, payload: Partial<clientType>) =>
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:133 ~ editFreelanceApi ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:171 ~ editClientApi ~ error:", error);
     }
 };
 
@@ -180,7 +180,7 @@ export const uploadMedia = async (payload: any) => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:133 ~ editFreelanceApi ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:183 ~ uploadMedia ~ error:", error);
     }
 };
 export const uploadFile = async (payload: any) => {
@@ -191,7 +191,7 @@ export const uploadFile = async (payload: any) => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:133 ~ editFreelanceApi ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:194 ~ uploadFile ~ error:", error);
     }
 };
 
@@ -203,7 +203,7 @@ export const getUtilsApi = async (utilType: string, search?: string) => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:111 ~ getUtilsApi ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:206 ~ getUtilsApi ~ error:", error);
     }
 };
 export const getProjectsApi = async (search?: string) => {
@@ -214,7 +214,7 @@ export const getProjectsApi = async (search?: string) => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:182 ~ getProjectsApi ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:217 ~ getProjectsApi ~ error:", error);
     }
 };
 export const createProjectApi = async (project: Partial<projectType>) => {
@@ -225,7 +225,7 @@ export const createProjectApi = async (project: Partial<projectType>) => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:182 ~ getProjectsApi ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:228 ~ createProjectApi ~ error:", error);
     }
 };
 export const editProjectApi = async (edited: Partial<projectType>, id: string) => {
@@ -237,7 +237,7 @@ export const editProjectApi = async (edited: Partial<projectType>, id: string) =
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:182 ~ getProjectsApi ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:240 ~ editProjectApi ~ error:", error);
     }
 };
 
@@ -249,7 +249,7 @@ export const submitOfferToProjectApi = async (offer: Partial<submittersListType>
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:182 ~ getProjectsApi ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:252 ~ submitOfferToProjectApi ~ error:", error);
     }
 };
 
@@ -261,6 +261,28 @@ export const getProjectdetailsApi = async (id: string) => {
             return res.data;
         }
     } catch (error) {
-        console.log("🚀 ~ file: ApiMiddleWear.ts:182 ~ getProjectsApi ~ error:", error);
+        console.log("🚀 ~ file: ApiMiddleWear.ts:264 ~ getProjectdetailsApi ~ error:", error);
+    }
+};
+export const getInvoicesApi = async (search: string) => {
+    try {
+        const res: Response = await axios.get(`${baseUrl}/invoices/${search ? search : ""}`, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:275 ~ getInvoicesApi ~ error:", error);
+    }
+};
+export const getInvoiceDetailApi = async (id: string) => {
+    try {
+        const res: Response = await axios.get(`${baseUrl}/invoices/${id}`, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:275 ~ getInvoicesApi ~ error:", error);
     }
 };

@@ -4,7 +4,9 @@ import { AddToDailyActivity, Headers, editModelWithSave, encryptString, hashPass
 import { sendConfirmationMail } from "./UserConfirmatioControllers";
 import { dayilyLogsType } from "../Models/DailyLogs";
 import { FilterQuery } from "mongoose";
-import ProjectModel, { projectType } from "../Models/Project";
+import ProjectModel, { projectType, submittersListType } from "../Models/Project";
+import { createInvoice, makeInvoiceFromQuot } from "./InvoicesControllers";
+import { InvoiceDetailType } from "../Models/Invoice";
 
 export const createProjetc = async (req: Request, res: Response) => {
     const { body, headers, params } = req;
@@ -42,6 +44,7 @@ export const editProject = async (req: Request, res: Response) => {
     const { body, headers, params } = req;
     const { id } = params;
     const { verifiedId }: Headers = headers;
+    const { projectInvoice } = body;
     try {
         const currProjectInfos = await ProjectModel.findOne({ _id: id });
 
@@ -53,6 +56,13 @@ export const editProject = async (req: Request, res: Response) => {
 
         if (verifiedId != buyer && !body.editAsContractor) {
             return res.json({ code: "E63" });
+        }
+
+        if (projectInvoice) {
+            const editQuot = await makeInvoiceFromQuot(projectInvoice);
+            if (!editQuot) {
+                return res.json({ code: "E73" });
+            }
         }
 
         editModelWithSave(currProjectInfos, body);
@@ -155,8 +165,6 @@ export const getAllProjects = async (req: Request, res: Response) => {
             await populateFromModels({
                 doc,
                 path: "buyer",
-                firstModel: "clients",
-                secondModel: "freelance",
                 select: "firstName familyName profilePicture aprouved -_id",
             });
         }
@@ -172,6 +180,7 @@ export const submitParticipation = async (req: Request, res: Response) => {
     const { headers, params, body } = req;
     const { verifiedId }: Headers = headers;
     const { id } = params;
+    const { submitterPrice }: submittersListType = body;
 
     const filter: FilterQuery<projectType> = { _id: id };
     const now = new Date().getTime();
@@ -181,13 +190,31 @@ export const submitParticipation = async (req: Request, res: Response) => {
         if (!projecttoSubmitTo) {
             return res.json({ code: "E62" });
         }
-        const { submitDeadLine, canSubmit, projectStatus } = projecttoSubmitTo;
+        const { submitDeadLine, canSubmit, projectStatus, buyer, title, _id } = projecttoSubmitTo;
 
         if (submitDeadLine < now || canSubmit == false || projectStatus > 0) {
             return res.json({ code: "E67" });
         }
 
-        projecttoSubmitTo.submitters.push({ ...body, submitter: verifiedId });
+        const InvoiceDetail: InvoiceDetailType = {
+            productName: `service : ${title}`,
+            productDiscount: 0,
+            productPrice: submitterPrice,
+            productQuantity: 1,
+        };
+        const creatInv = await createInvoice({
+            emmiter: verifiedId!,
+            invoiceClient: buyer,
+            invoiceDetail: [InvoiceDetail],
+            invoiceRef: _id,
+            invoiceType: 2,
+        });
+
+        if (!creatInv) {
+            return res.json({ code: "E71" });
+        }
+
+        projecttoSubmitTo.submitters.push({ ...body, submitter: verifiedId, submitterInvoice: creatInv });
 
         const saveModifs = await projecttoSubmitTo.save();
 
@@ -258,8 +285,7 @@ export const projectDetail = async (req: Request, res: Response) => {
         await populateFromModels({
             doc: projectFound,
             path: "buyer",
-            firstModel: "clients",
-            secondModel: "freelance",
+
             select: "firstName familyName profilePicture aprouved _id",
         });
 

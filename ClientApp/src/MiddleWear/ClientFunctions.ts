@@ -87,6 +87,7 @@ export const phoneFomater = (str: string) => {
     groups?.splice(1, 1);
 
     const formattedString = groups!.join(" ");
+    console.log("🚀 ~ file: ClientFunctions.ts:90 ~ phoneFomater ~ formattedString:", formattedString);
 
     return formattedString;
 };

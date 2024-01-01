@@ -75,6 +75,7 @@ const ProjectSchema = new mongoose.Schema<projectType>({
                 submitterDeadline: { type: Number, required: true },
                 submitterPrice: { type: Number, required: true },
                 submitterQuestions: { type: String },
+                submitterInvoice: { type: String },
             },
         ],
         required: true,
@@ -106,6 +107,11 @@ const ProjectSchema = new mongoose.Schema<projectType>({
     projectStatus: {
         type: Number,
         default: 0,
+    },
+    projectInvoice: {
+        type: String,
+        // required: true,
+        default: null,
     },
 
     // projectStep: {
@@ -153,6 +159,7 @@ export type projectType = {
     submitters: submittersListType[];
 
     resourcesListe: string[];
+    projectInvoice?: string;
 
     temporaryLink: string;
     timesEditedAmount: number;
@@ -177,4 +184,5 @@ export type submittersListType = {
     submitterDeadline: number;
     submitterPrice: number;
     submitterQuestions: string;
+    submitterInvoice?: string;
 };

@@ -140,8 +140,15 @@ function OrderDetail() {
             return e.submitter._id == freelance;
         });
 
-        const { submitter: sub, submitterDeadline, submitterPrice } = submitter!;
-        const editObject = { contractor: [sub], amount: submitterPrice, finalDeadLine: submitterDeadline, projectStatus: 1, canSubmit: false };
+        const { submitter: sub, submitterDeadline, submitterPrice, submitterInvoice } = submitter!;
+        const editObject: Partial<projectType> = {
+            contractor: [sub],
+            amount: submitterPrice,
+            finalDeadLine: submitterDeadline,
+            projectStatus: 1,
+            canSubmit: false,
+            projectInvoice: submitterInvoice,
+        };
 
         if (apiWait) {
             return;

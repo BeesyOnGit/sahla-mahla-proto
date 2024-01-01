@@ -1,27 +1,27 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import UserSequencesModel from "./UsersSequences";
 
 dotenv.config();
 
 const VAT = parseFloat(process.env.VAT!);
 const InvoiceSchema = new mongoose.Schema<invoiceType>({
-    // emmiter: {
-    //     type: [mongoose.Schema.Types.ObjectId],
-    //     required: true,
-    //     ref: "freelance",
-    // },
+    emmiter: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "freelance",
+    },
 
-    // invoiceClient: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     required: true,
-    //     ref: "clients",
-    // },
+    invoiceClient: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        // ref: "clients",
+    },
 
-    // invoiceProject: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     required: true,
-    //     ref: "projects",
-    // },
+    invoiceRef: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+    },
 
     invoiceDetail: {
         type: [
@@ -33,21 +33,21 @@ const InvoiceSchema = new mongoose.Schema<invoiceType>({
                 productTotalCost: {
                     type: Number,
                     default: function () {
+                        //@ts-ignore
                         const res: InvoiceDetailType = this;
                         const { productDiscount, productPrice, productQuantity } = res;
                         const subTotal = productPrice * productQuantity;
                         const discount = productDiscount * (productPrice * productQuantity);
-                        return subTotal - discount;
+                        return subTotal - discount <= 0 ? 0 : subTotal - discount;
                     },
                 },
             },
         ],
         required: true,
     },
-
+    //@ts-ignore
     invoiceNumber: {
-        type: String,
-        required: true,
+        type: Number,
     },
 
     grossAmount: {
@@ -56,8 +56,8 @@ const InvoiceSchema = new mongoose.Schema<invoiceType>({
         default: function (): number {
             const doc: invoiceType = this;
             const { invoiceDetail, discount } = doc;
-            const subTotal = invoiceDetail.reduce((accumulator, currentValue) => accumulator + currentValue.productTotalCost, 0);
-            return subTotal - subTotal * discount;
+            const subTotal = invoiceDetail.reduce((accumulator, currentValue) => accumulator + currentValue.productTotalCost!, 0);
+            return subTotal <= 0 ? 0 : subTotal - subTotal * discount;
         },
     },
 
@@ -68,7 +68,7 @@ const InvoiceSchema = new mongoose.Schema<invoiceType>({
             const doc: invoiceType = this;
             const { grossAmount } = doc;
 
-            return grossAmount + grossAmount * VAT;
+            return grossAmount <= 0 ? 0 : grossAmount + grossAmount * VAT;
         },
     },
     discount: {
@@ -86,6 +86,15 @@ const InvoiceSchema = new mongoose.Schema<invoiceType>({
         required: true,
         default: false,
     },
+    isInvoice: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    invoiceType: {
+        type: Number,
+        default: 1,
+    },
 
     createdAt: {
         type: Number,
@@ -101,8 +110,24 @@ const InvoiceSchema = new mongoose.Schema<invoiceType>({
     },
 });
 
-InvoiceSchema.pre("save", function () {
+InvoiceSchema.pre("save", async function () {
     this.lastEdited = new Date().getTime();
+
+    if (!this.invoiceNumber) {
+        const userSeq = await UserSequencesModel.findOne({ user: this.emmiter });
+        if (!userSeq) {
+            const createSeq = await UserSequencesModel.create({ user: this.emmiter, invoiceSeq: 2 });
+
+            this.invoiceNumber = 1;
+            return;
+        }
+
+        const { invoiceSeq } = userSeq!;
+
+        this.invoiceNumber = invoiceSeq;
+        userSeq!.invoiceSeq += 1;
+        userSeq?.save();
+    }
 });
 
 const InvoiceModel: mongoose.Model<invoiceType> = mongoose.model<invoiceType>("invoices", InvoiceSchema);
@@ -110,10 +135,10 @@ export default InvoiceModel;
 // export default new (mongoose.model as any)("invoices", InvoiceModel);
 
 export type invoiceType = {
-    emmiter: mongoose.Schema.Types.ObjectId[];
-    invoiceClient: mongoose.Schema.Types.ObjectId;
+    emmiter: mongoose.Schema.Types.ObjectId | string;
+    invoiceClient: mongoose.Schema.Types.ObjectId | string;
 
-    invoiceNumber: string;
+    invoiceNumber: number;
 
     invoiceDetail: InvoiceDetailType[];
 
@@ -122,12 +147,15 @@ export type invoiceType = {
     totalAmount: number;
 
     invoiceModel: number;
+    isInvoice: boolean; // false: devis, true:facture
+    invoiceType: number; // 1: achats , 2 : projet , 3 : abonnement
 
-    invoiceProject: mongoose.Schema.Types.ObjectId;
+    invoiceRef: mongoose.Schema.Types.ObjectId | string;
 
     isPayed: boolean;
     createdAt: number;
     lastEdited: number;
+    _id?: string;
 };
 
 export type InvoiceDetailType = {
@@ -135,5 +163,5 @@ export type InvoiceDetailType = {
     productPrice: number;
     productQuantity: number;
     productDiscount: number;
-    productTotalCost: number;
+    productTotalCost?: number;
 };

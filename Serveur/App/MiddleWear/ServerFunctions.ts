@@ -432,8 +432,8 @@ export const randomIdGenerator = (length: number) => {
 type PopulateParams = {
     doc: any;
     path: string;
-    firstModel: string;
-    secondModel: string;
+    // firstModel: string;
+    // secondModel: string;
     select: string;
 };
 
@@ -442,16 +442,25 @@ export async function populateFromModels({ doc, path, select }: PopulateParams) 
         1: "freelance",
         2: "clients",
     };
+
+    const keys = Object.keys(modelsToPopulateFromMap);
     try {
         if (!doc) {
             return;
         }
 
-        await doc.populate({
-            path,
-            model: modelsToPopulateFromMap[doc.buyerType],
-            select,
-        });
+        let tmpId = doc[path];
+        doc[path] = null;
+        for await (const iterator of keys) {
+            if (!doc[path]) {
+                doc[path] = tmpId;
+                await doc.populate({
+                    path,
+                    model: modelsToPopulateFromMap[iterator],
+                    select,
+                });
+            }
+        }
     } catch (err) {
         console.log("🚀 ~ file: ProjectControllers.ts:168 ~ err:", err);
     }

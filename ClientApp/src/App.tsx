@@ -24,6 +24,8 @@ import Orders from "./Pages/Orders/Orders";
 import OrderDetail from "./Pages/Orders/SubPages/OrderDetail/OrderDetail";
 import ComboBox from "./Components/ComboBox/ComboBox";
 import AddResource from "./Pages/ResourcesPage/subPages/AddResource/AddResource";
+import FinManagement from "./Pages/FinManagement/FinManagement";
+import InvoiceDetail from "./Pages/FinManagement/SubPages/InvoiceDetail/InvoiceDetail";
 // import { alerts } from "./MiddleWear/Signals";
 
 function App() {
@@ -142,8 +144,16 @@ function App() {
             {
                 name: sideBarLang[userLang].NavElems.commManagement,
                 ignoreNav: false,
-                path: "/gst-comm",
+                path: "/fin-management",
                 ico: "fi fi-sr-chart-pie-alt",
+                page: <FinManagement />,
+            },
+            {
+                name: sideBarLang[userLang].NavElems.commManagement,
+                ignoreNav: true,
+                path: "/fin-management/invoice/:id",
+                ico: "fi fi-sr-chart-pie-alt",
+                page: <InvoiceDetail />,
             },
             {
                 name: sideBarLang[userLang].NavElems.profile,
@@ -199,7 +209,7 @@ function App() {
             {
                 name: sideBarLang[userLang].NavElems.commManagement,
                 ignoreNav: false,
-                path: "/gst-comm",
+                path: "/fin-management",
                 ico: "fi fi-sr-chart-pie-alt",
             },
             {

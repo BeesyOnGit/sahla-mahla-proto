@@ -9,7 +9,7 @@ dotenv.config();
 export const addPlan = async (req: Request, res: Response) => {
     const { body, headers } = req;
     const { verifiedId }: Headers = headers;
-    const { planDiscount, planPrice, ...restPlan }: Partial<planType> & { resource: string } = body;
+    const { planDiscount, planPrice, ...restPlan }: Partial<planType> = body;
 
     try {
         const newPlanObject: Partial<planType> = {
@@ -44,7 +44,7 @@ export const editPlan = async (req: Request, res: Response) => {
     const { body, headers, params } = req;
     const { id } = params;
     const { verifiedId }: Headers = headers;
-    const { planPrice, planDiscount, ...rest }: Partial<planType> & { resource: string } = body;
+    const { planPrice, planDiscount, ...rest }: Partial<planType> = body;
     try {
         const filter: FilterQuery<planType> = { _id: id, owner: verifiedId };
 
