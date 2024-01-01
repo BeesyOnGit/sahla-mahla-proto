@@ -111,6 +111,7 @@ function InvoiceDetail() {
         invoiceType,
         _id,
     } = invoice || {};
+    console.log("🚀 ~ file: InvoiceDetail.tsx:114 ~ InvoiceDetail ~ invoiceType:", invoiceType);
     const { firstName, familyName, adress, email, phone }: Partial<freelanceType> = emmiter || {};
     const {
         firstName: cliFname,
@@ -130,6 +131,10 @@ function InvoiceDetail() {
                             {invoiceNumber && (
                                 <span> {`${invNameMap[`${isInvoice}`]}-${invNumMap[`${invoiceNumber! >= 100}`]}${invoiceNumber}`} </span>
                             )}
+                        </div>
+                        <div>
+                            <span> {FinManagementLang[userLang].card.invFor} </span>
+                            <span> {FinManagementLang[userLang].card.type[invoiceType!]} </span>
                         </div>
                         <div>
                             <span> {FinManagementLang[userLang].card.created} </span>
@@ -173,6 +178,7 @@ function InvoiceDetail() {
                     <div>
                         <span> {FinManagementLang[userLang].card.totalAmount} </span>
                         <span className="invPriceGene"> {totalAmount && formatAsCurrency(totalAmount!)} </span>
+                        {isInvoice && <span className={invPayStyleMap[`${isPayed}`] + " profButtonFullW"}>{isPayedMap[`${isPayed}`]} </span>}
                     </div>
                 </div>
 
