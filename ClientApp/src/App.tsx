@@ -26,6 +26,7 @@ import ComboBox from "./Components/ComboBox/ComboBox";
 import AddResource from "./Pages/ResourcesPage/subPages/AddResource/AddResource";
 import FinManagement from "./Pages/FinManagement/FinManagement";
 import InvoiceDetail from "./Pages/FinManagement/SubPages/InvoiceDetail/InvoiceDetail";
+import LougoutPage from "./Pages/LogoutPage/LougoutPage";
 // import { alerts } from "./MiddleWear/Signals";
 
 function App() {
@@ -167,6 +168,7 @@ function App() {
                 ignoreNav: false,
                 path: "/logout",
                 ico: "fi fi-br-sign-out-alt logout",
+                page: <LougoutPage />,
             },
         ],
         2: [

@@ -7,12 +7,20 @@ import { ProfileLang } from "./ProfileLang";
 type ProfileInputsType = {
     state: Partial<freelanceType | clientType>;
     editedState: React.Dispatch<React.SetStateAction<Partial<freelanceType | clientType>>>;
+    editedSt: Partial<freelanceType>;
     stateSetter: Function;
     wilayas: any[] | null;
     communes: any[] | null;
 };
 
-export const ProfileInputs = ({ editedState, state, stateSetter, wilayas, communes }: ProfileInputsType): Array<inputType | inputType[]> => {
+export const ProfileInputs = ({
+    editedState,
+    state,
+    stateSetter,
+    wilayas,
+    communes,
+    editedSt,
+}: ProfileInputsType): Array<inputType | inputType[]> => {
     const lang: langType = window.localStorage.lang;
 
     const onChange = (e: OnChangeEventType) => {
@@ -109,15 +117,18 @@ export const ProfileInputs = ({ editedState, state, stateSetter, wilayas, commun
             line: true,
         },
         [
+            { containerClass: "basicInfosCont" },
             {
-                inputType: "fileInp",
+                inputType: "imgInput",
                 name: "profilePicture",
                 onChange: fileInputchange,
                 content: ProfileLang[lang].inputs.profilePic,
-                icon: "fi fi-sr-inbox-out",
+                className: "imgClass",
+                icon: "fi fi-sr-images",
+                containerClass: "profileImg",
+                placeholder: ProfileLang[lang].inputs.profilePic,
                 accept: "image/*",
-                value: profilePicture ? profilePicture : "",
-                containerClass: "basicInfosCont",
+                value: editedSt.profilePicture ? editedSt.profilePicture : profilePicture ? profilePicture : "",
             },
             {
                 inputType: "regular",

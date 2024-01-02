@@ -26,6 +26,9 @@ export const InputsContent = ({
         return [];
     }
     const onChange = (e: OnChangeEventType) => {
+        if (e.target.name !== "passWord") {
+            e.target.value.toLowerCase();
+        }
         if (e.target.name == "userName") {
             return setState({ ...state, [e.target.name]: e.target.value.toLocaleLowerCase() });
         }

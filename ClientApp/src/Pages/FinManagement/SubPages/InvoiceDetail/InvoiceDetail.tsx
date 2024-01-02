@@ -8,6 +8,8 @@ import { dateFormater, formatAsCurrency, generalGetFunction, phoneFomater } from
 import { getInvoiceDetailApi, getUtilsApi } from "../../../../MiddleWear/ApiMiddleWear";
 import { FinManagementLang } from "../../FinLang";
 import { getHashMap } from "../../../Profile/ProfileFunctions";
+import jsPDF from "jspdf";
+import Button from "../../../../Components/Button/Button";
 
 function InvoiceDetail() {
     const { userLang, setNewAlert, refreshApp, refresh } = Contexts();
@@ -21,6 +23,8 @@ function InvoiceDetail() {
     const [communeEmmiter, setCommuneEmmiter] = useState<any[] | null>(null);
     const [communeCli, setCommuneCli] = useState<any[] | null>(null);
 
+    const [printMode, setPrinMode] = useState<boolean>(false);
+
     useEffect(() => {
         if (id) {
             getInvoiceDetail();
@@ -28,6 +32,7 @@ function InvoiceDetail() {
 
         getWilayas();
     }, []);
+
     useEffect(() => {
         if (adress?.wilaya) {
             getCommunes(adress.wilaya, setCommuneEmmiter);
@@ -36,6 +41,11 @@ function InvoiceDetail() {
             getCommunes(cliAddres.wilaya, setCommuneCli);
         }
     }, [invoice]);
+    useEffect(() => {
+        if (printMode == true) {
+            GeneratePdf();
+        }
+    }, [printMode]);
 
     const getInvoiceDetail = () => {
         generalGetFunction({
@@ -64,6 +74,21 @@ function InvoiceDetail() {
             refresh: refreshApp,
             successCode: "S52",
             silent: true,
+        });
+    };
+
+    const GeneratePdf = () => {
+        let doc = new jsPDF("p", "pt", "a4");
+
+        const fct = document.getElementById("fctPrint");
+
+        doc.html(fct!, {
+            callback: function (pdf) {
+                let pageCount = doc.internal.pages;
+                pdf.deletePage(pageCount.length);
+                pdf.save(`${invNameMap[`${isInvoice}`]}-${invNumMap[`${invoiceNumber! >= 100}`]}${invoiceNumber}.pdf`);
+                setPrinMode(false);
+            },
         });
     };
 
@@ -111,7 +136,6 @@ function InvoiceDetail() {
         invoiceType,
         _id,
     } = invoice || {};
-    console.log("🚀 ~ file: InvoiceDetail.tsx:114 ~ InvoiceDetail ~ invoiceType:", invoiceType);
     const { firstName, familyName, adress, email, phone }: Partial<freelanceType> = emmiter || {};
     const {
         firstName: cliFname,
@@ -122,7 +146,7 @@ function InvoiceDetail() {
     }: Partial<freelanceType> = invoiceClient || {};
     return (
         <section className="invDetailGeenralContainer customScroll">
-            <section className="invoiceContainer">
+            <section className={"invoiceContainer " + (printMode ? "printModeClass" : "")} id="fctPrint">
                 <div className="invoiceHeader">
                     <div> {invTypeMap[`${isInvoice}`]} </div>
                     <div>
@@ -227,6 +251,13 @@ function InvoiceDetail() {
                 </div>
                 <span> {FinManagementLang[userLang].detail.generatedFooter} </span>
             </section>
+            {/* <Button
+                content="download"
+                className="pagesNavButton "
+                onClick={() => {
+                    setPrinMode(true);
+                }}
+            /> */}
         </section>
     );
 }

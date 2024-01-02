@@ -21,6 +21,7 @@ function Profile() {
         getWilayas();
         getProfile();
     }, [refresh]);
+    useEffect(() => {});
 
     useEffect(() => {
         if (profileForm.adress?.wilaya) {
@@ -33,7 +34,7 @@ function Profile() {
             endPoint: getUtilsApi("wilaya"),
             setNewAlert,
             setState: setWilaya,
-            refresh: refreshApp,
+            // refresh: refreshApp,
             successCode: "S52",
             silent: true,
         });
@@ -43,7 +44,7 @@ function Profile() {
             endPoint: getUtilsApi("commune", `?wilaya=${wilToSelect}`),
             setNewAlert,
             setState: setCommune,
-            refresh: refreshApp,
+            // refresh: refreshApp,
             successCode: "S52",
             silent: true,
         });
@@ -53,7 +54,7 @@ function Profile() {
             endPoint: profileApiCallMap[1](),
             setNewAlert,
             setState: setProfileForm,
-            refresh: refreshApp,
+            // refresh: refreshApp,
             successCode: "S23",
             silent: true,
         });
@@ -112,6 +113,7 @@ function Profile() {
             stateSetter: setProfileForm,
             wilayas: wilaya,
             communes: commune ? commune : [],
+            editedSt: editedprofileForm,
         });
 
     return (

@@ -158,18 +158,18 @@ function ProjectCard(
 
 export default ProjectCard;
 
-const statusClassed: any = {
+export const statusClassed: any = {
     0: "positiveResponse",
     1: "iddleResponse",
     2: "positiveResponse",
     3: "negativeResponse",
 };
 
-const expirationclassMap: any = {
+export const expirationclassMap: any = {
     true: "negativeResponse resWhilteCol",
     false: "",
 };
-const expirationButtonclassMap: any = {
+export const expirationButtonclassMap: any = {
     true: "buttonDesabled",
     false: "",
 };

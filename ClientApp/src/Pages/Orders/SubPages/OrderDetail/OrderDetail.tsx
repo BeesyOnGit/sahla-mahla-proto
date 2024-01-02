@@ -29,6 +29,8 @@ import Modal from "../../../../Components/Modal/Modal";
 import Button from "../../../../Components/Button/Button";
 import { LibraryLang } from "../../../Library/LibraryLang";
 import { donwloadFunc } from "../../../../Components/ResourcesCard/ResourcesCard";
+import { statusClassed } from "../../../../Components/ProjetCard/ProjectCard";
+import { projectStatusLang } from "../../../../MiddleWear/ClientData";
 
 function OrderDetail() {
     const { userLang, setNewAlert, refreshApp, refresh, apiWait, setApiWait } = Contexts();
@@ -74,9 +76,21 @@ function OrderDetail() {
             endPoint: getProjectdetailsApi(id!),
             successCode: "S64",
             setNewAlert,
-            refresh: refreshApp,
             silent: true,
             setState: setProjectDet,
+        });
+    };
+    const editProjects = (obj: Partial<projectType>) => {
+        if (apiWait) {
+            return;
+        }
+        generalAddEditFunction("", {
+            endPoint: editProjectApi(obj, _id!),
+            successCode: "S62",
+            setNewAlert,
+            apiWait,
+            setApiWait,
+            refresh: refreshApp,
         });
     };
 
@@ -210,7 +224,12 @@ function OrderDetail() {
                 <section>
                     <Separation className="orderDetTitle" title={title!} line={true} />
 
-                    <p> {_id} </p>
+                    <div>
+                        <p> {_id} </p>{" "}
+                        <div>
+                            <span className={statusClassed[projectStatus!]}> {projectStatusLang[userLang][projectStatus!]} </span>
+                        </div>
+                    </div>
 
                     <div className="orderDetDesc">{textArray}</div>
 
@@ -300,6 +319,7 @@ function OrderDetail() {
                                 className="pagesNavButton"
                                 onClick={() => {
                                     donwloadFunc(finalLink!);
+                                    editProjects({ projectStatus: 2 });
                                 }}
                             >
                                 <span>{OrdersLang[userLang].ordDetail.download}</span> <span> {OrdersLang[userLang].ordDetail.finalLink} </span>
@@ -309,21 +329,14 @@ function OrderDetail() {
 
                     {owned && (
                         <div className="orderFilesContainer">
-                            {!finalLink && !temporaryLink && (
+                            {!finalLink && !temporaryLink && projectStatus! < 3 && (
                                 <Button
                                     content={OrdersLang[userLang].ordDetail.cancelOrderBut}
                                     icon="fi fi-br-cross"
                                     className="pagesNavButton pagesNavButtonRed"
-                                    onClick={() => {}}
-                                />
-                            )}
-
-                            {finalLink && (
-                                <Button
-                                    content={OrdersLang[userLang].ordDetail.approveBut}
-                                    icon="fi fi-br-check"
-                                    className="pagesNavButton pagesNavSelected"
-                                    onClick={() => {}}
+                                    onClick={() => {
+                                        editProjects({ projectStatus: 3 });
+                                    }}
                                 />
                             )}
                         </div>

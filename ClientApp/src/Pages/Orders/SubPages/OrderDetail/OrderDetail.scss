@@ -15,9 +15,24 @@
         display: flex;
         flex-direction: column;
         gap: 0.625rem;
-        & > p {
-            font-size: 0.8rem;
-            color: var(--fontColorSeconday);
+        & > div:nth-child(2) {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 1.25rem;
+            padding: 0.625rem 0;
+            & > p {
+                font-size: 0.8rem;
+                color: var(--fontColorSeconday);
+            }
+            & > div {
+                & > span {
+                    padding: 0.625rem 0.9375rem;
+                    border-radius: var(--roundRadius);
+                    color: var(--backGroundColor);
+                    text-transform: capitalize;
+                }
+            }
         }
     }
 

@@ -3,16 +3,16 @@ import "./Orders.scss";
 import Button from "../../Components/Button/Button";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Contexts } from "../../Contexts/Contexts";
-import { URLSearchAdd, URLSearchParse, generalGetFunction, pathWithoutParam } from "../../MiddleWear/ClientFunctions";
+import { URLSearchAdd, URLSearchParse, generalAddEditFunction, generalGetFunction, pathWithoutParam } from "../../MiddleWear/ClientFunctions";
 import { OrdersLang } from "./OrdersLang";
-import { getProjectsApi, getUtilsApi } from "../../MiddleWear/ApiMiddleWear";
+import { editProjectApi, getProjectsApi, getUtilsApi } from "../../MiddleWear/ApiMiddleWear";
 import { projectType } from "../../../../Serveur/App/Models/Project";
 import GridMapper from "../../Components/GripdMapper/GridMapper";
 import { getHashMap } from "../Profile/ProfileFunctions";
 import ProjectCard from "../../Components/ProjetCard/ProjectCard";
 
 function Orders() {
-    const { userLang, setNewAlert, refreshApp } = Contexts();
+    const { userLang, setNewAlert, refreshApp, apiWait, setApiWait } = Contexts();
 
     const [projects, setprojects] = useState<Partial<projectType>[] | null | "empty">(null);
     const [fields, setFields] = useState<any[] | null>(null);
@@ -49,6 +49,7 @@ function Orders() {
             refresh: refreshApp,
         });
     };
+
     const getFields = () => {
         generalGetFunction({
             endPoint: getUtilsApi("freelance-categories"),
