@@ -3,7 +3,14 @@ import "./Orders.scss";
 import Button from "../../Components/Button/Button";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Contexts } from "../../Contexts/Contexts";
-import { URLSearchAdd, URLSearchParse, generalAddEditFunction, generalGetFunction, pathWithoutParam } from "../../MiddleWear/ClientFunctions";
+import {
+    URLSearchAdd,
+    URLSearchParse,
+    URLSearchremove,
+    generalAddEditFunction,
+    generalGetFunction,
+    pathWithoutParam,
+} from "../../MiddleWear/ClientFunctions";
 import { OrdersLang } from "./OrdersLang";
 import { editProjectApi, getProjectsApi, getUtilsApi } from "../../MiddleWear/ApiMiddleWear";
 import { projectType } from "../../../../Serveur/App/Models/Project";
@@ -26,7 +33,7 @@ function Orders() {
         if (!order && pathname == "/orders") {
             URLSearchAdd(navigate, { order: "my" });
         }
-    }, [pathname]);
+    }, [pathname, search]);
     useEffect(() => {
         getFields();
     }, []);
@@ -88,6 +95,11 @@ function Orders() {
         recap: null,
     };
 
+    const navigateInOrders = (to: string) => {
+        URLSearchremove(navigate, "page");
+        URLSearchAdd(navigate, { order: to });
+    };
+
     return (
         <div className="ordersGeneralContainer">
             <div className="ordersNavContainer">
@@ -96,7 +108,7 @@ function Orders() {
                     icon="fi fi-sr-file-invoice-dollar"
                     content={OrdersLang[userLang].myOrders}
                     onClick={() => {
-                        URLSearchAdd(navigate, { order: "my" });
+                        navigateInOrders("my");
                     }}
                 />
                 <Button
@@ -104,7 +116,7 @@ function Orders() {
                     icon="fi fi-sr-square-poll-horizontal"
                     content={OrdersLang[userLang].involvedIn}
                     onClick={() => {
-                        URLSearchAdd(navigate, { order: "involved" });
+                        navigateInOrders("involved");
                     }}
                 />
                 <Button
@@ -112,7 +124,7 @@ function Orders() {
                     icon="fi fi-br-list"
                     content={OrdersLang[userLang].recap}
                     onClick={() => {
-                        URLSearchAdd(navigate, { order: "recap" });
+                        navigateInOrders("recap");
                     }}
                 />
             </div>

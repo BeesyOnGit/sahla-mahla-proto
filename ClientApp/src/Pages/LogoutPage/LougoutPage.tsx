@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./LogoutPage.scss";
 import { LogoutLang } from "./LogoutLang";
 import { Contexts } from "../../Contexts/Contexts";
 import Button from "../../Components/Button/Button";
@@ -13,12 +14,14 @@ function LougoutPage() {
 
     useEffect(() => {
         const timeOut = setTimeout(() => {
-            window.localStorage.removeItem("user_token");
-            location.reload();
+            // window.localStorage.removeItem("user_token");
+            // location.reload();
         }, 10000);
 
         const interv = setInterval(() => {
-            setTimeou((stt) => stt - 1);
+            setTimeou((stt) => {
+                return stt == 0 ? 0 : stt - 1;
+            });
         }, 1000);
 
         return () => {
@@ -27,14 +30,15 @@ function LougoutPage() {
         };
     }, []);
     return (
-        <div>
+        <div className="logoutContainer">
             <h1> {LogoutLang[userLang].logoutprogress} </h1>
-            <h1> {timout} </h1>
+            <h2>
+                <span>{timout}</span> <span> {LogoutLang[userLang].secondUnit} </span>
+            </h2>
 
             <Button
                 content={LogoutLang[userLang].cancel}
-                icon=""
-                className="pagesNavButton"
+                className="pagesNavButton pagesNavSelected"
                 onClick={() => {
                     navigate("/");
                 }}

@@ -22,6 +22,7 @@ function AllProjects() {
     const [fields, setFields] = useState<any[] | null>(null);
 
     const { search } = useLocation();
+    const { page } = URLSearchParse();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,8 +30,16 @@ function AllProjects() {
     }, []);
 
     useEffect(() => {
-        getProjects();
-    }, []);
+        if (!search.includes("page")) {
+            getProjects();
+        }
+    }, [refresh, search]);
+
+    useEffect(() => {
+        if (page && parseInt(page) > 1) {
+            getProjectsPage();
+        }
+    }, [page]);
 
     const getFields = () => {
         generalGetFunction({
@@ -54,11 +63,28 @@ function AllProjects() {
             refresh: refreshApp,
         });
     };
+    const getProjectsPage = () => {
+        generalGetFunction({
+            endPoint: getProjectsApi(search),
+            setState: addToState,
+            successCode: "S64",
+            emptyCode: "",
+            setNewAlert,
+            silent: true,
+            refresh: refreshApp,
+        });
+    };
 
     const submitFunc = (id: string) => {
         URLSearchAdd(navigate, { targetProject: id });
         setSubmissionForm({});
         setModalDisp(true);
+    };
+
+    const addToState = (data: any[]) => {
+        if (Array.isArray(projects)) {
+            setProjects([...projects, ...data]);
+        }
     };
 
     const submitParticipation = (e: React.FormEvent<HTMLFormElement>) => {

@@ -10,10 +10,25 @@ import { formatAsCurrency } from "../../MiddleWear/ClientFunctions";
 import Skuleton from "../Skuleton/Skeleton";
 import ProfileComp from "../ProfileComp/ProfileComp";
 
-function ResourcesCard(props: Partial<resourcesType> & { likeFunc?: Function; skull?: boolean; deleteFunc?: Function }) {
+function ResourcesCard(props: Partial<resourcesType> & { likeFunc?: Function; skull?: boolean; deleteFunc?: Function; id?: string }) {
     const { userLang } = Contexts();
-    const { title, owner, likes, bookMarks, resourceThumbnail, price, discount, timesSold, buyers, _id, likeFunc, skull, resourceLink, deleteFunc } =
-        props;
+    const {
+        title,
+        owner,
+        likes,
+        bookMarks,
+        resourceThumbnail,
+        price,
+        discount,
+        timesSold,
+        buyers,
+        _id,
+        likeFunc,
+        skull,
+        resourceLink,
+        deleteFunc,
+        id,
+    } = props;
     const ownerInfos: any = owner;
 
     const bookedMap: any = {
@@ -26,7 +41,7 @@ function ResourcesCard(props: Partial<resourcesType> & { likeFunc?: Function; sk
     };
 
     return (
-        <div className="resourceGeneralContainer">
+        <div className="resourceGeneralContainer" id={id && id}>
             {!skull ? (
                 <>
                     <div className="resourcesTitle"> {title} </div>

@@ -15,10 +15,10 @@ function Projects() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (pathname != "/offers/all") {
+        if (pathname == "/offers") {
             navigate("all");
         }
-    }, []);
+    }, [pathname]);
 
     const navigationMap: any = {
         "/offers/all": () => {

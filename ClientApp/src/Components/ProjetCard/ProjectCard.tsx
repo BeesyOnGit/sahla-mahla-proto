@@ -23,6 +23,7 @@ function ProjectCard(
         fieldsMap: any;
         skull?: boolean;
         detail?: any;
+        id?: string;
     }
 ) {
     // const { userLang } = Contexts();
@@ -44,6 +45,7 @@ function ProjectCard(
         fieldsMap,
         skull,
         detail,
+        id,
     } = props;
     const { firstName, familyName, profilePicture, aprouved } = buyer || {};
     const expired = restTime(submitDeadLine!) <= 0;
@@ -72,7 +74,7 @@ function ProjectCard(
     ));
 
     return (
-        <div className="projectCardGenContainer">
+        <div className="projectCardGenContainer" id={id && id}>
             {!skull ? (
                 <>
                     <h1>

@@ -56,24 +56,10 @@ function Resources() {
         return "";
     };
 
-    const ImSelected = (category: number) => {
-        const { resourceType } = URLSearchParse() || {};
-        return resourceType == category ? "selectedCateg" : "";
-    };
-
-    const toggleCategory = (categeory: number) => {
-        const { resourceType } = URLSearchParse() || {};
-        if (resourceType == categeory) {
-            return URLSearchremove(navigate, "resourceType");
-        }
-        URLSearchremove(navigate, "resourceType");
-        URLSearchAdd(navigate, { resourceType: categeory });
-    };
-
     const beginSearch = (event: OnChangeEventType) => {
         const currSearch = URLSearchParse();
 
-        const { search } = currSearch || {};
+        const { search, page } = currSearch || {};
 
         const timeOut = setTimeout(() => {
             const val = event.target.value;
@@ -84,9 +70,28 @@ function Resources() {
             if (search) {
                 URLSearchremove(navigate, "search");
             }
+            if (page) {
+                URLSearchremove(navigate, "page");
+            }
             URLSearchAdd(navigate, { search: val });
             clearTimeout(timeOut);
         }, 500);
+    };
+
+    const ImSelected = (category: number) => {
+        const { resourceType } = URLSearchParse() || {};
+        return resourceType == category ? "selectedCateg" : "";
+    };
+
+    const toggleCategory = (categeory: number) => {
+        const { resourceType } = URLSearchParse() || {};
+        URLSearchremove(navigate, "page");
+
+        if (resourceType == categeory) {
+            return URLSearchremove(navigate, "resourceType");
+        }
+        URLSearchremove(navigate, "resourceType");
+        URLSearchAdd(navigate, { resourceType: categeory });
     };
     return (
         <section className="resourcesPageGeneralContainer">

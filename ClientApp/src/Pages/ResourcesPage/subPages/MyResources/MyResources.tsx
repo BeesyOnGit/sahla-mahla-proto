@@ -4,7 +4,7 @@ import { Contexts } from "../../../../Contexts/Contexts";
 import { resourcesType } from "../../../../../../Serveur/App/Models/Resources";
 import ResourcesCard from "../../../../Components/ResourcesCard/ResourcesCard";
 import { resourcesLang } from "../../ResourcesLang";
-import { generalGetFunction } from "../../../../MiddleWear/ClientFunctions";
+import { URLSearchParse, generalGetFunction } from "../../../../MiddleWear/ClientFunctions";
 import { getMyResourcesApi, likeBookResourceApi } from "../../../../MiddleWear/ApiMiddleWear";
 import { useLocation } from "react-router-dom";
 
@@ -14,10 +14,19 @@ function MyResources() {
     const [resources, setResources] = useState<resourcesType[] | null | "empty">(null);
 
     const { search } = useLocation();
+    const { page } = URLSearchParse();
 
     useEffect(() => {
-        getResources();
+        if (!search.includes("page")) {
+            getResources();
+        }
     }, [refresh, search]);
+
+    useEffect(() => {
+        if (page && parseInt(page) > 1) {
+            getResourcesPage();
+        }
+    }, [page]);
 
     const getResources = () => {
         generalGetFunction({
@@ -29,6 +38,17 @@ function MyResources() {
             silent: true,
         });
     };
+    const getResourcesPage = () => {
+        generalGetFunction({
+            endPoint: getMyResourcesApi(search, "owned"),
+            setState: addToState,
+            successCode: "S34",
+            emptyCode: "",
+            setNewAlert,
+            silent: true,
+        });
+    };
+
     const likeBookResource = (id: string, type: string) => {
         generalGetFunction({
             endPoint: likeBookResourceApi(id, type),
@@ -38,6 +58,12 @@ function MyResources() {
             setNewAlert,
             silent: true,
         });
+    };
+
+    const addToState = (data: any[]) => {
+        if (Array.isArray(resources)) {
+            setResources([...resources, ...data]);
+        }
     };
     return (
         <div className="ownedResGenContainer">

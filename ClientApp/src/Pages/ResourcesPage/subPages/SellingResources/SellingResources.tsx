@@ -22,11 +22,19 @@ function SellingResources() {
 
     const { search } = useLocation();
 
-    const { resource, title } = URLSearchParse();
+    const { resource, title, page } = URLSearchParse();
 
     useEffect(() => {
-        getResources();
+        if (!search.includes("page")) {
+            getResources();
+        }
     }, [refresh, search]);
+
+    useEffect(() => {
+        if (page && parseInt(page) > 1) {
+            getResourcesPage();
+        }
+    }, [page]);
 
     const getResources = () => {
         generalGetFunction({
@@ -37,6 +45,22 @@ function SellingResources() {
             setNewAlert,
             silent: true,
         });
+    };
+    const getResourcesPage = () => {
+        generalGetFunction({
+            endPoint: getMyResourcesApi(search, "selling"),
+            setState: addToState,
+            successCode: "S34",
+            emptyCode: "",
+            setNewAlert,
+            silent: true,
+        });
+    };
+
+    const addToState = (data: any[]) => {
+        if (Array.isArray(resources)) {
+            setResources([...resources, ...data]);
+        }
     };
     const likeBookResource = (id: string, type: string) => {
         generalGetFunction({

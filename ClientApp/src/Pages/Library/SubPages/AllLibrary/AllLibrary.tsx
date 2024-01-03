@@ -28,19 +28,26 @@ function AllLibrary() {
 
     const { search } = useLocation();
     const { width } = useWindowDimensions();
+    const { page, ...restSearch } = URLSearchParse();
 
     const [categeories, setCategories] = useState<number[] | null>(null);
     const [resources, setResources] = useState<resourcesType[] | null | "empty">(null);
-
-    const containerWidth = document.getElementsByClassName("resourcesContainer")[0];
 
     useEffect(() => {
         getResCategories();
     }, []);
 
     useEffect(() => {
-        getResources();
-    }, [search, refresh]);
+        if (!search.includes("page")) {
+            getResources();
+        }
+    }, [refresh, search]);
+
+    useEffect(() => {
+        if (page && parseInt(page) > 1) {
+            getResourcesPage();
+        }
+    }, [page]);
 
     const getResources = () => {
         generalGetFunction({
@@ -48,6 +55,16 @@ function AllLibrary() {
             setState: setResources,
             successCode: "S34",
             emptyCode: "E33",
+            setNewAlert,
+            silent: true,
+        });
+    };
+    const getResourcesPage = () => {
+        generalGetFunction({
+            endPoint: getResourcesApi(search),
+            setState: addToState,
+            successCode: "S34",
+            emptyCode: "",
             setNewAlert,
             silent: true,
         });
@@ -77,7 +94,7 @@ function AllLibrary() {
     const beginSearch = (event: OnChangeEventType) => {
         const currSearch = URLSearchParse();
 
-        const { search } = currSearch || {};
+        const { search, page } = currSearch || {};
 
         const timeOut = setTimeout(() => {
             const val = event.target.value;
@@ -87,6 +104,9 @@ function AllLibrary() {
             }
             if (search) {
                 URLSearchremove(navigate, "search");
+            }
+            if (page) {
+                URLSearchremove(navigate, "page");
             }
             URLSearchAdd(navigate, { search: val });
             clearTimeout(timeOut);
@@ -100,11 +120,19 @@ function AllLibrary() {
 
     const toggleCategory = (categeory: number) => {
         const { resourceType } = URLSearchParse() || {};
+        URLSearchremove(navigate, "page");
+
         if (resourceType == categeory) {
             return URLSearchremove(navigate, "resourceType");
         }
         URLSearchremove(navigate, "resourceType");
         URLSearchAdd(navigate, { resourceType: categeory });
+    };
+
+    const addToState = (data: any[]) => {
+        if (Array.isArray(resources)) {
+            setResources([...resources, ...data]);
+        }
     };
 
     return (
@@ -142,23 +170,6 @@ function AllLibrary() {
                     <ResourcesCard likeFunc={likeBookResource} />
                 </GridMapper>
             </div>
-
-            {/* <div
-                className="resourcesContainer customScroll"
-                style={resources != "empty" ? { display: "grid", gridTemplateColumns: `repeat(${elemsN},1fr)` } : {}}
-            >
-                {Array.isArray(resources) ? (
-                    resources.map((resource, i) => {
-                        return <ResourcesCard likeFunc={likeBookResource} {...resource} key={i} />;
-                    })
-                ) : resources == "empty" ? (
-                    <FullpageIcon icon="fi fi-br-image-slash" texte={LibraryLang[userLang].noResources} />
-                ) : (
-                    randomArrLength(10, 17).map((e, i) => {
-                        return <ResourcesCard key={i} skull={true} />;
-                    })
-                )}
-            </div> */}
         </section>
     );
 }

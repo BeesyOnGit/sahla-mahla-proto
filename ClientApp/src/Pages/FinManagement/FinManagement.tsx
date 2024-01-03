@@ -11,7 +11,7 @@ import { getInvoicesApi } from "../../MiddleWear/ApiMiddleWear";
 import InvoiceCard from "../../Components/InvoiceCard/InvoiceCard";
 
 function FinManagement() {
-    const { userLang, refreshApp, setNewAlert } = Contexts();
+    const { userLang, refreshApp, setNewAlert, refresh } = Contexts();
 
     const [invoices, setInvoices] = useState<Partial<invoiceType>[] | null | "empty">(null);
 
@@ -19,16 +19,24 @@ function FinManagement() {
 
     const { search } = useLocation();
 
-    const { isInvoice, invoiceType } = URLSearchParse();
+    const { isInvoice, invoiceType, page } = URLSearchParse();
 
     useEffect(() => {
         if (!isInvoice) {
             URLSearchAdd(navigate, { isInvoice: false });
         }
-        if (search) {
+    }, [search]);
+
+    useEffect(() => {
+        if (!search.includes("page")) {
             getInvoices();
         }
-    }, [search]);
+    }, [search, refresh]);
+    useEffect(() => {
+        if (parseInt(page) > 1) {
+            getInvoicesPage();
+        }
+    }, [page]);
 
     const selectedNav = (name: string, field: string) => {
         if (field == name) {
@@ -47,6 +55,23 @@ function FinManagement() {
             silent: true,
             setState: setInvoices,
         });
+    };
+    const getInvoicesPage = () => {
+        generalGetFunction({
+            endPoint: getInvoicesApi(search),
+            successCode: "S74",
+            emptyCode: "",
+            refresh: refreshApp,
+            setNewAlert,
+            silent: true,
+            setState: addToState,
+        });
+    };
+
+    const addToState = (data: any[]) => {
+        if (Array.isArray(invoices)) {
+            setInvoices([...invoices, ...data]);
+        }
     };
 
     const navigateToInvoice = (id: string) => {

@@ -14,6 +14,7 @@ function InvoiceCard(
         emmiter?: Partial<freelanceType>;
         invoiceClient?: Partial<freelanceType>;
         invoiceDetailFunc?: Function;
+        id?: string;
     }
 ) {
     const { userLang } = Contexts();
@@ -30,6 +31,7 @@ function InvoiceCard(
         _id,
         invoiceDetailFunc,
         skull,
+        id,
     } = props;
 
     const invNameMap: any = {
@@ -62,7 +64,7 @@ function InvoiceCard(
     const { familyName, firstName } = emmiter || {};
     const { familyName: clLN, firstName: clFN } = invoiceClient || {};
     return (
-        <div className="invCardGeneralContainer">
+        <div className="invCardGeneralContainer" id={id && id}>
             {!skull ? (
                 <>
                     <div className="incHeaderContianer">

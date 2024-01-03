@@ -16,7 +16,7 @@ function Library() {
         if (pathname != "/library/all") {
             navigate("all");
         }
-    }, []);
+    }, [pathname]);
 
     const navigationMap: any = {
         "/library/all": () => {
