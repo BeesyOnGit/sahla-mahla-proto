@@ -133,7 +133,7 @@ export const getAllProjects = async (req: Request, res: Response) => {
     const pageNumber: any = page || 1;
     const now = new Date().getTime();
     const orderMap: any = {
-        [order]: { 1: {}, 2: {} },
+        [order]: { 1: { projectStatus: { $in: [0] } }, 2: { projectStatus: { $in: [0] } } },
 
         my: {
             1: {

@@ -24,6 +24,7 @@ function Resources() {
     const navigate = useNavigate();
 
     const [categeories, setCategories] = useState<number[] | null>(null);
+    const userType = window.localStorage._user_type;
 
     const { pathname } = useLocation();
 
@@ -104,22 +105,26 @@ function Resources() {
                         navigate("owned");
                     }}
                 />
-                <Button
-                    className={"pagesNavButton " + selectedNav("/resources/selling")}
-                    icon="fi fi-sr-money-bills"
-                    content={resourcesLang[userLang].sellingResources}
-                    onClick={() => {
-                        navigate("selling");
-                    }}
-                />
-                <Button
-                    className={"pagesNavButton " + selectedNav("/resources/add")}
-                    icon="fi fi-sr-square-plus"
-                    content={resourcesLang[userLang].addResourceNav}
-                    onClick={() => {
-                        navigate("add");
-                    }}
-                />
+                {userType == 1 && (
+                    <>
+                        <Button
+                            className={"pagesNavButton " + selectedNav("/resources/selling")}
+                            icon="fi fi-sr-money-bills"
+                            content={resourcesLang[userLang].sellingResources}
+                            onClick={() => {
+                                navigate("selling");
+                            }}
+                        />
+                        <Button
+                            className={"pagesNavButton " + selectedNav("/resources/add")}
+                            icon="fi fi-sr-square-plus"
+                            content={resourcesLang[userLang].addResourceNav}
+                            onClick={() => {
+                                navigate("add");
+                            }}
+                        />
+                    </>
+                )}
             </div>
             {pathname != "/resources/add" && (
                 <>

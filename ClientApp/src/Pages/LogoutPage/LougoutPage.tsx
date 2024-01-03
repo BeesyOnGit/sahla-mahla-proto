@@ -14,8 +14,8 @@ function LougoutPage() {
 
     useEffect(() => {
         const timeOut = setTimeout(() => {
-            // window.localStorage.removeItem("user_token");
-            // location.reload();
+            window.localStorage.removeItem("user_token");
+            location.reload();
         }, 10000);
 
         const interv = setInterval(() => {
