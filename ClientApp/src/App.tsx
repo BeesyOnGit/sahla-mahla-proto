@@ -182,10 +182,11 @@ function App() {
                 needValidation: true,
             },
             {
-                name: sideBarLang[userLang].NavElems.myOrders,
+                name: sideBarLang[userLang].NavElems.orders,
                 ignoreNav: false,
-                path: "/myorders",
+                path: "/orders",
                 ico: "fi fi-br-list",
+                needValidation: true,
                 page: <Orders />,
             },
             {
