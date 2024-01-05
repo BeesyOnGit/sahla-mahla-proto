@@ -1,7 +1,7 @@
 import "./App.css";
 import { ReactElement, ReactNode, Suspense, lazy, useEffect, useState } from "react";
 import { Navigate, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
-import { setTheme, useWindowDimensions } from "./MiddleWear/ClientFunctions";
+import { setTheme } from "./MiddleWear/ClientFunctions";
 import { Contexts } from "./Contexts/Contexts";
 import Sidebar from "./Components/SideBar/Sidebar";
 import { sideBarLang } from "./Components/SideBar/sidebarLang";
@@ -12,7 +12,6 @@ import Home from "./Pages/Home/Home";
 import Library from "./Pages/Library/Library";
 import AllLibrary from "./Pages/Library/SubPages/AllLibrary/AllLibrary";
 import BookMarked from "./Pages/Library/SubPages/BookMarked/BookMarked";
-import OwnedResources from "./Pages/ResourcesPage/subPages/SellingResources/SellingResources";
 import MyResources from "./Pages/ResourcesPage/subPages/MyResources/MyResources";
 import Resources from "./Pages/ResourcesPage/Resources";
 import SellingResources from "./Pages/ResourcesPage/subPages/SellingResources/SellingResources";
@@ -37,7 +36,7 @@ function App() {
     // const dimentions = useWindowDimensions();
     const navigate = useNavigate();
     const userType: 1 | 2 = window.localStorage._user_type || 1;
-    const onlineStat = JSON.parse(window.localStorage.online_status);
+    const onlineStat = window.localStorage.online_status;
     initialLanguage();
     useEffect(() => {
         setTheme(JSON.parse(darkMode));
@@ -244,8 +243,9 @@ function App() {
         ],
     };
 
-    const changeStatus = (stat: boolean) => {
-        window.localStorage.setItem("online_status", `${!stat}`);
+    const changeStatus = (stat: string) => {
+        const stt = JSON.parse(stat);
+        window.localStorage.setItem("online_status", `${!stt}`);
         refreshApp();
     };
 
