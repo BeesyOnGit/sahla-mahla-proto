@@ -275,13 +275,13 @@ function App() {
                 name: sideBarLang[userLang].NavElems.delivery,
                 ignoreNav: false,
                 path: "/delivery",
-                ico: "i fi-sr-shipping-fast",
+                ico: "fi fi-sr-box-up",
             },
             {
                 name: sideBarLang[userLang].NavElems.support,
                 ignoreNav: false,
                 path: "/support",
-                ico: "fi fi-sr-user-headset",
+                ico: "fi fi-ss-customer-service",
             },
 
             {
