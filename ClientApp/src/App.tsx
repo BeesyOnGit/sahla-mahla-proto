@@ -29,7 +29,7 @@ import LougoutPage from "./Pages/LogoutPage/LougoutPage";
 import Button from "./Components/Button/Button";
 import { ProfileLang } from "./Pages/Profile/ProfileLang";
 // import { alerts } from "./MiddleWear/Signals";
-export const userType: 1 | 2 = window.localStorage._user_type || 1;
+export const userType: 1 | 2 = window.localStorage._user_type;
 function App() {
     const { darkMode, userLang, initialLanguage, Token, switchLanguage, refreshApp } = Contexts();
     const { pathname } = useLocation();
@@ -334,6 +334,7 @@ function App() {
                     <Route path="/login" element={!Token ? <Login /> : <Navigate to="/" />} />
                     <Route path="/" element={!Token ? <Navigate to="/login" /> : <Navigate to="/home" />}></Route>
                     {userLang &&
+                        userType &&
                         navitems[userType].map((elem, i) => {
                             const { path, page, needValidation, subRoute } = elem;
                             return (
