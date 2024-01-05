@@ -304,7 +304,7 @@ function App() {
         <div className="AppContainer">
             <Alerts />
             {!hideNav[pathname] && (
-                <Sidebar navItems={navitems[1]}>
+                <Sidebar navItems={navitems[userType]}>
                     <ComboBox
                         className="langSelectInp"
                         options={comboLangOp}
