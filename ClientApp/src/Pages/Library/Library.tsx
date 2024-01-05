@@ -15,6 +15,11 @@ function Library() {
         if (pathname != "/library/all") {
             navigate("all");
         }
+    }, []);
+    useEffect(() => {
+        if (pathname.split("/").length < 3) {
+            navigate("all");
+        }
     }, [pathname]);
 
     const navigationMap: any = {
