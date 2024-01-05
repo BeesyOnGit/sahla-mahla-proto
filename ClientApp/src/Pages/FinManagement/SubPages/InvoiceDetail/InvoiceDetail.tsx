@@ -92,13 +92,14 @@ function InvoiceDetail() {
                         invNumMap[`${invoiceNumber! >= 100}`]
                     }${invoiceNumber}.pdf`
                 );
-                // setPrinMode(false);
+                setPrinMode(false);
             },
             // margin: [10, 10, 10, 10],
             autoPaging: true,
             x: 0,
             y: 0,
-            width: 262.5, //target width in the PDF document
+            // width: 262.5, //target width in the PDF document
+            width: 406, //target width in the PDF document
             windowWidth: width!, //window width in CSS pixels
 
             // html2canvas: {
@@ -107,16 +108,6 @@ function InvoiceDetail() {
             // },
         });
     };
-
-    function formatString(input: string) {
-        // Replace '/' with a space
-        let stringWithSpace = input.replace("/", " ");
-
-        // Replace '&nbsp;' with a space
-        let stringWithoutNbsp = stringWithSpace.replace(/&nbsp;/g, " ");
-
-        return stringWithoutNbsp;
-    }
 
     const invNameMap: any = {
         true: "FCT",
@@ -276,6 +267,7 @@ function InvoiceDetail() {
                 content="download"
                 className="pagesNavButton "
                 onClick={() => {
+                    setPrinMode(true);
                     GeneratePdf();
                 }}
             />
