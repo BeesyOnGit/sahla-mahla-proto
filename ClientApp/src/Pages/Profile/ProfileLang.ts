@@ -6,6 +6,7 @@ type profileLangType = {
         billingInfosTitle: string;
         adressInfosTitle: string;
         noChanges: string;
+        onlineTogg: string;
         inputs: {
             firstName: string;
             lastName: string;
@@ -36,6 +37,7 @@ export const ProfileLang: profileLangType = {
         billingInfosTitle: "facturation",
         adressInfosTitle: "adresse",
         noChanges: "pas de changement a faire",
+        onlineTogg: "status en ligne",
         inputs: {
             firstName: "prénom",
             lastName: "nom de famille",
@@ -63,6 +65,7 @@ export const ProfileLang: profileLangType = {
         billingInfosTitle: "billing",
         adressInfosTitle: "address",
         noChanges: "no changes to be made",
+        onlineTogg: "online status",
         inputs: {
             firstName: "first name",
             lastName: "last name",
@@ -90,6 +93,7 @@ export const ProfileLang: profileLangType = {
         billingInfosTitle: "الفواتير",
         adressInfosTitle: "العنوان",
         noChanges: "لا توجد تغييرات لإجرائها",
+        onlineTogg: "حالة الإتصال",
         inputs: {
             firstName: "الاسم الأول",
             lastName: "اسم العائلة",

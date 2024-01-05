@@ -166,10 +166,14 @@
     /* // top: 0; */
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
+    pointer-events: none;
     /* z-index: 0; */
     /* // pointer-events: visible; */
+}
+.overLcontainer > * {
+    pointer-events: auto;
 }
 
 /* #siteLogo {

@@ -60,7 +60,7 @@ function AllProjects() {
             emptyCode: "E62",
             setNewAlert,
             silent: true,
-            refresh: refreshApp,
+            // refresh: refreshApp,
         });
     };
     const getProjectsPage = () => {
@@ -71,7 +71,7 @@ function AllProjects() {
             emptyCode: "",
             setNewAlert,
             silent: true,
-            refresh: refreshApp,
+            // refresh: refreshApp,
         });
     };
 

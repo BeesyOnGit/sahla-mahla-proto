@@ -107,6 +107,7 @@ export const loginFunction = async ({
         }
 
         window.localStorage.setItem("user_token", token);
+        window.localStorage.setItem("online_status", "true");
 
         setNewAlert({ type: "success", message: apiResponseLang[lang][code] });
         return setTimeout(() => {

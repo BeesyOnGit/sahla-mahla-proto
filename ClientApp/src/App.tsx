@@ -1,6 +1,6 @@
 import "./App.css";
 import { ReactElement, ReactNode, Suspense, lazy, useEffect, useState } from "react";
-import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
 import { setTheme, useWindowDimensions } from "./MiddleWear/ClientFunctions";
 import { Contexts } from "./Contexts/Contexts";
 import Sidebar from "./Components/SideBar/Sidebar";
@@ -27,15 +27,17 @@ import AddResource from "./Pages/ResourcesPage/subPages/AddResource/AddResource"
 import FinManagement from "./Pages/FinManagement/FinManagement";
 import InvoiceDetail from "./Pages/FinManagement/SubPages/InvoiceDetail/InvoiceDetail";
 import LougoutPage from "./Pages/LogoutPage/LougoutPage";
+import Button from "./Components/Button/Button";
+import { ProfileLang } from "./Pages/Profile/ProfileLang";
 // import { alerts } from "./MiddleWear/Signals";
 
 function App() {
-    const { darkMode, userLang, initialLanguage, Token, switchLanguage } = Contexts();
+    const { darkMode, userLang, initialLanguage, Token, switchLanguage, refreshApp } = Contexts();
     const { pathname } = useLocation();
     // const dimentions = useWindowDimensions();
     const navigate = useNavigate();
     const userType: 1 | 2 = window.localStorage._user_type || 1;
-
+    const onlineStat = JSON.parse(window.localStorage.online_status);
     initialLanguage();
     useEffect(() => {
         setTheme(JSON.parse(darkMode));
@@ -242,6 +244,11 @@ function App() {
         ],
     };
 
+    const changeStatus = (stat: boolean) => {
+        window.localStorage.setItem("online_status", `${!stat}`);
+        refreshApp();
+    };
+
     return (
         <div className="AppContainer">
             <Alerts />
@@ -259,6 +266,19 @@ function App() {
                 </Sidebar>
             )}
             <section className={"routes " + (!Token ? "routesNoPadd" : "")}>
+                {!hideRouteHead[pathname] && !pathname.includes("fin-management/invoice/") && (
+                    <div className="routesHeader">
+                        <Button
+                            icon={"fi fi-ss-dot-circle " + onlineMap[`${onlineStat}`]}
+                            className="pagesNavButton noHovButt"
+                            content={ProfileLang[userLang].onlineTogg}
+                            onClick={() => {
+                                changeStatus(onlineStat);
+                            }}
+                        />
+                        <i className="fi fi-sr-shopping-cart"></i>
+                    </div>
+                )}
                 <Routes>
                     <Route path="/login" element={!Token ? <Login /> : <Navigate to="/" />} />
                     <Route path="/" element={!Token ? <Navigate to="/login" /> : <Navigate to="/home" />}></Route>
@@ -317,7 +337,11 @@ const hideNav: any = {
     "/login": true,
     "/validation-page": true,
 };
-
+const hideRouteHead: any = {
+    "/login": true,
+    "/validation-page": true,
+    "/profile": true,
+};
 export type SidebarItem = {
     name: string;
     ignoreNav: boolean;
@@ -338,4 +362,9 @@ const comboBoxMap = {
     fr: "français",
     ar: "العربية",
     en: "english",
+};
+
+const onlineMap: any = {
+    true: "colorOn",
+    false: "colorOff",
 };

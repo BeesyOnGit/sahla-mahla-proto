@@ -41,7 +41,6 @@ function BookMarked() {
             setState: setResources,
             successCode: "S34",
             emptyCode: "E33",
-            refresh: refreshApp,
             setNewAlert,
             silent: true,
         });
@@ -87,6 +86,12 @@ function BookMarked() {
                     icon="fi fi-sr-heart"
                     content={LibraryLang[userLang].resourceCard.likes}
                     onClick={() => togglebooked("likes")}
+                />
+                <Button
+                    className={"pagesNavButton "}
+                    icon="fi fi-sr-books"
+                    content={LibraryLang[userLang].returnToLib}
+                    onClick={() => navigate("/library/all")}
                 />
             </div>
             {/* <div

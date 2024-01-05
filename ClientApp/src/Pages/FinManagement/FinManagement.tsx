@@ -28,6 +28,9 @@ function FinManagement() {
     }, [search]);
 
     useEffect(() => {
+        if (!isInvoice) {
+            return;
+        }
         if (!search.includes("page")) {
             getInvoices();
         }
@@ -50,7 +53,7 @@ function FinManagement() {
             endPoint: getInvoicesApi(search),
             successCode: "S74",
             emptyCode: "E72",
-            refresh: refreshApp,
+            // refresh: refreshApp,
             setNewAlert,
             silent: true,
             setState: setInvoices,
@@ -61,7 +64,7 @@ function FinManagement() {
             endPoint: getInvoicesApi(search),
             successCode: "S74",
             emptyCode: "",
-            refresh: refreshApp,
+            // refresh: refreshApp,
             setNewAlert,
             silent: true,
             setState: addToState,

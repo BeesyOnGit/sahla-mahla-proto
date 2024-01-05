@@ -4,8 +4,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Contexts } from "../../Contexts/Contexts";
 import Button from "../../Components/Button/Button";
 import { LibraryLang } from "./LibraryLang";
-import { generalGetFunction, pathWithoutParam } from "../../MiddleWear/ClientFunctions";
-import { getCategoriesApi } from "../../MiddleWear/ApiMiddleWear";
+import { pathWithoutParam } from "../../MiddleWear/ClientFunctions";
 
 function Library() {
     const { userLang } = Contexts();
@@ -38,12 +37,14 @@ function Library() {
     return (
         <section className="libGeneralContainer">
             <div className="overLcontainer">
-                <Button
-                    className="pagesNavButton"
-                    icon={iconMap[pathWithoutParam(3)]}
-                    content={contentMap[pathWithoutParam(3)]}
-                    onClick={navigationMap[pathWithoutParam(3)]}
-                />
+                {pathname == "/library/all" && (
+                    <Button
+                        className="pagesNavButton"
+                        icon={iconMap[pathWithoutParam(3)]}
+                        content={contentMap[pathWithoutParam(3)]}
+                        onClick={navigationMap[pathWithoutParam(3)]}
+                    />
+                )}
             </div>
             <Outlet />
         </section>

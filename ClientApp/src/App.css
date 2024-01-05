@@ -132,6 +132,19 @@ html {
     color: var(--backGroundColor);
 }
 
+.noHovButt:hover {
+    background-color: transparent;
+}
+.noHovButt:hover > * {
+    color: var(--fontColorPrimary);
+}
+.noHovButt:hover > .colorOn {
+    color: var(--messagespositivecolor);
+}
+.noHovButt:hover > .colorOff {
+    color: var(--messagesnegativecolor);
+}
+
 .pagesNavSelected {
     background-color: var(--siteColor);
     border-color: transparent;
@@ -165,4 +178,35 @@ html {
     font-weight: bold;
     width: fit-content;
     color: var(--backGroundColor);
+}
+
+.colorOff {
+    color: var(--messagesnegativecolor);
+}
+.colorOn {
+    color: var(--messagespositivecolor);
+}
+
+.routesHeader {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 0.625rem 0.625rem 0.625rem 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+.routesHeader > * {
+    pointer-events: auto;
+}
+.routesHeader > i {
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
