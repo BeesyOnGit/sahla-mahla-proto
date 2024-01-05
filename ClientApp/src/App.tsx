@@ -28,6 +28,7 @@ import InvoiceDetail from "./Pages/FinManagement/SubPages/InvoiceDetail/InvoiceD
 import LougoutPage from "./Pages/LogoutPage/LougoutPage";
 import Button from "./Components/Button/Button";
 import { ProfileLang } from "./Pages/Profile/ProfileLang";
+import Building from "./Pages/BuildingPage/Building";
 // import { alerts } from "./MiddleWear/Signals";
 export const userType: 1 | 2 = window.localStorage._user_type;
 function App() {
@@ -281,7 +282,8 @@ function App() {
                 name: sideBarLang[userLang].NavElems.support,
                 ignoreNav: false,
                 path: "/support",
-                ico: "fi fi-ss-customer-service",
+                ico: "fi fi-sr-exclamation",
+                page: <Building />,
             },
 
             {
