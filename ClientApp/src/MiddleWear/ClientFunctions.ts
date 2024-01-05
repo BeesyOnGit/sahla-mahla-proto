@@ -95,10 +95,17 @@ export const formatAsCurrency = (amount: number) => {
     const lang = window.localStorage.lang;
     const DZDCurr = new Intl.NumberFormat(`${lang}-DZ`, {
         style: "currency",
-        maximumSignificantDigits: 5,
+        maximumSignificantDigits: 10,
         currency: "DZD",
     });
-    return DZDCurr.format(amount);
+    const price = JSON.stringify(DZDCurr.format(amount));
+    const prArr = price.split("");
+    prArr.shift();
+    prArr.pop();
+    prArr.splice(prArr.length - 3, 1);
+    const finalSTR = prArr.join("");
+    const returned = finalSTR.replace(/\s+/g, ",");
+    return returned;
 };
 
 interface mediaCompression {

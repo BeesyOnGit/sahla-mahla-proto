@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { invoiceType } from "../../../../../../Serveur/App/Models/Invoice";
 import { freelanceType } from "../../../../../../Serveur/App/Models/Freelance";
 import { Contexts } from "../../../../Contexts/Contexts";
-import { dateFormater, formatAsCurrency, generalGetFunction, phoneFomater } from "../../../../MiddleWear/ClientFunctions";
+import { dateFormater, formatAsCurrency, generalGetFunction, phoneFomater, useWindowDimensions } from "../../../../MiddleWear/ClientFunctions";
 import { getInvoiceDetailApi, getUtilsApi } from "../../../../MiddleWear/ApiMiddleWear";
 import { FinManagementLang } from "../../FinLang";
 import { getHashMap } from "../../../Profile/ProfileFunctions";
@@ -13,6 +13,7 @@ import Button from "../../../../Components/Button/Button";
 
 function InvoiceDetail() {
     const { userLang, setNewAlert, refreshApp, refresh } = Contexts();
+    const { width } = useWindowDimensions();
 
     const { id } = useParams();
 
@@ -78,7 +79,7 @@ function InvoiceDetail() {
     };
 
     const GeneratePdf = () => {
-        let doc = new jsPDF("p", "pt", "a4");
+        let doc = new jsPDF("p", "mm", "a4", true);
 
         const fct = document.getElementById("fctPrint");
 
@@ -86,11 +87,36 @@ function InvoiceDetail() {
             callback: function (pdf) {
                 let pageCount = doc.internal.pages;
                 pdf.deletePage(pageCount.length);
-                pdf.save(`${invNameMap[`${isInvoice}`]}-${invNumMap[`${invoiceNumber! >= 100}`]}${invoiceNumber}.pdf`);
-                setPrinMode(false);
+                pdf.save(
+                    `${firstName![0].toUpperCase()}.${familyName?.toUpperCase()}-${invNameMap[`${isInvoice}`]}-${
+                        invNumMap[`${invoiceNumber! >= 100}`]
+                    }${invoiceNumber}.pdf`
+                );
+                // setPrinMode(false);
             },
+            // margin: [10, 10, 10, 10],
+            autoPaging: true,
+            x: 0,
+            y: 0,
+            width: 262.5, //target width in the PDF document
+            windowWidth: width!, //window width in CSS pixels
+
+            // html2canvas: {
+            //     // foreignObjectRendering: true,
+            //     letterRendering: true,
+            // },
         });
     };
+
+    function formatString(input: string) {
+        // Replace '/' with a space
+        let stringWithSpace = input.replace("/", " ");
+
+        // Replace '&nbsp;' with a space
+        let stringWithoutNbsp = stringWithSpace.replace(/&nbsp;/g, " ");
+
+        return stringWithoutNbsp;
+    }
 
     const invNameMap: any = {
         true: "FCT",
@@ -108,11 +134,6 @@ function InvoiceDetail() {
     const isPayedMap: any = {
         true: FinManagementLang[userLang].card.isPayer,
         false: FinManagementLang[userLang].card.isNotPayed,
-    };
-
-    const invTypeStyleMap: any = {
-        true: "positiveResponse invStyle",
-        false: "iddleResponse invStyle",
     };
     const invPayStyleMap: any = {
         true: "positiveResponse invStyle",
@@ -251,13 +272,13 @@ function InvoiceDetail() {
                 </div>
                 <span> {FinManagementLang[userLang].detail.generatedFooter} </span>
             </section>
-            {/* <Button
+            <Button
                 content="download"
                 className="pagesNavButton "
                 onClick={() => {
-                    setPrinMode(true);
+                    GeneratePdf();
                 }}
-            /> */}
+            />
         </section>
     );
 }

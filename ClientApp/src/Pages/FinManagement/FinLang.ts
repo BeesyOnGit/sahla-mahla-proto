@@ -50,7 +50,7 @@ export const FinManagementLang: finLangType = {
         invoice: "facture",
         quot: "devis",
         card: {
-            emmiter: "émetteur",
+            emmiter: "emetteur",
             targer: "facturé a",
             totalAmount: "montant TTC",
             created: "créé le",
