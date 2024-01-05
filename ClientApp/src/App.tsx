@@ -97,10 +97,10 @@ function App() {
                         path: "all",
                         page: <AllProjects />,
                     },
-                    {
-                        path: "new",
-                        page: <AddOffer />,
-                    },
+                    // {
+                    //     path: "new",
+                    //     page: <AddOffer />,
+                    // },
                 ],
             },
             {
@@ -186,13 +186,47 @@ function App() {
                 ignoreNav: false,
                 path: "/myorders",
                 ico: "fi fi-br-list",
-                // subRoute: [
-                //     {
-                //         path: "pending",
-                //         page: "",
-                //         needValidation: true,
-                //     },
-                // ],
+                page: <Orders />,
+            },
+            {
+                name: "",
+                ignoreNav: true,
+                path: "/orders/:id",
+                ico: "",
+                needValidation: true,
+                page: <OrderDetail />,
+            },
+            {
+                name: sideBarLang[userLang].NavElems.findWork,
+                ignoreNav: false,
+                path: "/offers",
+                ico: "fi fi-sr-briefcase",
+                page: <Projects />,
+                needValidation: true,
+                subRoute: [
+                    {
+                        path: "all",
+                        page: <AllProjects />,
+                    },
+                    {
+                        path: "new",
+                        page: <AddOffer />,
+                    },
+                ],
+            },
+            {
+                name: sideBarLang[userLang].NavElems.resources,
+                ignoreNav: false,
+                path: "/resources",
+                ico: "fi fi-sr-images",
+                needValidation: true,
+                page: <Resources />,
+                subRoute: [
+                    {
+                        path: "owned",
+                        page: <MyResources />,
+                    },
+                ],
             },
             {
                 name: sideBarLang[userLang].NavElems.library,
@@ -207,6 +241,11 @@ function App() {
                         page: <AllLibrary />,
                         needValidation: false,
                     },
+                    {
+                        path: "bookmarked",
+                        page: <BookMarked />,
+                        needValidation: false,
+                    },
                 ],
             },
             {
@@ -214,13 +253,23 @@ function App() {
                 ignoreNav: false,
                 path: "/fin-management",
                 ico: "fi fi-sr-chart-pie-alt",
+                page: <FinManagement />,
+            },
+            {
+                name: sideBarLang[userLang].NavElems.commManagement,
+                ignoreNav: true,
+                path: "/fin-management/invoice/:id",
+                ico: "fi fi-sr-chart-pie-alt",
+                page: <InvoiceDetail />,
             },
             {
                 name: sideBarLang[userLang].NavElems.profile,
                 ignoreNav: false,
                 path: "/profile",
                 ico: "fi fi-sr-user",
+                page: <Profile />,
             },
+
             {
                 name: sideBarLang[userLang].NavElems.delivery,
                 ignoreNav: false,
@@ -238,7 +287,8 @@ function App() {
                 name: sideBarLang[userLang].NavElems.logout,
                 ignoreNav: false,
                 path: "/logout",
-                ico: "fi fi-br-sign-out-alt",
+                ico: "fi fi-br-sign-out-alt logout",
+                page: <LougoutPage />,
             },
         ],
     };
