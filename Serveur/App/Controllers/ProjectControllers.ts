@@ -163,7 +163,7 @@ export const getAllProjects = async (req: Request, res: Response) => {
             return res.json({ code: "E62" });
         }
 
-        projectFound.forEach((project, i) => {
+        for (const project of projectFound) {
             const { buyer, contractor, submitters } = project;
             if (verifiedId == buyer) {
                 project.owned = true;
@@ -174,7 +174,7 @@ export const getAllProjects = async (req: Request, res: Response) => {
             if (submitters?.toString().includes(verifiedId!)) {
                 project.submitted = true;
             }
-        });
+        }
 
         for await (const doc of projectFound) {
             await populateFromModels({
