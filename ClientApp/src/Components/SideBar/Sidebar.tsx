@@ -52,7 +52,7 @@ function Sidebar(props: sideBarType) {
                 <section className="logoSideBar">
                     <h1>S&M</h1>
                 </section>
-                <section className="PageNavigation">
+                <section className="PageNavigation customScroll">
                     {Array.isArray(navItems) &&
                         navItems
                             .filter((e: any, i) => {
