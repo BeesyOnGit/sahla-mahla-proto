@@ -151,7 +151,7 @@ export const getAllProjects = async (req: Request, res: Response) => {
         involved: { 1: { "submitters.submitter": verifiedId, projectStatus: 0 }, 2: { contractor: [], buyer: verifiedId, projectStatus: 0 } },
     };
     try {
-        const projectFound = await ProjectModel.find({
+        const projectFound: Partial<projectType & { owned?: boolean; submitted?: boolean; contacted?: boolean }>[] = await ProjectModel.find({
             ...orderMap[order][userType!],
         })
             .sort({ createdAt: -1 })
@@ -163,9 +163,7 @@ export const getAllProjects = async (req: Request, res: Response) => {
             return res.json({ code: "E62" });
         }
 
-        const copyFound: Partial<projectType & { owned?: boolean; submitted?: boolean; contacted?: boolean }>[] = [...projectFound];
-
-        for (const project of copyFound) {
+        for (const project of projectFound) {
             const { buyer, contractor, submitters } = project;
             if (verifiedId == buyer) {
                 project.owned = true;
@@ -178,7 +176,7 @@ export const getAllProjects = async (req: Request, res: Response) => {
             }
         }
 
-        for await (const doc of copyFound) {
+        for await (const doc of projectFound) {
             await populateFromModels({
                 doc,
                 path: "buyer",
@@ -186,7 +184,7 @@ export const getAllProjects = async (req: Request, res: Response) => {
             });
         }
 
-        return res.json({ code: "S64", data: copyFound });
+        return res.json({ code: "S64", data: projectFound });
     } catch (error: any) {
         console.log("🚀 ~ file: ProjectControllers.ts:134 ~ getAllProjects ~ error:", error);
         return res.json({ code: "EO", error: error.message });

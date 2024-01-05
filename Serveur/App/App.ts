@@ -28,7 +28,8 @@ const server = http.createServer(app);
 
 export const io = new Server(server, {
     cors: {
-        origin: "*",
+        // origin: "*",
+        origin: "https://app.sahla-mahla.com",
         methods: ["GET", "POST"],
     },
 });
@@ -48,7 +49,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 app.use(
     compression({
-        level: 6,
+        level: 7,
     })
 );
 
@@ -59,7 +60,7 @@ app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
 //Comment me Befor deployment
 
 app.use(bodyParser.json());
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: "https://app.sahla-mahla.com" }));
 // app.use(cors({ origin: ["https://arabatii.com/"] }));
 
 // uncomment ME  befor deployment
