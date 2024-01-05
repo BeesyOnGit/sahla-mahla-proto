@@ -277,6 +277,7 @@ function App() {
                 ignoreNav: false,
                 path: "/delivery",
                 ico: "fi fi-sr-box-up",
+                page: <Building />,
             },
             {
                 name: sideBarLang[userLang].NavElems.support,
