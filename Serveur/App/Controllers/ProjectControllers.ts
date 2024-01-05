@@ -138,17 +138,17 @@ export const getAllProjects = async (req: Request, res: Response) => {
         my: {
             1: {
                 $or: [
-                    { buyer: verifiedId, projectStatus: { $in: [0, 1, 2] }, isApproved: false },
+                    { buyer: verifiedId, projectStatus: { $in: [1, 2] }, isApproved: false },
                     { contractor: { $in: [verifiedId] }, projectStatus: { $in: [1, 2] }, isApproved: false },
                 ],
             },
-            2: { buyer: verifiedId, projectStatus: { $in: [0, 1, 2] }, isApproved: false },
+            2: { buyer: verifiedId, projectStatus: { $in: [1, 2] }, isApproved: false },
         },
         recap: {
             1: { $or: [{ buyer: verifiedId }, { contractor: { $in: [verifiedId] } }] },
             2: { $or: [{ buyer: verifiedId }, { contractor: { $in: [verifiedId] } }] },
         },
-        involved: { 1: { "submitters.submitter": verifiedId }, 2: {} },
+        involved: { 1: { "submitters.submitter": verifiedId, projectStatus: 0 }, 2: { contractor: [], buyer: verifiedId, projectStatus: 0 } },
     };
     try {
         const projectFound = await ProjectModel.find({ ...orderMap[order][userType!] })

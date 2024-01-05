@@ -29,13 +29,13 @@ import LougoutPage from "./Pages/LogoutPage/LougoutPage";
 import Button from "./Components/Button/Button";
 import { ProfileLang } from "./Pages/Profile/ProfileLang";
 // import { alerts } from "./MiddleWear/Signals";
-
+export const userType: 1 | 2 = window.localStorage._user_type || 1;
 function App() {
     const { darkMode, userLang, initialLanguage, Token, switchLanguage, refreshApp } = Contexts();
     const { pathname } = useLocation();
     // const dimentions = useWindowDimensions();
     const navigate = useNavigate();
-    const userType: 1 | 2 = window.localStorage._user_type || 1;
+
     const onlineStat = window.localStorage.online_status;
     initialLanguage();
     useEffect(() => {

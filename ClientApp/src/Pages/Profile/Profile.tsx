@@ -8,6 +8,7 @@ import { generalAddEditFunction, generalGetFunction } from "../../MiddleWear/Cli
 import { editClientApi, editFreelanceApi, getUtilsApi, getClientInfospi, getFreelanceInfospi, uploadMedia } from "../../MiddleWear/ApiMiddleWear";
 import { Contexts } from "../../Contexts/Contexts";
 import { ProfileLang } from "./ProfileLang";
+import { userType } from "../../App";
 
 function Profile() {
     const { userLang, refreshApp, refresh, setNewAlert, setApiWait, apiWait } = Contexts();
@@ -51,7 +52,7 @@ function Profile() {
     };
     const getProfile = () => {
         generalGetFunction({
-            endPoint: profileApiCallMap[1](),
+            endPoint: profileApiCallMap[userType](),
             setNewAlert,
             setState: setProfileForm,
             // refresh: refreshApp,

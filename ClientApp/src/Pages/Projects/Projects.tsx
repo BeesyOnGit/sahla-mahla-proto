@@ -8,6 +8,7 @@ import { getProjectsApi } from "../../MiddleWear/ApiMiddleWear";
 import { ProjectLang } from "./ProjectsLang";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
+import { userType } from "../../App";
 
 function Projects() {
     const { userLang } = Contexts();
@@ -40,12 +41,14 @@ function Projects() {
     return (
         <section className="projectsGeneralContainer">
             <div className="overLcontainer">
-                <Button
-                    className="pagesNavButton"
-                    icon={iconMap[pathWithoutParam(3)]}
-                    content={contentMap[pathWithoutParam(3)]}
-                    onClick={navigationMap[pathWithoutParam(3)]}
-                />
+                {userType == 2 ? (
+                    <Button
+                        className="pagesNavButton"
+                        icon={iconMap[pathWithoutParam(3)]}
+                        content={contentMap[pathWithoutParam(3)]}
+                        onClick={navigationMap[pathWithoutParam(3)]}
+                    />
+                ) : null}
             </div>
             <Outlet />
         </section>
