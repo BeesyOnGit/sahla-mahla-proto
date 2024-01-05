@@ -151,7 +151,9 @@ export const getAllProjects = async (req: Request, res: Response) => {
         involved: { 1: { "submitters.submitter": verifiedId, projectStatus: 0 }, 2: { contractor: [], buyer: verifiedId, projectStatus: 0 } },
     };
     try {
-        const projectFound = await ProjectModel.find({ ...orderMap[order][userType!] })
+        const projectFound: Partial<projectType & { owned?: boolean; submitted?: boolean; contacted?: boolean }>[] = await ProjectModel.find({
+            ...orderMap[order][userType!],
+        })
             .sort({ createdAt: -1 })
             .skip((pageNumber - 1) * pageSize)
             .limit(pageSize)
@@ -160,6 +162,19 @@ export const getAllProjects = async (req: Request, res: Response) => {
         if (!projectFound || projectFound.length == 0) {
             return res.json({ code: "E62" });
         }
+
+        projectFound.forEach((project, i) => {
+            const { buyer, contractor, submitters } = project;
+            if (verifiedId == buyer) {
+                project.owned = true;
+            }
+            if (contractor?.toString().includes(verifiedId!)) {
+                project.contacted = true;
+            }
+            if (submitters?.toString().includes(verifiedId!)) {
+                project.submitted = true;
+            }
+        });
 
         for await (const doc of projectFound) {
             await populateFromModels({
