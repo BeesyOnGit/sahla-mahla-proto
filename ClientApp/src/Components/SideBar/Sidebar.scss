@@ -172,7 +172,7 @@ section Lougout
 }
 
 .PageNavigation {
-    height: fit-content;
+    max-height: 85vh;
     // overflow-y: scroll;
     padding: 0;
     width: 100%;
