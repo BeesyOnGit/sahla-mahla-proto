@@ -148,7 +148,10 @@ export const getAllProjects = async (req: Request, res: Response) => {
             1: { $or: [{ buyer: verifiedId }, { contractor: { $in: [verifiedId] } }] },
             2: { $or: [{ buyer: verifiedId }, { contractor: { $in: [verifiedId] } }] },
         },
-        involved: { 1: { "submitters.submitter": verifiedId, projectStatus: 0 }, 2: { contractor: [], buyer: verifiedId, projectStatus: 0 } },
+        involved: {
+            1: { "submitters.submitter": verifiedId, projectStatus: { $in: [0, 1] } },
+            2: { contractor: [], buyer: verifiedId, projectStatus: 0 },
+        },
     };
     try {
         const projectFound: Partial<projectType & { owned?: boolean; submitted?: boolean; contacted?: boolean }>[] = await ProjectModel.find({
