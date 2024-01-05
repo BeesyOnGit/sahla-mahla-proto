@@ -14,6 +14,7 @@ import Button from "../../../../Components/Button/Button";
 function InvoiceDetail() {
     const { userLang, setNewAlert, refreshApp, refresh } = Contexts();
     const { width } = useWindowDimensions();
+    console.log("🚀 ~ file: InvoiceDetail.tsx:17 ~ InvoiceDetail ~ width:", width);
 
     const { id } = useParams();
 
@@ -79,6 +80,12 @@ function InvoiceDetail() {
     };
 
     const GeneratePdf = () => {
+        setPrinMode(true);
+
+        if (printMode == true) {
+            return;
+        }
+
         let doc = new jsPDF("p", "mm", "a4", true);
 
         const fct = document.getElementById("fctPrint");
@@ -95,11 +102,12 @@ function InvoiceDetail() {
                 setPrinMode(false);
             },
             // margin: [10, 10, 10, 10],
-            autoPaging: true,
+            // autoPaging: true,
             x: 0,
             y: 0,
             // width: 262.5, //target width in the PDF document
-            width: 406, //target width in the PDF document
+            // width: 406.2, //target width in the PDF document
+            width: width! * 0.264453125, //target width in the PDF document
             windowWidth: width!, //window width in CSS pixels
 
             // html2canvas: {
@@ -267,7 +275,6 @@ function InvoiceDetail() {
                 content="download"
                 className="pagesNavButton "
                 onClick={() => {
-                    setPrinMode(true);
                     GeneratePdf();
                 }}
             />
