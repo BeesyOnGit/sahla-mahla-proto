@@ -63,7 +63,7 @@ function Profile() {
 
     const editProfile = () => {
         generalAddEditFunction("", {
-            endPoint: editProfileApiMap[1](profileForm._id, editedprofileForm),
+            endPoint: editProfileApiMap[userType](profileForm._id, editedprofileForm),
             setNewAlert,
             successCode: "S21",
             refresh: refreshApp,
