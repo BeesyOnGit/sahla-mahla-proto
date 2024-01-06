@@ -29,6 +29,7 @@ import LougoutPage from "./Pages/LogoutPage/LougoutPage";
 import Button from "./Components/Button/Button";
 import { ProfileLang } from "./Pages/Profile/ProfileLang";
 import Building from "./Pages/BuildingPage/Building";
+import Register from "./Pages/RegisterPage/Register";
 // import { alerts } from "./MiddleWear/Signals";
 export const userType: 1 | 2 = window.localStorage._user_type;
 function App() {
@@ -335,6 +336,7 @@ function App() {
                 )}
                 <Routes>
                     <Route path="/login" element={!Token ? <Login /> : <Navigate to="/" />} />
+                    <Route path="/register" element={!Token ? <Register /> : <Navigate to="/" />} />
                     <Route path="/" element={!Token ? <Navigate to="/login" /> : <Navigate to="/home" />}></Route>
                     {userLang &&
                         userType &&
@@ -390,10 +392,12 @@ export default App;
 
 const hideNav: any = {
     "/login": true,
+    "/register": true,
     "/validation-page": true,
 };
 const hideRouteHead: any = {
     "/login": true,
+    "/register": true,
     "/validation-page": true,
     "/profile": true,
 };

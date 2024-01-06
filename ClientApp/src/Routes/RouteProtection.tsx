@@ -63,7 +63,7 @@ function RouteProtection({ children, openFor, needValidation }: routeProtectionT
 
 export default RouteProtection;
 
-const colorMap: any = {
+export const colorMap: any = {
     1: "#00d188",
     2: "#eb8015",
 };

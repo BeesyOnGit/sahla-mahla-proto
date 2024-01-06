@@ -4,6 +4,7 @@ const FreelanceSchema = new mongoose.Schema<freelanceType>({
     email: {
         type: String,
         unique: true,
+        lowercase: true,
     },
 
     emailConfirmation: {
@@ -62,16 +63,16 @@ const FreelanceSchema = new mongoose.Schema<freelanceType>({
             {
                 degreeName: {
                     type: String,
-                    required: true,
+                    // required: true,
                     lowercase: true,
                 },
                 degreeFileLink: {
                     type: String,
-                    required: true,
+                    // required: true,
                 },
             },
         ],
-        required: true,
+        // required: true,
     },
     stamp: {
         type: String,
@@ -79,12 +80,12 @@ const FreelanceSchema = new mongoose.Schema<freelanceType>({
     Field: {
         //specialité
         type: [String],
-        required: true,
+        // required: true,
         lowercase: true,
     },
     IDcard: {
         type: [String],
-        required: true,
+        // required: true,
     },
     aprouved: {
         type: Boolean,

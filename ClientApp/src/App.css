@@ -163,7 +163,7 @@ html {
     background-color: var(--backGroundColor);
     color: var(--fontColorPrimary);
     width: 100%;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 ::placeholder {
     color: var(--fontColorPrimary);

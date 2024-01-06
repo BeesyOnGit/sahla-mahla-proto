@@ -286,3 +286,25 @@ export const getInvoiceDetailApi = async (id: string) => {
         console.log("🚀 ~ file: ApiMiddleWear.ts:275 ~ getInvoicesApi ~ error:", error);
     }
 };
+export const registerFreelanceApi = async (infos: Partial<freelanceType>) => {
+    try {
+        const res: Response = await axios.post(`${baseUrl}/auth/freelance-register`, infos, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:297 ~ registerFreelanceApi ~ error:", error);
+    }
+};
+export const registerClientApi = async (infos: Partial<clientType>) => {
+    try {
+        const res: Response = await axios.post(`${baseUrl}/auth/client-register`, infos, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:308 ~ registerClientApi ~ error:", error);
+    }
+};

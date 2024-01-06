@@ -7,6 +7,9 @@ type profileLangType = {
         adressInfosTitle: string;
         noChanges: string;
         onlineTogg: string;
+        register: string;
+        asFreelance: string;
+        asClient: string;
         inputs: {
             firstName: string;
             lastName: string;
@@ -38,6 +41,9 @@ export const ProfileLang: profileLangType = {
         adressInfosTitle: "adresse",
         noChanges: "pas de changement a faire",
         onlineTogg: "status en ligne",
+        register: "créer un compte",
+        asFreelance: "entant que freelance",
+        asClient: "entant que client",
         inputs: {
             firstName: "prénom",
             lastName: "nom de famille",
@@ -66,6 +72,9 @@ export const ProfileLang: profileLangType = {
         adressInfosTitle: "address",
         noChanges: "no changes to be made",
         onlineTogg: "online status",
+        register: "create an account",
+        asFreelance: "as a freelance",
+        asClient: "as a client",
         inputs: {
             firstName: "first name",
             lastName: "last name",
@@ -94,6 +103,9 @@ export const ProfileLang: profileLangType = {
         adressInfosTitle: "العنوان",
         noChanges: "لا توجد تغييرات لإجرائها",
         onlineTogg: "حالة الإتصال",
+        register: "إنشاء حساب",
+        asFreelance: "بصفتك حرًا مستقلاً",
+        asClient: "بصفتك عميلاً",
         inputs: {
             firstName: "الاسم الأول",
             lastName: "اسم العائلة",

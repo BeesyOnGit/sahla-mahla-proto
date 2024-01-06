@@ -4,6 +4,6 @@ import { getCategories, getUtils } from "../Controllers/UtilitiesControllers";
 const UtilitiesRoutes = express.Router();
 
 UtilitiesRoutes.get("/resource-categories", AuthVerification, getCategories);
-UtilitiesRoutes.get("/:util", AuthVerification, getUtils);
+UtilitiesRoutes.get("/:util", getUtils);
 
 export default UtilitiesRoutes;

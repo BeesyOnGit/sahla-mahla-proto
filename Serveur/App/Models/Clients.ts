@@ -5,6 +5,7 @@ const ClientSchema = new mongoose.Schema<clientType>({
     email: {
         type: String,
         unique: true,
+        lowercase: true,
     },
 
     emailConfirmation: {
@@ -43,13 +44,13 @@ const ClientSchema = new mongoose.Schema<clientType>({
     firstName: {
         type: String,
         required: true,
-        loadClass: true,
+        lowercase: true,
     },
 
     familyName: {
         type: String,
         required: true,
-        loadClass: true,
+        lowercase: true,
     },
 
     dob: {
@@ -59,8 +60,8 @@ const ClientSchema = new mongoose.Schema<clientType>({
 
     poste: {
         type: String,
-        required: true,
-        loadClass: true,
+        // required: true,
+        lowercase: true,
     },
 
     IDcard: {

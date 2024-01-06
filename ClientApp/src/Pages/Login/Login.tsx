@@ -7,6 +7,7 @@ import Inputs from "../../Components/Inputs/Inputs";
 import { InputsContent, loginFunction } from "./LoginFunctions";
 import Button from "../../Components/Button/Button";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ProfileLang } from "../Profile/ProfileLang";
 
 export type LoginInputs = {
     id?: string;
@@ -37,7 +38,7 @@ function Login() {
     };
     const changeLogType = (type: number) => {
         setUserType(type);
-        URLSearchremove(null, "userType");
+        // URLSearchremove(null, "userType");
         URLSearchAdd(navigate, { userType: type });
         setLoginForm({});
     };
@@ -71,6 +72,14 @@ function Login() {
                         >
                             {LoginLang[userLang].freelanceQuestion}
                         </div>
+                        <div
+                            onClick={() => {
+                                navigate("/register");
+                            }}
+                            className="changeLink"
+                        >
+                            {ProfileLang[userLang].register}
+                        </div>
                         <Button
                             icon="fi fi-br-enter"
                             content={LoginLang[userLang].button}
@@ -101,6 +110,14 @@ function Login() {
                             className="changeLink"
                         >
                             {LoginLang[userLang].notFreelanceQuestion}
+                        </div>
+                        <div
+                            onClick={() => {
+                                navigate("/register");
+                            }}
+                            className="changeLink"
+                        >
+                            {ProfileLang[userLang].register}
                         </div>
                         <Button
                             icon="fi fi-br-enter"
