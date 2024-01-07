@@ -77,6 +77,7 @@ export const ProjectLang: projectsType = {
         noProjects: "no projects at the moment",
         createOffer: "create a new offer",
         allOffers: "all offers",
+        offerRecap: "offer recap",
         inputs: {
             projectBudgetTimeTitle: "budget and offer deadlines",
             projectInfosTitle: "offer information",
@@ -110,6 +111,7 @@ export const ProjectLang: projectsType = {
         noProjects: "لا توجد مشاريع في الوقت الحالي",
         createOffer: "إنشاء عرض جديد",
         allOffers: "جميع العروض",
+        offerRecap: "ملخص العرض",
         inputs: {
             projectBudgetTimeTitle: "الميزانية ومواعيد العرض",
             projectInfosTitle: "معلومات العرض",
