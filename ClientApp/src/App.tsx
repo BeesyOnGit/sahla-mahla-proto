@@ -33,6 +33,7 @@ import Register from "./Pages/RegisterPage/Register";
 import FullpageIcon from "./Components/FullPageIcon/FullpageIcon";
 import { MailValidationLang } from "./Pages/MailValidation/MailValidationLang";
 import MailValidation from "./Pages/MailValidation/MailValidation";
+import { ProjectLang } from "./Pages/Projects/ProjectsLang";
 // import { alerts } from "./MiddleWear/Signals";
 export const userType: 1 | 2 = window.localStorage._user_type;
 function App() {
@@ -212,17 +213,17 @@ function App() {
                 page: <OrderDetail />,
             },
             {
-                name: sideBarLang[userLang].NavElems.findWork,
+                name: ProjectLang[userLang].createOffer,
                 ignoreNav: false,
                 path: "/offers",
                 ico: "fi fi-sr-briefcase",
                 page: <Projects />,
                 needValidation: true,
                 subRoute: [
-                    {
-                        path: "all",
-                        page: <AllProjects />,
-                    },
+                    // {
+                    //     path: "all",
+                    //     page: <AllProjects />,
+                    // },
                     {
                         path: "new",
                         page: <AddOffer />,
