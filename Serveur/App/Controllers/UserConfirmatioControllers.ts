@@ -11,6 +11,7 @@ import { hashPassword, randomIdGenerator } from "../MiddleWear/ServerFunctions";
 dotenv.config();
 
 const serverDomaine = process.env.SERVER_DOMAIN;
+const AppDomaine = process.env.APP_DOMAIN;
 
 export const sendConfirmationMailApi = async (req: Request, res: Response) => {
     const { body, query } = req;
@@ -33,7 +34,7 @@ export const sendConfirmationMailApi = async (req: Request, res: Response) => {
             return false;
         }
 
-        const url = `${serverDomaine}/confirmation/email/${confirmationString}`;
+        const url = `${AppDomaine}/validation-page/${confirmationString}`;
 
         //send mail logic
         const mailConfig: sendMailType = {
@@ -233,7 +234,7 @@ export const sendConfirmationMail = async (email: string, userType: number, user
             return false;
         }
 
-        const url = `${serverDomaine}/confirmation/email/${confirmationString}`;
+        const url = `${AppDomaine}/validation-page/${confirmationString}`;
 
         //send mail logic
         const mailConfig: sendMailType = {

@@ -9,7 +9,7 @@
 
 .GenraLloader {
     border: 4px solid var(--backGroundColor);
-    border-left-color: transparent;
+    border-left-color: transparent !important;
     width: 45px;
     height: 45px;
     border-radius: var(--roundRadius);

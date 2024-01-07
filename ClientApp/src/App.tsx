@@ -30,6 +30,9 @@ import Button from "./Components/Button/Button";
 import { ProfileLang } from "./Pages/Profile/ProfileLang";
 import Building from "./Pages/BuildingPage/Building";
 import Register from "./Pages/RegisterPage/Register";
+import FullpageIcon from "./Components/FullPageIcon/FullpageIcon";
+import { MailValidationLang } from "./Pages/MailValidation/MailValidationLang";
+import MailValidation from "./Pages/MailValidation/MailValidation";
 // import { alerts } from "./MiddleWear/Signals";
 export const userType: 1 | 2 = window.localStorage._user_type;
 function App() {
@@ -383,7 +386,15 @@ function App() {
                         path="/validation-page"
                         element={
                             <RouteProtection>
-                                <div>validation page</div>
+                                <FullpageIcon icon="fi fi-sr-envelope" texte={MailValidationLang[userLang].checkYourMail} />
+                            </RouteProtection>
+                        }
+                    />
+                    <Route
+                        path="/validation-page/:id"
+                        element={
+                            <RouteProtection>
+                                <MailValidation />
                             </RouteProtection>
                         }
                     />

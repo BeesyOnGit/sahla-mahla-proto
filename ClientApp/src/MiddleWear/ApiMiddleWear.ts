@@ -308,3 +308,14 @@ export const registerClientApi = async (infos: Partial<clientType>) => {
         console.log("🚀 ~ file: ApiMiddleWear.ts:308 ~ registerClientApi ~ error:", error);
     }
 };
+export const confirmMailApi = async (confirmStr: string) => {
+    try {
+        const res: Response = await axios.get(`${baseUrl}/confirmation/email/${confirmStr}`, config);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts:308 ~ registerClientApi ~ error:", error);
+    }
+};
