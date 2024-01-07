@@ -15,6 +15,7 @@ function LougoutPage() {
     useEffect(() => {
         const timeOut = setTimeout(() => {
             window.localStorage.removeItem("user_token");
+            window.localStorage.removeItem("_user_type");
             location.reload();
         }, 10000);
 
