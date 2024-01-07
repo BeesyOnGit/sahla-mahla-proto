@@ -37,7 +37,7 @@ function RouteProtection({ children, openFor, needValidation }: routeProtectionT
                 }
                 if (auth && openCond) {
                     setShowProtected(true);
-                    initiateUserColors({ property: "siteColor", color: colorMap[userType] });
+                    // initiateUserColors({ property: "siteColor", color: colorMap[userType] });
                 }
 
                 return <Navigate to="/" />;

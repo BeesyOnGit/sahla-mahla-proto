@@ -27,7 +27,7 @@
     --fontColorPrimary: #262424;
     --fontColorSeconday: #cfcfcf;
 
-    --siteColor: #ffffff;
+    --siteColor: #4a95cd;
     --siteBorder: solid 0.0625rem var(--fontColorSeconday);
 
     --clientColor: #eb8015;
@@ -87,7 +87,7 @@
     --fontColorPrimary: #e8e8e8;
     --fontColorSeconday: #dedede;
 
-    --siteColor: #ffffff;
+    --siteColor: #4a95cd;
 
     --clientColor: #00d188;
     --freelanceColor: #00d188;
