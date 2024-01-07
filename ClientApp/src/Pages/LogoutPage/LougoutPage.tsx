@@ -17,6 +17,7 @@ function LougoutPage() {
             window.localStorage.removeItem("user_token");
             window.localStorage.removeItem("_user_type");
             location.reload();
+            navigate("/");
         }, 10000);
 
         const interv = setInterval(() => {
