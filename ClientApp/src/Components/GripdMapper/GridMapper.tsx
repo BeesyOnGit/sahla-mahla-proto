@@ -11,10 +11,11 @@ type gridmappertype = {
     emptyString: string;
     emptyIcon: string;
     children?: any;
+    liste?: boolean;
 };
 
 function GridMapper(props: gridmappertype) {
-    const { toMap, otherProps, emptyString, emptyIcon, children } = props;
+    const { toMap, otherProps, emptyString, emptyIcon, children, liste } = props;
 
     const ref = useRef<HTMLDivElement>(null);
     const { width } = useWindowDimensions();
@@ -60,7 +61,7 @@ function GridMapper(props: gridmappertype) {
         <div
             ref={ref}
             className="gridMapperContainer customScroll"
-            style={toMap != "empty" ? { display: "grid", gridTemplateColumns: `repeat(${elemsN},1fr)` } : {}}
+            style={toMap != "empty" && !liste ? { display: "grid", gridTemplateColumns: `repeat(${elemsN},1fr)` } : {}}
         >
             {Array.isArray(toMap) && toMap.length > 0 ? (
                 toMap.map((elem, i) => {

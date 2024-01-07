@@ -278,19 +278,19 @@ export const GeneralLang: generalLangType = {
 
 export const projectStatusLang: any = {
     fr: {
-        "0": "lancé",
+        "0": "recrutement",
         "1": "en cours",
         "2": "terminé",
         "3": "annulé",
     },
     en: {
-        "0": "launched",
+        "0": "recruting",
         "1": "in progress",
         "2": "completed",
         "3": "canceled",
     },
     ar: {
-        "0": "تم الإطلاق",
+        "0": "مرحلة التوظيف",
         "1": "قيد التقدم",
         "2": "مكتمل",
         "3": "ألغيت",

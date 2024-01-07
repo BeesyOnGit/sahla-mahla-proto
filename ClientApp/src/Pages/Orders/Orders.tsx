@@ -17,6 +17,8 @@ import { projectType } from "../../../../Serveur/App/Models/Project";
 import GridMapper from "../../Components/GripdMapper/GridMapper";
 import { getHashMap } from "../Profile/ProfileFunctions";
 import ProjectCard from "../../Components/ProjetCard/ProjectCard";
+import ProjectCardListe from "../../Components/ProjetCard/ProjectCardListe";
+import { ProjectLang } from "../Projects/ProjectsLang";
 
 function Orders() {
     const { userLang, setNewAlert, refreshApp, apiWait, setApiWait } = Contexts();
@@ -91,13 +93,23 @@ function Orders() {
     };
     const detailsHashMap: any = {
         my: seeDetail,
-        involved: null,
+        involved: seeDetail,
         recap: null,
     };
 
     const navigateInOrders = (to: string) => {
         URLSearchremove(navigate, "page");
         URLSearchAdd(navigate, { order: to });
+    };
+
+    const headerTitle: any = {
+        title: ProjectLang[userLang].card.title,
+
+        amount: ProjectLang[userLang].card.amount,
+        submitDeadLine: ProjectLang[userLang].card.submitableUntil,
+        buyerDeadline: ProjectLang[userLang].card.proposedDeadline,
+        projectStatus: ProjectLang[userLang].card.projectStat,
+        buyer: ProjectLang[userLang].card.buyer,
     };
 
     return (
@@ -119,18 +131,19 @@ function Orders() {
                         navigateInOrders("involved");
                     }}
                 />
-                <Button
+                {/* <Button
                     className={"pagesNavButton " + selectedNav("recap")}
                     icon="fi fi-br-list"
                     content={OrdersLang[userLang].recap}
                     onClick={() => {
                         navigateInOrders("recap");
                     }}
-                />
+                /> */}
             </div>
             <div className="ordersListeContainer">
-                <GridMapper toMap={projects} emptyString={emptyStrHashMap[order]} emptyIcon={emptyIconHashMap[order]}>
-                    <ProjectCard fieldsMap={getHashMap(fields!, "categoryCode")} detail={detailsHashMap[order]} />
+                <ProjectCardListe header {...headerTitle} />
+                <GridMapper liste toMap={projects} emptyString={emptyStrHashMap[order]} emptyIcon={emptyIconHashMap[order]}>
+                    <ProjectCardListe detail={detailsHashMap[order]} />
                 </GridMapper>
             </div>
         </div>

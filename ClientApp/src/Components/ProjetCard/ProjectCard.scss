@@ -110,3 +110,26 @@
     background-color: var(--fontColorSeconday);
     border-radius: var(--roundRadius);
 }
+
+.projectCardGenContainerListe {
+    display: grid;
+    grid-template-columns: 50% repeat(5, 10%);
+    width: 100%;
+    border: var(--siteBorder);
+    background-color: var(--navBarColor);
+    border-radius: var(--hardRadius);
+    & > div {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        text-transform: capitalize;
+        padding: 0.3125rem 0.625rem;
+    }
+    & > div:nth-child(6) {
+        & > span {
+            padding: 0.3125rem 0.625rem;
+            border-radius: var(--roundRadius);
+            color: var(--backGroundColor);
+        }
+    }
+}

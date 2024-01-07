@@ -138,8 +138,8 @@ export const getAllProjects = async (req: Request, res: Response) => {
         my: {
             1: {
                 $or: [
-                    { buyer: verifiedId, projectStatus: { $in: [1, 2] }, isApproved: false },
-                    { contractor: { $in: [verifiedId] }, projectStatus: { $in: [1, 2] }, isApproved: false },
+                    { buyer: verifiedId, projectStatus: { $in: [1] }, isApproved: false },
+                    { contractor: { $in: [verifiedId] }, projectStatus: { $in: [1] }, isApproved: false },
                 ],
             },
             2: { buyer: verifiedId, projectStatus: { $in: [1, 2] }, isApproved: false },
@@ -149,7 +149,7 @@ export const getAllProjects = async (req: Request, res: Response) => {
             2: { $or: [{ buyer: verifiedId }, { contractor: { $in: [verifiedId] } }] },
         },
         involved: {
-            1: { "submitters.submitter": verifiedId, projectStatus: { $in: [0, 1] } },
+            1: { "submitters.submitter": verifiedId, projectStatus: { $in: [0] } },
             2: { contractor: [], buyer: verifiedId, projectStatus: 0 },
         },
     };

@@ -72,22 +72,6 @@ function App() {
                 ],
             },
             {
-                name: sideBarLang[userLang].NavElems.orders,
-                ignoreNav: false,
-                path: "/orders",
-                ico: "fi fi-br-list",
-                needValidation: true,
-                page: <Orders />,
-            },
-            {
-                name: "",
-                ignoreNav: true,
-                path: "/orders/:id",
-                ico: "",
-                needValidation: true,
-                page: <OrderDetail />,
-            },
-            {
                 name: sideBarLang[userLang].NavElems.findWork,
                 ignoreNav: false,
                 path: "/offers",
@@ -103,6 +87,48 @@ function App() {
                     //     path: "new",
                     //     page: <AddOffer />,
                     // },
+                ],
+            },
+            {
+                name: sideBarLang[userLang].NavElems.orders,
+                ignoreNav: false,
+                path: "/orders",
+                ico: "fi fi-br-list",
+                needValidation: true,
+                page: <Orders />,
+            },
+            {
+                name: sideBarLang[userLang].NavElems.commManagement,
+                ignoreNav: false,
+                path: "/fin-management",
+                ico: "fi fi-sr-chart-pie-alt",
+                page: <FinManagement />,
+            },
+
+            {
+                name: "",
+                ignoreNav: true,
+                path: "/orders/:id",
+                ico: "",
+                needValidation: true,
+                page: <OrderDetail />,
+            },
+            {
+                name: sideBarLang[userLang].NavElems.library,
+                ignoreNav: false,
+                path: "/library",
+                ico: "fi fi-sr-books",
+                page: <Library />,
+                subRoute: [
+                    {
+                        path: "all",
+                        page: <AllLibrary />,
+                    },
+                    {
+                        path: "bookmarked",
+                        page: <BookMarked />,
+                        needValidation: false,
+                    },
                 ],
             },
             {
@@ -127,31 +153,7 @@ function App() {
                     },
                 ],
             },
-            {
-                name: sideBarLang[userLang].NavElems.library,
-                ignoreNav: false,
-                path: "/library",
-                ico: "fi fi-sr-books",
-                page: <Library />,
-                subRoute: [
-                    {
-                        path: "all",
-                        page: <AllLibrary />,
-                    },
-                    {
-                        path: "bookmarked",
-                        page: <BookMarked />,
-                        needValidation: false,
-                    },
-                ],
-            },
-            {
-                name: sideBarLang[userLang].NavElems.commManagement,
-                ignoreNav: false,
-                path: "/fin-management",
-                ico: "fi fi-sr-chart-pie-alt",
-                page: <FinManagement />,
-            },
+
             {
                 name: sideBarLang[userLang].NavElems.commManagement,
                 ignoreNav: true,
@@ -192,6 +194,13 @@ function App() {
                 page: <Orders />,
             },
             {
+                name: sideBarLang[userLang].NavElems.commManagement,
+                ignoreNav: false,
+                path: "/fin-management",
+                ico: "fi fi-sr-chart-pie-alt",
+                page: <FinManagement />,
+            },
+            {
                 name: "",
                 ignoreNav: true,
                 path: "/orders/:id",
@@ -217,20 +226,7 @@ function App() {
                     },
                 ],
             },
-            {
-                name: sideBarLang[userLang].NavElems.resources,
-                ignoreNav: false,
-                path: "/resources",
-                ico: "fi fi-sr-images",
-                needValidation: true,
-                page: <Resources />,
-                subRoute: [
-                    {
-                        path: "owned",
-                        page: <MyResources />,
-                    },
-                ],
-            },
+
             {
                 name: sideBarLang[userLang].NavElems.library,
                 ignoreNav: false,
@@ -252,14 +248,21 @@ function App() {
                 ],
             },
             {
-                name: sideBarLang[userLang].NavElems.commManagement,
+                name: sideBarLang[userLang].NavElems.resources,
                 ignoreNav: false,
-                path: "/fin-management",
-                ico: "fi fi-sr-chart-pie-alt",
-                page: <FinManagement />,
+                path: "/resources",
+                ico: "fi fi-sr-images",
+                needValidation: true,
+                page: <Resources />,
+                subRoute: [
+                    {
+                        path: "owned",
+                        page: <MyResources />,
+                    },
+                ],
             },
             {
-                name: sideBarLang[userLang].NavElems.commManagement,
+                name: "",
                 ignoreNav: true,
                 path: "/fin-management/invoice/:id",
                 ico: "fi fi-sr-chart-pie-alt",
@@ -323,14 +326,16 @@ function App() {
             <section className={"routes " + (!Token ? "routesNoPadd" : "")}>
                 {!hideRouteHead[pathname] && !pathname.includes("fin-management/invoice/") && (
                     <div className="routesHeader">
-                        <Button
-                            icon={"fi fi-ss-dot-circle " + onlineMap[`${onlineStat}`]}
-                            className="pagesNavButton noHovButt"
-                            content={ProfileLang[userLang].onlineTogg}
-                            onClick={() => {
-                                changeStatus(onlineStat);
-                            }}
-                        />
+                        {userType == 1 && (
+                            <Button
+                                icon={"fi fi-ss-dot-circle " + onlineMap[`${onlineStat}`]}
+                                className="pagesNavButton noHovButt"
+                                content={ProfileLang[userLang].onlineTogg}
+                                onClick={() => {
+                                    changeStatus(onlineStat);
+                                }}
+                            />
+                        )}
                         <i className="fi fi-sr-shopping-cart"></i>
                     </div>
                 )}

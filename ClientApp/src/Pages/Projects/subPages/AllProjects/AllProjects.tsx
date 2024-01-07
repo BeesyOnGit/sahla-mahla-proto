@@ -3,7 +3,14 @@ import "./AllProjects.scss";
 import GridMapper from "../../../../Components/GripdMapper/GridMapper";
 import { Contexts } from "../../../../Contexts/Contexts";
 import { projectType, submittersListType } from "../../../../../../Serveur/App/Models/Project";
-import { URLSearchAdd, URLSearchParse, generalAddEditFunction, generalGetFunction } from "../../../../MiddleWear/ClientFunctions";
+import {
+    URLSearchAdd,
+    URLSearchParse,
+    dateFormater,
+    formatAsCurrency,
+    generalAddEditFunction,
+    generalGetFunction,
+} from "../../../../MiddleWear/ClientFunctions";
 import { getProjectsApi, getUtilsApi, submitOfferToProjectApi } from "../../../../MiddleWear/ApiMiddleWear";
 import { ProjectLang } from "../../ProjectsLang";
 import ProjectCard from "../../../../Components/ProjetCard/ProjectCard";
@@ -22,7 +29,7 @@ function AllProjects() {
     const [fields, setFields] = useState<any[] | null>(null);
 
     const { search } = useLocation();
-    const { page } = URLSearchParse();
+    const { page, price, deadline } = URLSearchParse();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -33,7 +40,7 @@ function AllProjects() {
         if (!search.includes("page")) {
             getProjects();
         }
-    }, [refresh, search]);
+    }, [refresh]);
 
     useEffect(() => {
         if (page && parseInt(page) > 1) {
@@ -75,8 +82,8 @@ function AllProjects() {
         });
     };
 
-    const submitFunc = (id: string) => {
-        URLSearchAdd(navigate, { targetProject: id });
+    const submitFunc = (id: string, price: number, deadline: number) => {
+        URLSearchAdd(navigate, { targetProject: id, price, deadline });
         setSubmissionForm({});
         setModalDisp(true);
     };
@@ -111,6 +118,18 @@ function AllProjects() {
     return (
         <section className="allOffersGenContainer customScroll">
             <Modal modalDisp={modalDisp} setModalDisp={setModalDisp}>
+                <div className="recapProjectContainer">
+                    <h1> {ProjectLang[userLang].offerRecap} </h1>
+                    <div>
+                        <div>
+                            <span> {ProjectLang[userLang].card.proposedDeadline} </span> <span>:</span>{" "}
+                            <span> {dateFormater(parseInt(deadline))} </span>
+                        </div>
+                        <div>
+                            <span> {ProjectLang[userLang].card.amount} </span> <span>:</span> <span> {formatAsCurrency(price)} </span>
+                        </div>
+                    </div>
+                </div>
                 <AutoInputs inputsArr={inputs} onSubmit={submitParticipation} />
             </Modal>
 

@@ -5,3 +5,28 @@
     height: 92vh;
     // overflow-y: scroll;
 }
+
+.recapProjectContainer {
+    & > h1 {
+        text-transform: capitalize;
+        text-align: center;
+        font-size: 1.2rem;
+        padding: 0.625rem 0;
+    }
+    & > div {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        gap: 1.25rem;
+        & > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.3125rem;
+            text-transform: capitalize;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+    }
+}

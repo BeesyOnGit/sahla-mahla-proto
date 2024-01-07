@@ -5,6 +5,7 @@ type projectsType = {
         noProjects: string;
         createOffer: string;
         allOffers: string;
+        offerRecap: string;
         inputs: {
             projectInfosTitle: string;
             projectBudgetTimeTitle: string;
@@ -30,6 +31,9 @@ type projectsType = {
             seeMoreDetails: string;
             fieldsWanted: string;
             expired: string;
+            title: string;
+            buyer: string;
+            projectStat: string;
         };
     };
 };
@@ -39,6 +43,7 @@ export const ProjectLang: projectsType = {
         noProjects: "pas de projets pour l'instant",
         createOffer: "créer une nouvelle offre",
         allOffers: "toutes les offres",
+        offerRecap: "récapitulatif de l'offre",
         inputs: {
             projectBudgetTimeTitle: "budget et délais de l'offre",
             projectInfosTitle: "informations de l'offre",
@@ -56,13 +61,16 @@ export const ProjectLang: projectsType = {
         },
         card: {
             amount: "budget",
-            proposedDeadline: "deadline proposée",
+            proposedDeadline: "deadline",
             offerStatus: "état de l'offre",
             submitableUntil: "expire dans",
             submitOffer: "participer",
             seeMoreDetails: "voir plus de détails",
             fieldsWanted: "domaines visés",
             expired: "expiré",
+            title: "titre",
+            buyer: "propriétaire",
+            projectStat: "etat du projet",
         },
     },
     en: {
@@ -86,13 +94,16 @@ export const ProjectLang: projectsType = {
         },
         card: {
             amount: "budget",
-            proposedDeadline: "proposed deadline",
+            proposedDeadline: "deadline",
             offerStatus: "offer status",
             submitableUntil: "expires in",
             submitOffer: "participate",
             seeMoreDetails: "see more details",
             fieldsWanted: "targeted fields",
             expired: "expired",
+            title: "title",
+            buyer: "buyer",
+            projectStat: "project status",
         },
     },
     ar: {
@@ -116,13 +127,16 @@ export const ProjectLang: projectsType = {
         },
         card: {
             amount: "الميزانية",
-            proposedDeadline: "الموعد النهائي المقترح",
+            proposedDeadline: "الموعد النهائي",
             offerStatus: "حالة العرض",
             submitableUntil: "تنتهي في",
             submitOffer: "المشاركة",
             seeMoreDetails: "رؤية المزيد من التفاصيل",
             fieldsWanted: "المجالات المستهدفة",
             expired: "منتهي الصلاحية",
+            title: "عنوان",
+            buyer: "المشتري",
+            projectStat: "حالة المشروع",
         },
     },
 };

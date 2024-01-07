@@ -15,7 +15,7 @@ function Modal({ children, modalDisp, setModalDisp }: modalType) {
                 }}
             ></div>
             <div className={modalDisp == false ? "divmodal hidden" : "divmodal"}>
-                <div className="divacces">{children}</div>
+                <div className="divacces customScroll">{children}</div>
             </div>
         </div>
     );

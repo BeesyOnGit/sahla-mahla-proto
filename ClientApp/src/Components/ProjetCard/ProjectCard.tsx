@@ -135,7 +135,9 @@ function ProjectCard(
                                 icon=""
                                 disabled={expired}
                                 onClick={() => {
-                                    submitFunc(_id);
+                                    console.log(amount);
+
+                                    submitFunc(_id, amount, buyerDeadline);
                                 }}
                                 className={"pagesNavButton projectsubButton " + expirationButtonclassMap[`${expired}`]}
                             />

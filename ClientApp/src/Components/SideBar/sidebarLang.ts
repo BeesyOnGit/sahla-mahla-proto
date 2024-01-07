@@ -20,7 +20,7 @@ export const sideBarLang: sideBarLangType = {
     fr: {
         NavElems: {
             home: "accueil",
-            orders: "commandes",
+            orders: "gestion projet",
             findWork: "trouver un projet",
             resources: "ressources",
             library: "bibliothèque",
@@ -35,7 +35,7 @@ export const sideBarLang: sideBarLangType = {
     en: {
         NavElems: {
             home: "home",
-            orders: "orders",
+            orders: "project management",
             findWork: "find a project",
             resources: "resources",
             library: "library",

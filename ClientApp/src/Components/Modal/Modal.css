@@ -79,4 +79,6 @@
     border-radius: var(--hardRadius);
     /* box-shadow: var(--cardShadow); */
     border: var(--siteBorder);
+    max-height: 90vh;
+    overflow-y: scroll;
 }

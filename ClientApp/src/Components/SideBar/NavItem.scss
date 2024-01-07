@@ -15,7 +15,7 @@
 .NavItem {
     width: 100%;
     font-weight: bold;
-    color: white;
+
     padding: 20px;
     display: flex;
     flex-direction: row;
@@ -38,7 +38,11 @@
     color: var(--siteColor);
     z-index: 200;
     // transform: scale(1.1);
-    i {
+    & > i {
+        text-shadow: var(--cardBoxShadow);
+        color: var(--siteColor);
+    }
+    & > span {
         text-shadow: var(--cardBoxShadow);
         color: var(--siteColor);
     }
@@ -53,7 +57,11 @@
     // border-radius: var(--roundRadius);
     // border-radius: 20px;
 
-    i {
+    & > i {
+        text-shadow: var(--cardBoxShadow);
+        color: var(--siteColor);
+    }
+    & > span {
         text-shadow: var(--cardBoxShadow);
         color: var(--siteColor);
     }
@@ -97,7 +105,7 @@
 }
 
 .navItemName {
-    color: inherit;
+    color: var(--backGroundColor);
     // padding: 5px 10px;
     overflow: hidden;
     text-transform: capitalize;

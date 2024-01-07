@@ -17,6 +17,9 @@ function Projects() {
 
     useEffect(() => {
         if (pathname == "/offers") {
+            if (userType == 2) {
+                return navigate("new");
+            }
             navigate("all");
         }
     }, [pathname]);
@@ -41,14 +44,14 @@ function Projects() {
     return (
         <section className="projectsGeneralContainer">
             <div className="overLcontainer">
-                {userType == 2 ? (
+                {/* {userType == 2 ? (
                     <Button
                         className="pagesNavButton"
                         icon={iconMap[pathWithoutParam(3)]}
                         content={contentMap[pathWithoutParam(3)]}
                         onClick={navigationMap[pathWithoutParam(3)]}
                     />
-                ) : null}
+                ) : null} */}
             </div>
             <Outlet />
         </section>

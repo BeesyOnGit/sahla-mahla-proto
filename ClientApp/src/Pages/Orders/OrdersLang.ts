@@ -40,10 +40,10 @@ type orderLangType = {
 export const OrdersLang: orderLangType = {
     fr: {
         myOrders: "mes commandes en cours",
-        involvedIn: "mes devis",
+        involvedIn: "mes commandes en attente",
         recap: "récapitulatif",
         emptyOrderStr: "pas de commandes pour l'instant",
-        emptyInvolvStr: "pas de devis pour l'instant",
+        emptyInvolvStr: "pas de commandes en attente pour l'instant",
         emptyRecapStr: "pas de vue générale pour l'instant",
         buttDetail: "détails de l'offre",
         deleteResourceTitle: "supprimer cette ressource",
@@ -75,10 +75,10 @@ export const OrdersLang: orderLangType = {
     },
     en: {
         myOrders: "my ongoing orders",
-        involvedIn: "my involved",
+        involvedIn: "my processing orders",
         recap: "summary",
         emptyOrderStr: "no orders at the moment",
-        emptyInvolvStr: "no involved items at the moment",
+        emptyInvolvStr: "no processing orders at the moment",
         emptyRecapStr: "no summary at the moment",
         buttDetail: "offer details",
         deleteResourceTitle: "delete this resource",

@@ -165,7 +165,7 @@ function InvoiceDetail() {
         phone: cliPhone,
     }: Partial<freelanceType> = invoiceClient || {};
     return (
-        <section className="invDetailGeenralContainer customScroll">
+        <section className="invDetailGeenralContainer customScroll light ">
             <section className={"invoiceContainer " + (printMode ? "printModeClass" : "")} id="fctPrint">
                 <div className="invoiceHeader">
                     <div> {invTypeMap[`${isInvoice}`]} </div>
