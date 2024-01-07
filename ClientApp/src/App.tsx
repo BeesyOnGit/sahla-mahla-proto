@@ -106,6 +106,7 @@ function App() {
                 ignoreNav: false,
                 path: "/fin-management",
                 ico: "fi fi-sr-chart-pie-alt",
+                needValidation: true,
                 page: <FinManagement />,
             },
 
@@ -163,6 +164,7 @@ function App() {
                 ignoreNav: true,
                 path: "/fin-management/invoice/:id",
                 ico: "fi fi-sr-chart-pie-alt",
+                needValidation: true,
                 page: <InvoiceDetail />,
             },
             {
@@ -202,6 +204,7 @@ function App() {
                 ignoreNav: false,
                 path: "/fin-management",
                 ico: "fi fi-sr-chart-pie-alt",
+                needValidation: true,
                 page: <FinManagement />,
             },
             {
@@ -270,6 +273,7 @@ function App() {
                 ignoreNav: true,
                 path: "/fin-management/invoice/:id",
                 ico: "fi fi-sr-chart-pie-alt",
+                needValidation: true,
                 page: <InvoiceDetail />,
             },
             {
