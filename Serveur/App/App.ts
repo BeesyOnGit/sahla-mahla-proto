@@ -19,6 +19,9 @@ import UtilitiesRoutes from "./Routes/UtilitiesRoutes";
 import ProjectRoutes from "./Routes/ProjectRoutes";
 import InvoicesRoutes from "./Routes/InvoicesRoutes";
 
+import { CronJob } from "cron";
+import { createProject } from "./MiddleWear/ServerFunctions";
+
 dotenv.config();
 
 //Constatnts definition
@@ -28,8 +31,8 @@ const server = http.createServer(app);
 
 export const io = new Server(server, {
     cors: {
-        origin: "*",
-        // origin: "https://app.sahla-mahla.com",
+        // origin: "*",
+        origin: "https://app.sahla-mahla.com",
         methods: ["GET", "POST"],
     },
 });
@@ -60,8 +63,8 @@ app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
 //Comment me Befor deployment
 
 app.use(bodyParser.json());
-app.use(cors({ origin: "*" }));
-// app.use(cors({ origin: "https://app.sahla-mahla.com" }));
+// app.use(cors({ origin: "*" }));
+app.use(cors({ origin: "https://app.sahla-mahla.com" }));
 
 // uncomment ME  befor deployment
 // import helmet from'helmet'
@@ -86,6 +89,14 @@ app.use("/utils", UtilitiesRoutes);
 
 //************************************ # SERVER PORT SET # ****************************************//
 
+const job = CronJob.from({
+    cronTime: "0 */2 * * *",
+    onTick: createProject,
+    start: true,
+    timeZone: "Africa/Algiers",
+});
+
+job.start();
 server.listen(PORT, () => {
     console.log(`Server live on port ${PORT}`);
 });

@@ -40,6 +40,9 @@ export default function ContextProvider(props: any) {
 
     const initialLanguage = () => {
         if (window.localStorage.lang) {
+            if (!["ar", "fr", "en"].includes(window.localStorage.lang)) {
+                window.localStorage.lang = "fr";
+            }
             return setUserLang(window.localStorage.lang);
         }
         const lang = navigator.language.split("-")[0];

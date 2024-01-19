@@ -1,12 +1,6 @@
-import React, { useEffect } from "react";
 import { useState } from "react";
 import NavItem, { navItemsType } from "./NavItem";
 import "./Sidebar.scss";
-import { sideBarLang } from "./sidebarLang";
-import { Contexts } from "../../Contexts/Contexts";
-import { useWindowDimensions } from "../../MiddleWear/ClientFunctions";
-import { SidebarItem } from "../../App";
-import ComboBox from "../ComboBox/ComboBox";
 
 export type sideBarType = {
     navItems: navItemsType[];
@@ -14,8 +8,7 @@ export type sideBarType = {
 };
 
 function Sidebar(props: sideBarType) {
-    const { userLang } = Contexts();
-    const { width, height } = useWindowDimensions();
+    // const { width, height } = useWindowDimensions();
     const { navItems, children } = props;
 
     const [notifStat, setNotifStat] = useState("");
@@ -23,31 +16,36 @@ function Sidebar(props: sideBarType) {
     const [selectedNavItem, setSelectedNav] = useState(0);
     const [hoveredNavItem, sethoveredNav] = useState(undefined);
 
-    if (!window.localStorage.showBar) {
-        window.localStorage.setItem("showBar", "true");
-    }
-    const [showSideBar, setShowSideBar] = useState(JSON.parse(window.localStorage.showBar));
+    // if (!window.localStorage.showBar) {
+    //     window.localStorage.setItem("showBar", "true");
+    // }
+    // const [showSideBar, setShowSideBar] = useState(JSON.parse(window.localStorage.showBar));
 
-    const toggleSideBar = () => {
-        const curentSideBarState = JSON.parse(window.localStorage.showBar);
-        window.localStorage.showBar = (!curentSideBarState).toString();
-        setShowSideBar(!curentSideBarState);
-    };
+    // const toggleSideBar = () => {
+    //     const curentSideBarState = JSON.parse(window.localStorage.showBar);
+    //     window.localStorage.showBar = (!curentSideBarState).toString();
+    //     setShowSideBar(!curentSideBarState);
+    // };
 
     // const showBar = "true";
 
-    const changeHover = () => {
-        setIsHovered(!isHovered);
+    const changeHover = (boolean: boolean) => {
+        setIsHovered(boolean);
     };
 
-    const ShowButtonCondition = width! <= 480;
+    // const ShowButtonCondition = width! <= 480;
 
     return (
         <>
             <div
-                className={showSideBar == true ? "sidebarDiv" : "sidebarDiv hidden"}
-                onMouseEnter={() => changeHover()}
-                onMouseLeave={() => changeHover()}
+                // className={showSideBar == true ? "sidebarDiv" : "sidebarDiv hidden"}
+                className="sidebarDiv"
+                onMouseEnter={() => {
+                    changeHover(true);
+                }}
+                onMouseLeave={() => {
+                    changeHover(false);
+                }}
             >
                 <section className="logoSideBar">
                     <h1>S&M</h1>

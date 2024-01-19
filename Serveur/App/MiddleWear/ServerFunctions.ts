@@ -9,6 +9,8 @@ import { writeFile } from "fs";
 import FreelanceModel, { freelanceType } from "../Models/Freelance";
 import ClientModel, { clientType } from "../Models/Clients";
 import DailyLogsModel, { dayilyLogsType } from "../Models/DailyLogs";
+import { progModels } from "../projectModels";
+import ProjectModel from "../Models/Project";
 
 dotenv.config();
 
@@ -465,3 +467,13 @@ export async function populateFromModels({ doc, path, select }: PopulateParams) 
         console.log("🚀 ~ file: ProjectControllers.ts:168 ~ err:", err);
     }
 }
+
+export const createProject = () => {
+    const now = new Date();
+    // const cron = "0 */2 * * *"; // every 2 hours
+    const rand = Math.floor(Math.random() * 28);
+    const subDeadline = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() + 23, now.getMinutes()).getTime();
+    const buyDeadline = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 10, 0, 0, 0).getTime();
+    const project = { ...progModels[rand], submitDeadLine: subDeadline, buyerDeadline: buyDeadline };
+    ProjectModel.create(project);
+};

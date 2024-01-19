@@ -318,6 +318,7 @@ function App() {
     return (
         <div className="AppContainer">
             <Alerts />
+
             {!hideNav[pathname] && (
                 <Sidebar navItems={navitems[userType]}>
                     <ComboBox

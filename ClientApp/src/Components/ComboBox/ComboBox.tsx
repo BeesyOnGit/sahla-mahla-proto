@@ -97,11 +97,9 @@ function ComboBox(props: ComboBoxType) {
                     {filteredChoices().map((opt, i) => {
                         const { label: lab, value } = opt;
                         return (
-                            <>
-                                <div className="opts" key={i} onClick={() => setInputs(lab, value)}>
-                                    {lab}
-                                </div>
-                            </>
+                            <div className="opts" key={i} onClick={() => setInputs(lab, value)}>
+                                {lab}
+                            </div>
                         );
                     })}
                     {/* <div className="opts" key={250}></div> */}

@@ -17,8 +17,6 @@ export type navItemsType = {
 };
 
 function NavItem({ name, path, ico, notif, hover, selected, index, setSelectedNav, setHoveredItem, hoverdItem }: navItemsType) {
-    const { userLang } = Contexts();
-
     const { pathname } = useLocation();
 
     const navigate = useNavigate();

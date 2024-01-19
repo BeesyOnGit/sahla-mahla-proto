@@ -124,6 +124,9 @@
     --messageidleecolorhover: #e2b480;
 }
 
+/* html {
+    font-size: clamp(10px, 1vw, 24px);
+} */
 @media screen and (max-width: 1000px) {
     html {
         font-size: 11px;
