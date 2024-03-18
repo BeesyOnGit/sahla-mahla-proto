@@ -349,6 +349,11 @@ function App() {
                     </div>
                 )}
                 <Routes>
+                    <Route path="/validation-page/:id" element={<MailValidation />} />
+                    <Route
+                        path="/validation-page"
+                        element={<FullpageIcon icon="fi fi-sr-envelope" texte={MailValidationLang[userLang].checkYourMail} />}
+                    />
                     <Route path="/login" element={!Token ? <Login /> : <Navigate to="/" />} />
                     <Route path="/register" element={!Token ? <Register /> : <Navigate to="/" />} />
                     <Route path="/" element={!Token ? <Navigate to="/login" /> : <Navigate to="/home" />}></Route>
@@ -388,22 +393,6 @@ function App() {
                                 </Route>
                             );
                         })}
-                    <Route
-                        path="/validation-page"
-                        element={
-                            <RouteProtection>
-                                <FullpageIcon icon="fi fi-sr-envelope" texte={MailValidationLang[userLang].checkYourMail} />
-                            </RouteProtection>
-                        }
-                    />
-                    <Route
-                        path="/validation-page/:id"
-                        element={
-                            <RouteProtection>
-                                <MailValidation />
-                            </RouteProtection>
-                        }
-                    />
                 </Routes>
             </section>
         </div>

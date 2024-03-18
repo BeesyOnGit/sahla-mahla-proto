@@ -31,7 +31,7 @@ function RouteProtection({ children, openFor, needValidation }: routeProtectionT
 
                 const openCond = openFor ? openFor == userType : true;
 
-                if (needValidation && (!validMail || !validPhone)) {
+                if (needValidation && !validMail) {
                     navigate("/validation-page");
                     return refreshApp();
                 }
