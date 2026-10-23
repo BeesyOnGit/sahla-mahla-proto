@@ -11,7 +11,8 @@ function ProfileComp(props: Partial<freelanceType | clientType> & { short?: bool
             {profilePicture ? <LazyImage src={profilePicture} className="cardprofileImg" /> : <i className="fi fi-sr-circle-user profileIco"></i>}
             <div>
                 {short ? (
-                    `${firstName![0]}.${familyName![0]}`
+                    // buyer is null when its account no longer exists (e.g. cron-generated projects)
+                    firstName && `${firstName[0]}.${familyName?.[0] ?? ""}`
                 ) : (
                     <>
                         {firstName} {familyName}
