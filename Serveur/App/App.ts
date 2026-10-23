@@ -11,6 +11,7 @@ import { EventEmitter } from "node:events";
 
 import { Server } from "socket.io";
 import AuthRoutes from "./Routes/AuthRoutes";
+import { seedDemoAccounts } from "./Controllers/AuthControllers";
 import EmailConfirmRoutes from "./Routes/UserConfirmRoutes";
 import AccountRoutes from "./Routes/AccountRoutes";
 import ResourcesRoutes from "./Routes/ResourcesRoutes";
@@ -32,7 +33,7 @@ const server = http.createServer(app);
 export const io = new Server(server, {
     cors: {
         // origin: "*",
-        origin: "https://app.sahla-mahla.com",
+        origin: process.env.APP_DOMAIN,
         methods: ["GET", "POST"],
     },
 });
@@ -42,7 +43,7 @@ class MyEmitter extends EventEmitter {}
 export const myEmitter = new MyEmitter();
 
 //Db connection//
-DbConnection("mydb", "mongodb://127.0.0.1:27017");
+DbConnection("mydb", process.env.MONGO_URL || "mongodb://127.0.0.1:27017").then(seedDemoAccounts);
 
 //Midelware
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -64,7 +65,7 @@ app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
 
 app.use(bodyParser.json());
 // app.use(cors({ origin: "*" }));
-app.use(cors({ origin: "https://app.sahla-mahla.com" }));
+app.use(cors({ origin: process.env.APP_DOMAIN }));
 
 // uncomment ME  befor deployment
 // import helmet from'helmet'

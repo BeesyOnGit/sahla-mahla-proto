@@ -8,6 +8,7 @@ import { InputsContent, loginFunction } from "./LoginFunctions";
 import Button from "../../Components/Button/Button";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ProfileLang } from "../Profile/ProfileLang";
+import { getDemoCredentialsApi } from "../../MiddleWear/ApiMiddleWear";
 
 export type LoginInputs = {
     id?: string;
@@ -24,12 +25,27 @@ function Login() {
     const [apiResponse, setApiResponse] = useState<any>(null);
     const navigate = useNavigate();
 
+    // Only set when the server runs with DEMO_MODE=true
+    const [demo, setDemo] = useState<{ client: LoginInputs; freelance: LoginInputs } | null>(null);
+
     useEffect(() => {
         if (!userType) {
             URLSearchAdd(navigate, { userType: 1 });
             setUserType(1);
         }
+        getDemoCredentialsApi().then((res: any) => res?.code == "S04" && setDemo(res.data));
     }, []);
+
+    const DemoCredentials = ({ creds }: { creds?: LoginInputs }) => {
+        if (!creds) return null;
+        return (
+            <div className="demoCreds" onClick={() => setLoginForm(creds)}>
+                <div className="demoCredsTitle">{LoginLang[userLang].demo}</div>
+                <div>{creds.id}</div>
+                <div>{creds.passWord}</div>
+            </div>
+        );
+    };
 
     const InputsValue = InputsContent({ state: loginForm, setState: setLoginForm, setNewAlert, lang: userLang });
 
@@ -58,6 +74,7 @@ function Login() {
                 <div className={"card " + bgClass[userType && userType]}>
                     <div className="loginDiv ">
                         <div className="LogTitle bgColCli"> {LoginLang[userLang].title} </div>
+                        {userType == 2 && <DemoCredentials creds={demo?.client} />}
                         {userType == 2 &&
                             Array.isArray(InputsValue) &&
                             InputsValue.map((Input, index) => {
@@ -97,6 +114,7 @@ function Login() {
                 <div className={"card " + nonbgClass[userType && userType]}>
                     <div className="loginDiv ">
                         <div className="LogTitle bgColfreel"> {LoginLang[userLang].titleFreelance} </div>
+                        {userType == 1 && <DemoCredentials creds={demo?.freelance} />}
                         {userType == 1 &&
                             Array.isArray(InputsValue) &&
                             InputsValue.map((Input, index) => {

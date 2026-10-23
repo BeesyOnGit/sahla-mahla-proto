@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
 import dotenv from "dotenv";
-import nodeMailer from "nodemailer";
+// import nodeMailer from "nodemailer";
 import EmailConfirmModel from "../Models/UsersConfirmation";
 import FreelanceModel, { freelanceType } from "../Models/Freelance";
 import ClientModel, { clientType } from "../Models/Clients";
@@ -256,47 +256,51 @@ export const sendConfirmationMail = async (email: string, userType: number, user
     }
 };
 
+// SMTP disabled: accounts are validated directly, so no mail is sent.
+// To enable it again, uncomment the code below and set SMTP_HOST / SMTP_USER / SMTP_PASS.
 const sendEmail = async ({ mailToUse, to, text, html, subject }: sendMailType) => {
-    const mailsPreset: any = {
-        "no-reply": {
-            user: "no-reply@sahla-mahla.com",
-            pass: "fktKtqTYzVEPkJfmbUL7",
-            from: "NO-REPLY Sahla & Mahla no-reply@sahla-mahla.com",
-        },
-    };
-    try {
-        const transporter = nodeMailer.createTransport({
-            host: "mail.sahla-mahla.com",
-            port: 587,
-            // secure: true,
-            auth: {
-                user: mailsPreset[mailToUse].user,
-                pass: mailsPreset[mailToUse].pass,
-            },
-            tls: {
-                rejectUnauthorized: false,
-                // minVersion: "TLSv1.3",
-                // ciphers: "SSLv3",
-            },
-        });
+    console.log(`mail not sent (SMTP disabled): ${subject} -> ${to}`);
+    return false;
+    // const mailsPreset: any = {
+    //     "no-reply": {
+    //         user: process.env.SMTP_USER,
+    //         pass: process.env.SMTP_PASS,
+    //         from: `NO-REPLY Sahla & Mahla ${process.env.SMTP_USER}`,
+    //     },
+    // };
+    // try {
+    //     const transporter = nodeMailer.createTransport({
+    //         host: process.env.SMTP_HOST,
+    //         port: 587,
+    //         // secure: true,
+    //         auth: {
+    //             user: mailsPreset[mailToUse].user,
+    //             pass: mailsPreset[mailToUse].pass,
+    //         },
+    //         tls: {
+    //             rejectUnauthorized: false,
+    //             // minVersion: "TLSv1.3",
+    //             // ciphers: "SSLv3",
+    //         },
+    //     });
 
-        const info = await transporter.sendMail({
-            from: mailsPreset[mailToUse].from, // sender address
-            to, // list of receivers
-            subject, // Subject line
-            text, // plain text body
-            html, // html body
-        });
+    //     const info = await transporter.sendMail({
+    //         from: mailsPreset[mailToUse].from, // sender address
+    //         to, // list of receivers
+    //         subject, // Subject line
+    //         text, // plain text body
+    //         html, // html body
+    //     });
 
-        if (!info) {
-            return false;
-        }
+    //     if (!info) {
+    //         return false;
+    //     }
 
-        console.log("mail sent");
+    //     console.log("mail sent");
 
-        return true;
-    } catch (error) {
-        console.log("🚀 ~ file: UserConfirmatioControllers.ts:19 ~ sendEmail ~ error:", error);
-        return false;
-    }
+    //     return true;
+    // } catch (error) {
+    //     console.log("🚀 ~ file: UserConfirmatioControllers.ts:19 ~ sendEmail ~ error:", error);
+    //     return false;
+    // }
 };

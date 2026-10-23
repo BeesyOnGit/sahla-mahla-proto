@@ -7,6 +7,7 @@ export type loginLangType = {
         button: string;
         freelanceQuestion: string;
         notFreelanceQuestion: string;
+        demo: string;
         inputs: {
             id: string;
             pass: string;
@@ -21,6 +22,7 @@ export const LoginLang: loginLangType = {
         button: "login",
         freelanceQuestion: "are you a freelance?",
         notFreelanceQuestion: "are you not a freelance?",
+        demo: "demo account, click to fill",
         inputs: {
             id: "email or phone number",
             pass: "password",
@@ -32,6 +34,7 @@ export const LoginLang: loginLangType = {
         button: "تسجيل الدخول",
         freelanceQuestion: "هل أنت مستقل؟",
         notFreelanceQuestion: "هل أنت لست مستقل؟",
+        demo: "حساب تجريبي، انقر للملء",
         inputs: {
             id: "البريد الإلكتروني أو رقم الهاتف",
             pass: "كلمة المرور",
@@ -43,6 +46,7 @@ export const LoginLang: loginLangType = {
         button: "me connecter",
         freelanceQuestion: "êtes-vous un freelance ?",
         notFreelanceQuestion: "n'êtes-vous pas un freelance ?",
+        demo: "compte démo, cliquez pour remplir",
         inputs: {
             id: "email ou numéro de téléphone",
             pass: "mot de passe",

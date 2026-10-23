@@ -40,3 +40,6 @@ teste.html
 *.njsproj
 *.sln
 *.sw?
+
+# Production env template (committed, no secrets)
+!.env.production.example

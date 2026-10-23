@@ -23,14 +23,15 @@ export const editFreelanceInfos = async (req: Request, res: Response) => {
 
         const { email: currentMail, phone: currentPhone, firstName } = currFreelanceInfos;
 
-        if (email) {
-            sendConfirmationMail(email, 1, firstName);
-            currFreelanceInfos.emailConfirmation = false;
-        }
-        if (phone) {
-            // send otp;
-            currFreelanceInfos.phoneConfirmation = false;
-        }
+        // Re-validation disabled: accounts stay validated
+        // if (email) {
+        //     sendConfirmationMail(email, 1, firstName);
+        //     currFreelanceInfos.emailConfirmation = false;
+        // }
+        // if (phone) {
+        //     // send otp;
+        //     currFreelanceInfos.phoneConfirmation = false;
+        // }
         if (accountNumber) {
             let tmpAccNum = accountNumber.slice(accountNumber.length - 4, accountNumber.length);
             let tmpEnc: any = encryptString(accountNumber);
@@ -136,14 +137,15 @@ export const editClientInfos = async (req: Request, res: Response) => {
 
         const { email: currentMail, phone: currentPhone, firstName } = currClientInfos;
 
-        if (email) {
-            sendConfirmationMail(email, 1, firstName);
-            currClientInfos.emailConfirmation = false;
-        }
-        if (phone) {
-            // send otp;
-            currClientInfos.phoneConfirmation = false;
-        }
+        // Re-validation disabled: accounts stay validated
+        // if (email) {
+        //     sendConfirmationMail(email, 1, firstName);
+        //     currClientInfos.emailConfirmation = false;
+        // }
+        // if (phone) {
+        //     // send otp;
+        //     currClientInfos.phoneConfirmation = false;
+        // }
         if (accountNumber) {
             let tmpAccNum = accountNumber.slice(accountNumber.length - 4, accountNumber.length);
             let tmpEnc: any = encryptString(accountNumber);

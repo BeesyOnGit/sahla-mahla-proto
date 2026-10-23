@@ -33,6 +33,9 @@ export const freelanceRegister = async (req: Request, res: Response) => {
         const newFreelanceAccount = {
             ...body,
             passWord: hashedPass,
+            // Accounts are validated directly (no email confirmation step)
+            emailConfirmation: true,
+            phoneConfirmation: true,
             billing: {
                 ...billing,
                 accountNumber: hashedBillingAccount,
@@ -40,12 +43,12 @@ export const freelanceRegister = async (req: Request, res: Response) => {
             },
         };
 
-        // email confirmation
-        const sendMail = await sendConfirmationMail(email, 1, firstName);
+        // email confirmation (disabled: accounts are validated directly)
+        // const sendMail = await sendConfirmationMail(email, 1, firstName);
 
-        if (!sendMail) {
-            return res.json({ code: "ER" });
-        }
+        // if (!sendMail) {
+        //     return res.json({ code: "ER" });
+        // }
 
         //freelance registration
         const registerFreelance = await FreelanceModel.create(newFreelanceAccount);
@@ -134,6 +137,9 @@ export const clientRegister = async (req: Request, res: Response) => {
         const newClientAccount = {
             ...body,
             passWord: hashedPass,
+            // Accounts are validated directly (no email confirmation step)
+            emailConfirmation: true,
+            phoneConfirmation: true,
             billing: {
                 ...billing,
                 accountNumber: hashedBillingAccount,
@@ -141,12 +147,12 @@ export const clientRegister = async (req: Request, res: Response) => {
             },
         };
 
-        // email confirmation
-        const sendMail = await sendConfirmationMail(email, 2, firstName);
+        // email confirmation (disabled: accounts are validated directly)
+        // const sendMail = await sendConfirmationMail(email, 2, firstName);
 
-        if (!sendMail) {
-            return res.json({ code: "ER" });
-        }
+        // if (!sendMail) {
+        //     return res.json({ code: "ER" });
+        // }
 
         //Client registration
         const registerClient = await ClientModel.create(newClientAccount);
@@ -262,6 +268,53 @@ export const userAuth = async (req: Request, res: Response) => {
         console.log("🚀 ~ file: AuthControllers.ts:248 ~ userAuth ~ error:", error);
         return res.json({ code: "EO", error: error.message });
     }
+};
+
+// Demo mode (DEMO_MODE=true): one confirmed client and one confirmed freelance, shown on the login page
+const demoAccounts = () => ({
+    client: { id: "demo.client@sahla-mahla.com", passWord: process.env.DEMO_PASSWORD || "demo1234" },
+    freelance: { id: "demo.freelance@sahla-mahla.com", passWord: process.env.DEMO_PASSWORD || "demo1234" },
+});
+
+// Creates the demo accounts, or resets them (password included) on every start
+export const seedDemoAccounts = async () => {
+    if (process.env.DEMO_MODE !== "true") return;
+    try {
+        const { client, freelance } = demoAccounts();
+        const common = {
+            familyName: "demo",
+            dob: new Date("1990-01-01").getTime(),
+            emailConfirmation: true,
+            phoneConfirmation: true,
+            aprouved: true,
+            IDcard: ["demo"],
+            "billing.accountNumber": String(encryptString("00000000000000000000")),
+            "billing.accountEndWith": "0000",
+        };
+        const options = { upsert: true, new: true, setDefaultsOnInsert: true };
+
+        await ClientModel.findOneAndUpdate(
+            { email: client.id },
+            { ...common, firstName: "client", phone: "0500000001", passWord: await hashPassword(client.passWord) },
+            options
+        );
+        const demoFreelance = await FreelanceModel.findOneAndUpdate(
+            { email: freelance.id },
+            { ...common, firstName: "freelance", phone: "0500000002", passWord: await hashPassword(freelance.passWord) },
+            options
+        );
+        await UserSequencesModel.updateOne({ user: demoFreelance!._id }, { $setOnInsert: { invoiceSeq: 1 } }, { upsert: true });
+        console.log("Demo accounts ready");
+    } catch (error: any) {
+        console.log("🚀 ~ file: AuthControllers.ts ~ seedDemoAccounts ~ error:", error);
+    }
+};
+
+export const demoCredentials = (req: Request, res: Response) => {
+    if (process.env.DEMO_MODE !== "true") {
+        return res.json({ code: "E03" });
+    }
+    return res.json({ code: "S04", data: demoAccounts() });
 };
 
 export type userAuthDataType = {

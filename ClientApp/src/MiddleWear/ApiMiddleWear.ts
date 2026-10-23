@@ -46,6 +46,18 @@ export const clientLogin = async (loginInfos: LoginInputs) => {
     }
 };
 
+export const getDemoCredentialsApi = async () => {
+    try {
+        const res: Response = await axios.get(`${baseUrl}/auth/demo`);
+
+        if (res) {
+            return res.data;
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: ApiMiddleWear.ts ~ getDemoCredentialsApi ~ error:", error);
+    }
+};
+
 export const freelanceLogin = async (loginInfos: LoginInputs) => {
     try {
         const res: Response = await axios.post(`${baseUrl}/auth/freelance-login`, loginInfos, config);

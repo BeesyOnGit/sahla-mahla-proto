@@ -1,0 +1,29 @@
+# Production stack on the VPS: one container with MongoDB, the API, the CDN and the front end.
+# Values come from the `.env` next to this file (see .env.production.example).
+# The image is pinned by deploy.sh in docker-compose.override.yml (loaded automatically by compose).
+
+name: sahla-mahla
+
+services:
+  app:
+    # image: set by deploy.sh in docker-compose.override.yml (the deployed image)
+    restart: unless-stopped
+    init: true
+    # Time for MongoDB to shut down cleanly
+    stop_grace_period: 30s
+    env_file: .env
+    volumes:
+      - data:/data
+    # Point the reverse proxy (nginx…) of each domain at these ports
+    ports:
+      - "${APP_BIND:-127.0.0.1}:${API_PORT}:${API_PORT}"
+      - "${APP_BIND:-127.0.0.1}:${CDN_PORT}:${CDN_PORT}"
+      - "${APP_BIND:-127.0.0.1}:${APP_PORT}:${APP_PORT}"
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "5"
+
+volumes:
+  data:
