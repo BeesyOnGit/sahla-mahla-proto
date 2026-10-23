@@ -107,6 +107,7 @@ export const loginFunction = async ({
         }
 
         window.localStorage.setItem("user_token", token);
+        window.localStorage.setItem("_user_type", `${userType}`);
         window.localStorage.setItem("online_status", "true");
 
         setNewAlert({ type: "success", message: apiResponseLang[lang][code] });

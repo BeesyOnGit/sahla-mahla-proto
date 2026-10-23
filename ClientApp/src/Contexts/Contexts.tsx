@@ -36,20 +36,16 @@ export default function ContextProvider(props: any) {
     language section
     **************/
 
-    const [userLang, setUserLang] = useState<langType>(window.localStorage.lang);
-
-    const initialLanguage = () => {
-        if (window.localStorage.lang) {
-            if (!["ar", "fr", "en"].includes(window.localStorage.lang)) {
-                window.localStorage.lang = "fr";
-            }
-            return setUserLang(window.localStorage.lang);
-        }
-        const lang = navigator.language.split("-")[0];
-
-        window.localStorage.setItem("lang", lang);
-        return setUserLang(window.localStorage.lang);
+    // Resolved before the first render: every *Lang[userLang] lookup crashes on an unknown language
+    const getLang = (): langType => {
+        const lang = window.localStorage.lang || navigator.language.split("-")[0];
+        window.localStorage.lang = ["ar", "fr", "en"].includes(lang) ? lang : "fr";
+        return window.localStorage.lang;
     };
+
+    const [userLang, setUserLang] = useState<langType>(getLang);
+
+    const initialLanguage = () => setUserLang(getLang());
 
     const switchLanguage = (lang: langType) => {
         // location.reload();

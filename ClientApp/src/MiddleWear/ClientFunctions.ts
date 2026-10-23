@@ -578,10 +578,13 @@ export const generalGetFunction = async ({
     if (!lang) {
         return;
     }
+    // Pages that handle "empty" pass an emptyCode: show it on any failure instead of skeletons forever
+    const failed = () => emptyCode && setState && setState("empty");
     try {
         const res = await endPoint;
 
         if (!res) {
+            failed();
             return setNewAlert({ type: "error", message: apiResponseLang[lang].resErr });
         }
 
@@ -592,9 +595,11 @@ export const generalGetFunction = async ({
             return setState ? setState("empty") : undefined;
         }
         if (code == "EO") {
+            failed();
             return setNewAlert({ type: "error", message: res.error });
         }
         if (code != successCode) {
+            failed();
             return silent ? null : setNewAlert({ type: "warning", message: apiResponseLang[lang][code] });
         }
 

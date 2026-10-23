@@ -43,7 +43,6 @@ function App() {
     const navigate = useNavigate();
 
     const onlineStat = window.localStorage.online_status;
-    initialLanguage();
     useEffect(() => {
         setTheme(JSON.parse(darkMode));
     }, []);

@@ -24,10 +24,22 @@ function RouteProtection({ children, openFor, needValidation }: routeProtectionT
         (async () => {
             try {
                 const res = await autUserVerif();
+                // Server unreachable: keep the token, nothing to show yet
+                if (!res) return;
                 const { code, data }: { code: string; data: userAuthDataType } = res;
                 const { auth, userType, validMail, validPhone } = data || {};
 
-                setUserType(userType);
+                // Expired/invalid token or deleted account: log out instead of a blank page
+                if (!auth) {
+                    window.localStorage.removeItem("user_token");
+                    return location.replace("/login");
+                }
+
+                // App reads _user_type once at load, so reload when the stored one is stale
+                if (window.localStorage._user_type != userType) {
+                    setUserType(userType);
+                    return location.reload();
+                }
 
                 const openCond = openFor ? openFor == userType : true;
 

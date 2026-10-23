@@ -28,6 +28,11 @@ function GridMapper(props: gridmappertype) {
 
     const numPerPage = 10;
 
+    // Pages skip their first fetch while ?page is set, so a reload/back with ?page=N would never load: restart at page 1
+    useEffect(() => {
+        if (page) URLSearchremove(navigate, "page");
+    }, []);
+
     useEffect(() => {
         if (Array.isArray(toMap) && toMap?.length < (page ? parseInt(page) * numPerPage : numPerPage)) {
             return ref.current?.scrollTo(0, 0);

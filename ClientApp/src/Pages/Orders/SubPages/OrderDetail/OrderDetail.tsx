@@ -30,13 +30,13 @@ import Button from "../../../../Components/Button/Button";
 import { LibraryLang } from "../../../Library/LibraryLang";
 import { donwloadFunc } from "../../../../Components/ResourcesCard/ResourcesCard";
 import { statusClassed } from "../../../../Components/ProjetCard/ProjectCard";
-import { projectStatusLang } from "../../../../MiddleWear/ClientData";
+import { apiResponseLang, projectStatusLang } from "../../../../MiddleWear/ClientData";
 
 function OrderDetail() {
     const { userLang, setNewAlert, refreshApp, refresh, apiWait, setApiWait } = Contexts();
     console.log("🚀 ~ file: OrderDetail.tsx:35 ~ OrderDetail ~ refresh:", refresh);
 
-    const [projectDet, setProjectDet] = useState<orderDetType | null>(null);
+    const [projectDet, setProjectDet] = useState<orderDetType | null | "empty">(null);
     const [submitLinks, setSubmitLinks] = useState<Partial<projectType>>({});
 
     const [modalDisp, setModalDisp] = useState<boolean>(false);
@@ -61,7 +61,7 @@ function OrderDetail() {
         buyer,
         finalLink,
         temporaryLink,
-    } = projectDet || {};
+    } = (projectDet != "empty" && projectDet) || {};
 
     const { aprouved, profilePicture, firstName, familyName } = buyer || {};
 
@@ -75,6 +75,7 @@ function OrderDetail() {
         generalGetFunction({
             endPoint: getProjectdetailsApi(id!),
             successCode: "S64",
+            emptyCode: "E62",
             setNewAlert,
             silent: true,
             setState: setProjectDet,
@@ -145,11 +146,11 @@ function OrderDetail() {
         if (!freelance) {
             return;
         }
-        if (!projectDet || !projectDet.submitters) {
+        if (!Array.isArray(submitters)) {
             return;
         }
 
-        const submitter: submittersListType | undefined = projectDet!.submitters!.find((e) => {
+        const submitter: submittersListType | undefined = submitters.find((e: any) => {
             //@ts-ignore
             return e.submitter._id == freelance;
         });
@@ -220,7 +221,9 @@ function OrderDetail() {
             <Modal modalDisp={modalDisp} setModalDisp={setModalDisp}>
                 {modalMap[modalMode]}
             </Modal>
-            {projectDet ? (
+            {projectDet == "empty" ? (
+                <FullpageIcon icon="fi fi-br-edit-alt" texte={apiResponseLang[userLang].E62} />
+            ) : projectDet ? (
                 <section>
                     <Separation className="orderDetTitle" title={title!} line={true} />
 
@@ -259,7 +262,7 @@ function OrderDetail() {
 
                         <div>
                             <div> {OrdersLang[userLang].ordDetail.projectContractor} </div>
-                            {contractor!.length > 0 ? (
+                            {contractor?.length ? (
                                 contractor?.map((contract, i) => {
                                     return <ProfileComp key={i} {...contract} />;
                                 })
@@ -273,7 +276,7 @@ function OrderDetail() {
 
                     {contractor?.length == 0 && (
                         <div className="orderDetPropalsCont customScroll">
-                            {submitters!.length > 0 ? (
+                            {submitters?.length ? (
                                 submitters?.map((submitter, i) => {
                                     return (
                                         <SubmittersComp

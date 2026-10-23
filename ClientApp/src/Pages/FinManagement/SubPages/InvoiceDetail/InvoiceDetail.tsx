@@ -95,7 +95,7 @@ function InvoiceDetail() {
                 let pageCount = doc.internal.pages;
                 pdf.deletePage(pageCount.length);
                 pdf.save(
-                    `${firstName![0].toUpperCase()}.${familyName?.toUpperCase()}-${invNameMap[`${isInvoice}`]}-${
+                    `${firstName?.[0]?.toUpperCase()}.${familyName?.toUpperCase()}-${invNameMap[`${isInvoice}`]}-${
                         invNumMap[`${invoiceNumber! >= 100}`]
                     }${invoiceNumber}.pdf`
                 );
@@ -200,7 +200,7 @@ function InvoiceDetail() {
                         <span dir="ltr"> {phone && phoneFomater(phone!)} </span>
                         <span>
                             <span> {adress?.street} </span> {adress?.street && <span>,</span>}
-                            <span> {communeCli && adress?.commune && getHashMap(communeCli, "number")[adress?.commune!]}</span>
+                            <span> {communeEmmiter && adress?.commune && getHashMap(communeEmmiter, "number")[adress?.commune!]}</span>
                             {adress?.commune && <span>,</span>}
                             <span> {wilaya && adress?.wilaya && getHashMap(wilaya, "wilaya")[adress?.wilaya!]} </span>
                         </span>
@@ -214,7 +214,7 @@ function InvoiceDetail() {
                         <span dir="ltr"> {cliPhone && phoneFomater(cliPhone!)} </span>
                         <span>
                             <span> {cliAddres?.street} </span> {cliAddres?.street && <span>,</span>}
-                            <span> {communeEmmiter && cliAddres?.commune && getHashMap(communeEmmiter, "number")[cliAddres?.commune!]}</span>
+                            <span> {communeCli && cliAddres?.commune && getHashMap(communeCli, "number")[cliAddres?.commune!]}</span>
                             {cliAddres?.commune && <span>,</span>}
                             <span> {wilaya && cliAddres?.wilaya && getHashMap(wilaya, "wilaya")[cliAddres?.wilaya!]} </span>
                         </span>
