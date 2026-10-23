@@ -35,7 +35,9 @@ function GridMapper(props: gridmappertype) {
 
     useEffect(() => {
         if (Array.isArray(toMap) && toMap?.length < (page ? parseInt(page) * numPerPage : numPerPage)) {
-            return ref.current?.scrollTo(0, 0);
+            // Not returned: newer browsers make scrollTo return a Promise, which React then calls as the effect cleanup
+            ref.current?.scrollTo(0, 0);
+            return;
         }
 
         let observer = new IntersectionObserver(CallNewCards);
